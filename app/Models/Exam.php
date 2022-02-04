@@ -12,4 +12,9 @@ class Exam extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
+    public function exam_item_scores()
+    {
+        return $this->hasMany(Exam_item_score::class);
+    }
 }

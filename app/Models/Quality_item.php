@@ -12,4 +12,9 @@ class Quality_item extends Model
     {
         return $this->hasMany(Category::class);
     }
+
+    public function exam_item_scores()
+    {
+        return $this->hasMany(Exam_item_score::class);
+    }
 }
