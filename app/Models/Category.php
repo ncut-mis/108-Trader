@@ -12,4 +12,9 @@ class Category extends Model
     {
         return $this->hasMany(Product::class);
     }
+
+    public function quality_item()
+    {
+        return $this->hasMany(Quality_item::class);
+    }
 }
