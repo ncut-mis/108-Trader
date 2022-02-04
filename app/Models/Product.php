@@ -12,4 +12,9 @@ class Product extends Model
     {
         return $this->hasMany(Cart_item::class);
     }
+
+    public function order_detail()
+    {
+        return $this->hasMany(Order_detail::class);
+    }
 }
