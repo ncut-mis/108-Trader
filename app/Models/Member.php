@@ -12,4 +12,9 @@ class Member extends Model
     {
         return $this->hasMany(Order::class);
     }
+
+    public function cart_items()
+    {
+        return $this->hasMany(Cart_item::class);
+    }
 }
