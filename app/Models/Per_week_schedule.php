@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Per_week_schedule extends Model
 {
     use HasFactory;
+    public function staff()
+    {
+        return $this->belongsTo(Staff::class);
+    }
 }

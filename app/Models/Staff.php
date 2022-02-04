@@ -12,4 +12,9 @@ class Staff extends Model
     {
         return $this->hasMany(Section::class);
     }
+
+    public function per_week_schedule()
+    {
+        return $this->hasMany(Per_week_schedule::class);
+    }
 }
