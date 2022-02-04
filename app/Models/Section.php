@@ -12,4 +12,9 @@ class Section extends Model
     {
         return $this->hasOne(Exam::class);
     }
+
+    public function staff()
+    {
+        return $this->belongsTo(Staff::class);
+    }
 }
