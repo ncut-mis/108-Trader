@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Quality_item extends Model
 {
     use HasFactory;
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
+    }
 }
