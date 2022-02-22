@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Staff extends Model
 {
     use HasFactory;
+    //時段
     public function sections()
     {
         return $this->hasMany(Section::class);
