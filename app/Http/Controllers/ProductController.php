@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StoreProductRequest;
@@ -16,14 +17,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $data = DB::table('products')->orderBy('id','DESC')->get();
-        return view('products', ['products' => $data]);
-    }
-
-    public function type($type)
-    {
-        $data = DB::table('products')->where('category_id',$type)->orderBy('id','DESC')->get();
-        return view('products', ['products' => $data]);
+        $products=Product::orderBy('id','DESC')->get();
+        $data=['products' => $products];
+        return view('products', $data);
     }
 
     /**
@@ -53,10 +49,11 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show($product)
     {
-        $data = DB::table('products')->where('id', $product)->get();
-        return view('products_detail', ['products' => $data]);
+        $products=Product::where('id', $product)->first();
+        $data=['products' => $products];
+        return view('products_detail', $data);
     }
 
     /**

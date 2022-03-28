@@ -39,7 +39,7 @@
 <body class="animsition">
 
 <!-- Header -->
-<header class="header-v2">
+<header >
 
     <!-- Header desktop -->
     <div class="container-menu-desktop">
@@ -49,7 +49,7 @@
             <nav class="limiter-menu-desktop container">
 
                 <!-- Icon -->
-                <a href="#" class="logo">
+                <a href="/home" class="logo">
                     <img src="images/icons/logo-01.png" alt="IMG-LOGO">
                 </a>
 
