@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
+use App\Models\Product;
 
 class CategoryController extends Controller
 {
@@ -45,9 +46,13 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show($category)
     {
-        //
+        $categories=Category::where('id',$category)->first();
+        $data=['categories' => $categories];
+        $products=Product::where('category_id',$category)->get();
+        $data2=['products' => $products];
+        return view('categories',$data,$data2);
     }
 
     /**
