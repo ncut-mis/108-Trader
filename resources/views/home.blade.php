@@ -39,7 +39,7 @@
 <body class="animsition">
 
 <!-- Header -->
-<header>
+<header class="header-v2">
 
     <!-- Header desktop -->
     <div class="container-menu-desktop">
@@ -63,7 +63,7 @@
                                 <?php
                                 $categories = DB::table('categories')->orderBy('id','ASC')->get();?>
                                 @foreach($categories as $category)
-                                        <li><a href="{{route('products.type', $category->id)}}">{{$category->name}}</a></li>
+                                        <li><a href="{{route('categories.show', $category->id)}}">{{$category->name}}</a></li>
                                 @endforeach
 {{--                                我不確定有沒有"其他"選項--}}
                             </ul>
@@ -243,7 +243,7 @@
                     @foreach($categories as $category)
                         <div class="col-md-4 col-xl-2 p-b-30 m-lr-auto">
                             <div class="block1 wrap-pic-w">
-                                <a href="#">
+                                <a href="{{route('categories.show', $category->id)}}">
         {{--                            <a href="#" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">--}}
                                     <div class="block1-txt-child1 flex-col-l">
                                             <span class="block1-name ltext-102 trans-04 p-b-8">
@@ -324,7 +324,7 @@
 
         <!-- Load more -->
         <div class="flex-c-m flex-w w-full p-t-45">
-            <a href="#" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
+            <a href="{{route('products.index')}}" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
                 Load More
             </a>
         </div>

@@ -38,65 +38,10 @@
 <body class="animsition">
 
 <!-- Header -->
-<header class="header-v4">
+<header class="header-v2">
     <!-- Header desktop -->
-    <div class="container-menu-desktop">
+    @include('layouts.partials.sidebar')
 
-        <div class="wrap-menu-desktop">
-            <nav class="limiter-menu-desktop container">
-
-                <!-- Icon -->
-                <a href="#" class="logo">
-                    <img src="images/icons/logo-01.png" alt="IMG-LOGO">
-                </a>
-
-                <!-- 分類(下拉)-->
-                <div class="menu-desktop">
-                    <ul class="main-menu">
-                        <li class="active-menu">
-                            <h5><a href="#">分類</a></h5>
-                            <ul class="sub-menu">
-                            <li><a href="{{route('products.index')}}">全部</a></li>
-                            <?php
-                                $categories = DB::table('categories')->orderBy('id','ASC')->get();
-                            ?>
-                                @foreach($categories as $category)
-                                    <li><a href="#">{{$category->name}}</a></li>
-                                @endforeach
-                                {{--                                我不確定有沒有"其他"選項--}}
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Icon header -->
-                <div class="wrap-icon-header flex-w flex-r-m">
-                    <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11">
-                        <h5><i class="zmdi zmdi-shopping-cart">購物車</i></h5>
-                    </div>
-
-                    <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11">
-                        <h5>註冊</h5>
-                        {{--                        目前沒看到適合的icon--}}
-                    </div>
-
-                    <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11">
-                        <h5>登入</h5>
-                        {{--                        目前沒看到適合的icon--}}
-                    </div>
-
-                    <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                        </svg>
-                        {{--        搜尋目前樣子         --}}
-                    </div>
-
-                </div>
-            </nav>
-        </div>
-    </div>
-    <hr>
 </header>
 
 <!-- Product -->
@@ -104,231 +49,222 @@
     <div class="container">
         <div class="flex-w flex-sb-m p-b-52">
             <div class="flex-w flex-l-m filter-tope-group m-tb-10">
-{{--                <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*">--}}
-{{--                    全部--}}
-{{--                </button>--}}
-{{--                <?php--}}
-{{--                $categories = DB::table('categories')->orderBy('id','ASC')->get();?>--}}
-{{--                @foreach($categories as $category)--}}
-{{--                    <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*">--}}
-{{--                        {{$category->name}}--}}
+                <h4>全部</h4>
+            </div>
+
+{{--            <div class="flex-w flex-c-m m-tb-10">--}}
+{{--                <div class="flex-c-m stext-106 cl6 size-104 bor4 pointer hov-btn3 trans-04 m-r-8 m-tb-4 js-show-filter">--}}
+{{--                    <i class="icon-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-filter-list"></i>--}}
+{{--                    <i class="icon-close-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>--}}
+{{--                    Filter--}}
+{{--                </div>--}}
+
+{{--                <div class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4 js-show-search">--}}
+{{--                    <i class="icon-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-search"></i>--}}
+{{--                    <i class="icon-close-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>--}}
+{{--                    Search--}}
+{{--                </div>--}}
+{{--            </div>--}}
+
+{{--            <!-- Search product -->--}}
+{{--            <div class="dis-none panel-search w-full p-t-10 p-b-15">--}}
+{{--                <div class="bor8 dis-flex p-l-15">--}}
+{{--                    <button class="size-113 flex-c-m fs-16 cl2 hov-cl1 trans-04">--}}
+{{--                        <i class="zmdi zmdi-search"></i>--}}
 {{--                    </button>--}}
-{{--                @endforeach--}}
-            </div>
 
-            <div class="flex-w flex-c-m m-tb-10">
-                <div class="flex-c-m stext-106 cl6 size-104 bor4 pointer hov-btn3 trans-04 m-r-8 m-tb-4 js-show-filter">
-                    <i class="icon-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-filter-list"></i>
-                    <i class="icon-close-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
-                    Filter
-                </div>
+{{--                    <input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="search-product" placeholder="Search">--}}
+{{--                </div>--}}
+{{--            </div>--}}
 
-                <div class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4 js-show-search">
-                    <i class="icon-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-search"></i>
-                    <i class="icon-close-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
-                    Search
-                </div>
-            </div>
+{{--            <!-- Filter -->--}}
+{{--            <div class="dis-none panel-filter w-full p-t-10">--}}
+{{--                <div class="wrap-filter flex-w bg6 w-full p-lr-40 p-t-27 p-lr-15-sm">--}}
+{{--                    <div class="filter-col1 p-r-15 p-b-27">--}}
+{{--                        <div class="mtext-102 cl2 p-b-15">--}}
+{{--                            Sort By--}}
+{{--                        </div>--}}
 
-            <!-- Search product -->
-            <div class="dis-none panel-search w-full p-t-10 p-b-15">
-                <div class="bor8 dis-flex p-l-15">
-                    <button class="size-113 flex-c-m fs-16 cl2 hov-cl1 trans-04">
-                        <i class="zmdi zmdi-search"></i>
-                    </button>
+{{--                        <ul>--}}
+{{--                            <li class="p-b-6">--}}
+{{--                                <a href="#" class="filter-link stext-106 trans-04">--}}
+{{--                                    Default--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
 
-                    <input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="search-product" placeholder="Search">
-                </div>
-            </div>
+{{--                            <li class="p-b-6">--}}
+{{--                                <a href="#" class="filter-link stext-106 trans-04">--}}
+{{--                                    Popularity--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
 
-            <!-- Filter -->
-            <div class="dis-none panel-filter w-full p-t-10">
-                <div class="wrap-filter flex-w bg6 w-full p-lr-40 p-t-27 p-lr-15-sm">
-                    <div class="filter-col1 p-r-15 p-b-27">
-                        <div class="mtext-102 cl2 p-b-15">
-                            Sort By
-                        </div>
+{{--                            <li class="p-b-6">--}}
+{{--                                <a href="#" class="filter-link stext-106 trans-04">--}}
+{{--                                    Average rating--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
 
-                        <ul>
-                            <li class="p-b-6">
-                                <a href="#" class="filter-link stext-106 trans-04">
-                                    Default
-                                </a>
-                            </li>
+{{--                            <li class="p-b-6">--}}
+{{--                                <a href="#" class="filter-link stext-106 trans-04 filter-link-active">--}}
+{{--                                    Newness--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
 
-                            <li class="p-b-6">
-                                <a href="#" class="filter-link stext-106 trans-04">
-                                    Popularity
-                                </a>
-                            </li>
+{{--                            <li class="p-b-6">--}}
+{{--                                <a href="#" class="filter-link stext-106 trans-04">--}}
+{{--                                    Price: Low to High--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
 
-                            <li class="p-b-6">
-                                <a href="#" class="filter-link stext-106 trans-04">
-                                    Average rating
-                                </a>
-                            </li>
+{{--                            <li class="p-b-6">--}}
+{{--                                <a href="#" class="filter-link stext-106 trans-04">--}}
+{{--                                    Price: High to Low--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
+{{--                        </ul>--}}
+{{--                    </div>--}}
 
-                            <li class="p-b-6">
-                                <a href="#" class="filter-link stext-106 trans-04 filter-link-active">
-                                    Newness
-                                </a>
-                            </li>
+{{--                    <div class="filter-col2 p-r-15 p-b-27">--}}
+{{--                        <div class="mtext-102 cl2 p-b-15">--}}
+{{--                            Price--}}
+{{--                        </div>--}}
 
-                            <li class="p-b-6">
-                                <a href="#" class="filter-link stext-106 trans-04">
-                                    Price: Low to High
-                                </a>
-                            </li>
+{{--                        <ul>--}}
+{{--                            <li class="p-b-6">--}}
+{{--                                <a href="#" class="filter-link stext-106 trans-04 filter-link-active">--}}
+{{--                                    All--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
 
-                            <li class="p-b-6">
-                                <a href="#" class="filter-link stext-106 trans-04">
-                                    Price: High to Low
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+{{--                            <li class="p-b-6">--}}
+{{--                                <a href="#" class="filter-link stext-106 trans-04">--}}
+{{--                                    $0.00 - $50.00--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
 
-                    <div class="filter-col2 p-r-15 p-b-27">
-                        <div class="mtext-102 cl2 p-b-15">
-                            Price
-                        </div>
+{{--                            <li class="p-b-6">--}}
+{{--                                <a href="#" class="filter-link stext-106 trans-04">--}}
+{{--                                    $50.00 - $100.00--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
 
-                        <ul>
-                            <li class="p-b-6">
-                                <a href="#" class="filter-link stext-106 trans-04 filter-link-active">
-                                    All
-                                </a>
-                            </li>
+{{--                            <li class="p-b-6">--}}
+{{--                                <a href="#" class="filter-link stext-106 trans-04">--}}
+{{--                                    $100.00 - $150.00--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
 
-                            <li class="p-b-6">
-                                <a href="#" class="filter-link stext-106 trans-04">
-                                    $0.00 - $50.00
-                                </a>
-                            </li>
+{{--                            <li class="p-b-6">--}}
+{{--                                <a href="#" class="filter-link stext-106 trans-04">--}}
+{{--                                    $150.00 - $200.00--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
 
-                            <li class="p-b-6">
-                                <a href="#" class="filter-link stext-106 trans-04">
-                                    $50.00 - $100.00
-                                </a>
-                            </li>
+{{--                            <li class="p-b-6">--}}
+{{--                                <a href="#" class="filter-link stext-106 trans-04">--}}
+{{--                                    $200.00+--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
+{{--                        </ul>--}}
+{{--                    </div>--}}
 
-                            <li class="p-b-6">
-                                <a href="#" class="filter-link stext-106 trans-04">
-                                    $100.00 - $150.00
-                                </a>
-                            </li>
+{{--                    <div class="filter-col3 p-r-15 p-b-27">--}}
+{{--                        <div class="mtext-102 cl2 p-b-15">--}}
+{{--                            Color--}}
+{{--                        </div>--}}
 
-                            <li class="p-b-6">
-                                <a href="#" class="filter-link stext-106 trans-04">
-                                    $150.00 - $200.00
-                                </a>
-                            </li>
+{{--                        <ul>--}}
+{{--                            <li class="p-b-6">--}}
+{{--									<span class="fs-15 lh-12 m-r-6" style="color: #222;">--}}
+{{--										<i class="zmdi zmdi-circle"></i>--}}
+{{--									</span>--}}
 
-                            <li class="p-b-6">
-                                <a href="#" class="filter-link stext-106 trans-04">
-                                    $200.00+
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+{{--                                <a href="#" class="filter-link stext-106 trans-04">--}}
+{{--                                    Black--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
 
-                    <div class="filter-col3 p-r-15 p-b-27">
-                        <div class="mtext-102 cl2 p-b-15">
-                            Color
-                        </div>
+{{--                            <li class="p-b-6">--}}
+{{--									<span class="fs-15 lh-12 m-r-6" style="color: #4272d7;">--}}
+{{--										<i class="zmdi zmdi-circle"></i>--}}
+{{--									</span>--}}
 
-                        <ul>
-                            <li class="p-b-6">
-									<span class="fs-15 lh-12 m-r-6" style="color: #222;">
-										<i class="zmdi zmdi-circle"></i>
-									</span>
+{{--                                <a href="#" class="filter-link stext-106 trans-04 filter-link-active">--}}
+{{--                                    Blue--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
 
-                                <a href="#" class="filter-link stext-106 trans-04">
-                                    Black
-                                </a>
-                            </li>
+{{--                            <li class="p-b-6">--}}
+{{--									<span class="fs-15 lh-12 m-r-6" style="color: #b3b3b3;">--}}
+{{--										<i class="zmdi zmdi-circle"></i>--}}
+{{--									</span>--}}
 
-                            <li class="p-b-6">
-									<span class="fs-15 lh-12 m-r-6" style="color: #4272d7;">
-										<i class="zmdi zmdi-circle"></i>
-									</span>
+{{--                                <a href="#" class="filter-link stext-106 trans-04">--}}
+{{--                                    Grey--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
 
-                                <a href="#" class="filter-link stext-106 trans-04 filter-link-active">
-                                    Blue
-                                </a>
-                            </li>
+{{--                            <li class="p-b-6">--}}
+{{--									<span class="fs-15 lh-12 m-r-6" style="color: #00ad5f;">--}}
+{{--										<i class="zmdi zmdi-circle"></i>--}}
+{{--									</span>--}}
 
-                            <li class="p-b-6">
-									<span class="fs-15 lh-12 m-r-6" style="color: #b3b3b3;">
-										<i class="zmdi zmdi-circle"></i>
-									</span>
+{{--                                <a href="#" class="filter-link stext-106 trans-04">--}}
+{{--                                    Green--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
 
-                                <a href="#" class="filter-link stext-106 trans-04">
-                                    Grey
-                                </a>
-                            </li>
+{{--                            <li class="p-b-6">--}}
+{{--									<span class="fs-15 lh-12 m-r-6" style="color: #fa4251;">--}}
+{{--										<i class="zmdi zmdi-circle"></i>--}}
+{{--									</span>--}}
 
-                            <li class="p-b-6">
-									<span class="fs-15 lh-12 m-r-6" style="color: #00ad5f;">
-										<i class="zmdi zmdi-circle"></i>
-									</span>
+{{--                                <a href="#" class="filter-link stext-106 trans-04">--}}
+{{--                                    Red--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
 
-                                <a href="#" class="filter-link stext-106 trans-04">
-                                    Green
-                                </a>
-                            </li>
+{{--                            <li class="p-b-6">--}}
+{{--									<span class="fs-15 lh-12 m-r-6" style="color: #aaa;">--}}
+{{--										<i class="zmdi zmdi-circle-o"></i>--}}
+{{--									</span>--}}
 
-                            <li class="p-b-6">
-									<span class="fs-15 lh-12 m-r-6" style="color: #fa4251;">
-										<i class="zmdi zmdi-circle"></i>
-									</span>
+{{--                                <a href="#" class="filter-link stext-106 trans-04">--}}
+{{--                                    White--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
+{{--                        </ul>--}}
+{{--                    </div>--}}
 
-                                <a href="#" class="filter-link stext-106 trans-04">
-                                    Red
-                                </a>
-                            </li>
+{{--                    <div class="filter-col4 p-b-27">--}}
+{{--                        <div class="mtext-102 cl2 p-b-15">--}}
+{{--                            Tags--}}
+{{--                        </div>--}}
 
-                            <li class="p-b-6">
-									<span class="fs-15 lh-12 m-r-6" style="color: #aaa;">
-										<i class="zmdi zmdi-circle-o"></i>
-									</span>
+{{--                        <div class="flex-w p-t-4 m-r--5">--}}
+{{--                            <a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">--}}
+{{--                                Fashion--}}
+{{--                            </a>--}}
 
-                                <a href="#" class="filter-link stext-106 trans-04">
-                                    White
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+{{--                            <a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">--}}
+{{--                                Lifestyle--}}
+{{--                            </a>--}}
 
-                    <div class="filter-col4 p-b-27">
-                        <div class="mtext-102 cl2 p-b-15">
-                            Tags
-                        </div>
+{{--                            <a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">--}}
+{{--                                Denim--}}
+{{--                            </a>--}}
 
-                        <div class="flex-w p-t-4 m-r--5">
-                            <a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-                                Fashion
-                            </a>
+{{--                            <a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">--}}
+{{--                                Streetstyle--}}
+{{--                            </a>--}}
 
-                            <a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-                                Lifestyle
-                            </a>
-
-                            <a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-                                Denim
-                            </a>
-
-                            <a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-                                Streetstyle
-                            </a>
-
-                            <a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-                                Crafts
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+{{--                            <a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">--}}
+{{--                                Crafts--}}
+{{--                            </a>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
         </div>
 
         <div class="row isotope-grid">
@@ -339,14 +275,14 @@
                         <div class="block2-pic hov-img0">
                             <img src="img/{{ $product->pictures }}" alt="IMG-PRODUCT" height="200">
 
-                            <a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
+                            <a href="{{route('products.show', $product->id)}}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
                                 Quick View
                             </a>
                         </div>
 
                         <div class="block2-txt flex-w flex-t p-t-14">
                             <div class="block2-txt-child1 flex-col-l ">
-                                <a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                                <a href="{{route('products.show', $product->id)}}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
                                     {{ $product->name }}
                                 </a>
 
@@ -368,14 +304,14 @@
         </div>
 
         <!-- Load more -->
-        <div class="flex-c-m flex-w w-full p-t-45">
-            <a href="#" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
-                Load More
-            </a>
-        </div>
+{{--        <div class="flex-c-m flex-w w-full p-t-45">--}}
+{{--            <a href="#" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">--}}
+{{--                Load More--}}
+{{--            </a>--}}
+{{--        </div>--}}
     </div>
 </div>
-
+</body>
 
 <!-- Footer -->
 <footer class="bg3 p-t-75 p-b-32">
@@ -786,5 +722,5 @@
 <!--===============================================================================================-->
 <script src="js/main.js"></script>
 
-</body>
+
 </html>

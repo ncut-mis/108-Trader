@@ -30,11 +30,10 @@ Route::get('/products_detail', function () {
     return view('products_detail');
 });
 
-Route::get('/products/{type}', [\App\Http\Controllers\ProductController::class, 'type'])->name('products.type');
-
-Route::resource('products', \App\Http\Controllers\ProductController::class);
 //Route::get('/products/{type}', [\App\Http\Controllers\ProductController::class, 'type'])->name('products.type');
 
+Route::resource('products', \App\Http\Controllers\ProductController::class);
+Route::resource('categories', \App\Http\Controllers\CategoryController::class);
 
 
 Route::prefix('admin')->group(function () {
