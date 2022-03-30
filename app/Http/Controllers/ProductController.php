@@ -22,6 +22,15 @@ class ProductController extends Controller
         return view('products', $data);
     }
 
+    public function search()
+    {
+        $name=$_GET['search'];
+
+        $products=Product::where('name','like','%'.$name.'%')->get();
+        $data=['products' => $products];
+        return view('search', $data);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
