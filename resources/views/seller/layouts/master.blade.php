@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -27,10 +26,18 @@
         <ul class="navbar-nav sidebar  accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('seller.products.index')}}">
                 <div class="sidebar-brand-text mx-3" style="color: #6E75A4">賣家後台</div>
             </a>
             <hr class="sidebar-divider my-0">
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('seller.dashboard')}}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-graph-up" viewBox="0 0 16 16" style="color: #211E55">
+                        <path fill-rule="evenodd" d="M0 0h1v15h15v1H0V0Zm14.817 3.113a.5.5 0 0 1 .07.704l-4.5 5.5a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61 4.15-5.073a.5.5 0 0 1 .704-.07Z"/>
+                    </svg>
+                    <span style="color: #211E55">營運資料</span></a>
+            </li>
 
                <!-- Nav Item - Pages Collapse Menu -->
                <li class="nav-item">
@@ -247,10 +254,11 @@
                            <li class="nav-item dropdown no-arrow">
                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                   <span class="mr-2 d-none d-lg-inline text-gray-600 small">Ryan</span>
+                                   <span class="mr-2 d-none d-lg-inline text-gray-600 small"></span>
                                    <img class="img-profile rounded-circle"
                                         src="img/1111.jpg">
                                </a>
+
                                <!-- Dropdown - User Information -->
                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                     aria-labelledby="userDropdown">
@@ -271,32 +279,26 @@
                    </nav>
                    <!-- End of Topbar -->
                    <div class="container-fluid">
+
                        <div class="card shadow mb-4">
-                           <div class="card-header py-3">
-                               <h6 class="m-0 font-weight-bold text-primary">
-                                   <div class="container">
-                                       <ol class="breadcrumb" >
-                                           @yield('breadcrumb')
-                                       </ol>
-                                   </div>
-                               </h6>
-                           </div>
+
                            <div class="card-body">
                                <div class="table-responsive">
-                                   <div class="row" style="margin-bottom: 10px; text-align: right">
-                                       <div class="col-lg-12">
-                                          @yield('button')
-                                       </div>
-                                   </div>
-                                   <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                        @yield('content')
+
+                                   <table class="table table-hover" frame="void" >
+                                           <ol class="breadcrumb">
+                                               @yield('breadcrumb')
+                                           </ol>
+
+                                       @yield('content')
+
                                    </table>
                                </div>
                            </div>
                        </div>
                </div>
+               </div>
                <!-- End of Main Content -->
-           </div>
            <!-- End of Content Wrapper -->
                <!-- Footer -->
                <footer class="sticky-footer bg-white">
