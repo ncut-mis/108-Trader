@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Exam;
 use App\Http\Requests\StoreExamRequest;
 use App\Http\Requests\UpdateExamRequest;
+use App\Models\Product;
 
 class ExamController extends Controller
 {
@@ -13,9 +14,10 @@ class ExamController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        //
+        $product = Exam::where('product_id', $id)->get();
+        return view('products.exams.index', compact('product' ));
     }
 
     /**
@@ -23,9 +25,11 @@ class ExamController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        $product = Exam::where('product_id', $id)->get();
+        $name=Product::where('id','=',$id)->select('name')->get();
+        return view('seller.products.exams.create', compact('product','name'));
     }
 
     /**
