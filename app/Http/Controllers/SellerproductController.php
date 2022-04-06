@@ -16,9 +16,38 @@ class SellerproductController extends Controller
      */
     public function index()
     {
-            $data = DB::table('products')->where('seller_id')->get();
-            return view('seller.products.index', ['products' => $data]);
+        $data = DB::table('products')->where('seller_id', auth()->user()->id)->get();
+        return view('seller.products.index', ['products' => $data]);
     }
+
+    public function type1()
+    {
+        //顯示大衣洋裝類商品
+        $data = DB::table('products')->where('category_id', '1')->get();
+        return view('seller.products.type.coat', ['products' => $data]);
+    }
+
+    public function type2()
+    {
+        //顯示鋼筆類商品
+        $data = DB::table('products')->where('category_id', '2')->get();
+        return view('seller.products.type.pan', ['products' => $data]);
+    }
+
+    public function type3()
+    {
+        //顯示書籍類商品
+        $data = DB::table('products')->where('category_id', '3')->get();
+        return view('seller.products.type.book', ['products' => $data]);
+    }
+
+    public function type4()
+    {
+        //顯示專輯類商品
+        $data = DB::table('products')->where('category_id', '4')->get();
+        return view('seller.products.type.album', ['products' => $data]);
+
+}
 
     /**
      * Show the form for creating a new resource.
