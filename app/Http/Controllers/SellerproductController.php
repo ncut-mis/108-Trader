@@ -14,38 +14,44 @@ class SellerproductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        $data = DB::table('products')->where('seller_id', auth()->user()->id)->get();
-        return view('seller.products.index', ['products' => $data]);
+        $data = Product::where('seller_id', auth()->user()->id)->get();
+        $product = Product::where('id',$id)->first();
+        return view('seller.products.index', compact('data', 'product'));
+
     }
 
-    public function type1()
+    public function type1($id)
     {
         //顯示大衣洋裝類商品
-        $data = DB::table('products')->where('category_id', '1')->get();
-        return view('seller.products.type.coat', ['products' => $data]);
+        $data = Product::where('category_id', '1')->get();
+        $product = Product::where('id',$id)->first();
+        return view('seller.products.type.coat',compact('data','product'));
     }
 
-    public function type2()
+    public function type2($id)
     {
         //顯示鋼筆類商品
-        $data = DB::table('products')->where('category_id', '2')->get();
-        return view('seller.products.type.pan', ['products' => $data]);
+        $data = Product::where('category_id', '2')->get();
+        $product = Product::where('id',$id)->first();
+        return view('seller.products.type.pan', compact('data','product'));
     }
 
-    public function type3()
+    public function type3($id)
     {
         //顯示書籍類商品
-        $data = DB::table('products')->where('category_id', '3')->get();
-        return view('seller.products.type.book', ['products' => $data]);
+        $data = Product::where('category_id', '3')->get();
+        $product = Product::where('id',$id)->first();
+        return view('seller.products.type.book', compact('data','product'));
     }
 
-    public function type4()
+    public function type4($id)
     {
         //顯示專輯類商品
-        $data = DB::table('products')->where('category_id', '4')->get();
-        return view('seller.products.type.album', ['products' => $data]);
+        $data = Product::where('category_id', '4')->get();
+        $product = Product::where('id',$id)->first();
+        return view('seller.products.type.album', compact('data','product'));
 
 }
 
@@ -54,9 +60,10 @@ class SellerproductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        $product = Product::where('id',$id)->first();
+        return view('seller.products.create', compact('product'));
     }
 
     /**
@@ -87,9 +94,10 @@ class SellerproductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Product $products,$id)
     {
-        //
+        $product = Product::where('id',$id)->first();
+        return view('seller.products.index', compact('products','product'));
     }
 
     /**
@@ -99,9 +107,11 @@ class SellerproductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id,Product $products)
     {
-        //
+        $products = Product::where('id',$id)->first();
+        $products->update($request->all());
+        return redirect()->route('seller.products.index', $id);
     }
 
     /**

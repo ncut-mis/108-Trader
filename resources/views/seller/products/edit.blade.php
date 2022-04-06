@@ -4,7 +4,7 @@
 
 @section('breadcrumb')
     <li class="breadcrumb-item" style="color: #4E4F97"><a href="#">首頁</a></li>
-    <li class="breadcrumb-item" style="color: #4E4F97"><a href="#">編輯商品</a></li>
+    <li class="breadcrumb-item active" style="color: #4E4F97">編輯商品</li>
 @endsection
 
 @section('content')
@@ -21,62 +21,71 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <form action="/seller/products/" method="POST" role="form">
+            <form action="/seller/products/{{$product->id}}" method="POST" role="form">
                 @method('PATCH')
                 @csrf
-
                 <div class="form-group">
-                    <label for="name1">商品名稱</label>
-                    <input name="name1" class="form-control" placeholder="請輸入商品名稱">
+                    <label for="name">商品名稱</label>
+                    <input name="name" class="form-control" placeholder="請輸入商品名稱" value="{{old('name',$product->name)}}">
                 </div>
 
                 <div class="form-group">
-                    <label for="type1">類別</label>
-                    <select id="type1" name="type" class="form-control" rows="10">
-                        <option value="1">大衣洋裝</option>
-                        <option value="2">書籍</option>
-                        <option value="3">鋼筆</option>
-                        <option value="4">專輯</option>
+                    <label for="type">類別</label>
+                    <select id="type" name="type" class="form-control" rows="10">
+                        @if($product->category_id=='1')
+                           <option value="1" selected>大衣洋裝</option>
+                           <option value="2">鋼筆</option>
+                           <option value="3">書籍</option>
+                           <option value="4">專輯</option>
+                           <option value="5">拼圖</option>
                     </select>
+                        @elseif($product->category_id=='2')
+                            <option value="1" >大衣洋裝</option>
+                            <option value="2" selected>鋼筆</option>
+                            <option value="3">書籍</option>
+                            <option value="4">專輯</option>
+                            <option value="5">拼圖</option>
+                    </select>
+                        @elseif($product->category_id=='3')
+                            <option value="1" >大衣洋裝</option>
+                            <option value="2" >鋼筆</option>
+                            <option value="3" selected>書籍</option>
+                            <option value="4">專輯</option>
+                            <option value="5">拼圖</option>
+                    </select>
+                        @elseif($product->category_id=='4')
+                            <option value="1" >大衣洋裝</option>
+                            <option value="2" >鋼筆</option>
+                            <option value="3">書籍</option>
+                            <option value="4" selected>專輯</option>
+                            <option value="5">拼圖</option>
+                    </select>
+                        @elseif($product->category_id=='5')
+                            <option value="1" >大衣洋裝</option>
+                            <option value="2" >鋼筆</option>
+                            <option value="3">書籍</option>
+                            <option value="4" >專輯</option>
+                            <option value="5" selected>拼圖</option>
+
+                    </select>
+                    @endif
                 </div>
 
                 <div class="form-group">
-                    <label for="price1">價格</label>
-                    <input name="price1" class="form-control" placeholder="請輸入商品價格">
+                    <label for="price">價格</label>
+                    <input name="price" class="form-control" placeholder="請輸入商品價格" value="{{old('price',$product->price)}}">
                 </div>
 
                 <div class="form-group">
-                    <label for="content1">說明</label>
-                    <textarea name="content1" class="form-control"></textarea>
+                    <label for="content">說明</label>
+                    <textarea name="content" class="form-control">{{old('content',$product->detail)}}</textarea>
                 </div>
 
                 <div class="form-group">
-                    <label for="photo1">圖片：</label>
-                    <input type="file" name="photo1" >
+                    <label for="photo">圖片：</label>
+                    <img class="pic" src="/../../img/{{$product->picture}}">
+                    <input type="file" name="photo" value="{{old('photo',$product->picture)}}">
                 </div>
-
-                @if('')
-                    <div class="form-group">
-                        <label for="status1">狀態：</label>
-                        <label class="radio-inline" for="t1">
-                            <input type="radio" name="status" id="0" value="0" checked>已上架
-                        </label>
-
-                        <label class="radio-inline" for="t2">
-                            <input type="radio" name="status" id="1" value="1">未上架
-                        </label>
-                    </div>
-                @else
-                    <div class="form-group">
-                        <label for="status1">狀態：</label>
-                        <label class="radio-inline" for="1">
-                            <input type="radio" name="status" id="0" value="0">已上架
-                        </label>
-                        <label class="radio-inline" for="2">
-                            <input type="radio" name="status" id="1" value="1" checked>未上架
-                        </label>
-                    </div>
-                @endif
 
                 <div class="text-right">
                     <button type="submit" class="btn btn-info">更新</button>

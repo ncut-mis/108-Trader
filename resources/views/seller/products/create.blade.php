@@ -4,7 +4,7 @@
 
 @section('breadcrumb')
     <li class="breadcrumb-item" style="color: #4E4F97"><a href="#">首頁</a></li>
-    <li class="breadcrumb-item" style="color: #4E4F97"><a href="#">新增商品</a></li>
+    <li class="breadcrumb-item active" style="color: #4E4F97">新增商品</li>
 @endsection
 
 @section('content')
@@ -32,11 +32,12 @@
 
                 <div class="form-group">
                     <label for="type">類別</label>
-                    <select id="type" name="type" class="form-control" rows="10">
-                        <option value="1">大衣洋裝</option>
-                        <option value="2">書籍</option>
-                        <option value="3">鋼筆</option>
+                    <select  name="type" class="form-control" rows="10">
+                        <option value="1" selected>大衣洋裝</option>
+                        <option value="2">鋼筆</option>
+                        <option value="3">書籍</option>
                         <option value="4">專輯</option>
+                        <option value="5">拼圖</option>
                     </select>
                 </div>
 
@@ -51,22 +52,22 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="photo">圖片：</label>
+                    <label for="photo">圖片</label>
                     <input type="file" name="photo" >
                 </div>
 
                 <div class="form-group">
-                    <label for="status">狀態：</label>
+                    <label for="status">狀態</label>
                     <label class="radio-inline" for="t1">
-                        <input type="radio" name="status" id="0" value="0">已上架
+                        <input type="radio" name="status" id="0" value="0">未上架
                     </label>
                     <label class="radio-inline" for="t2">
-                        <input type="radio" name="status" id="1" value="1">未上架
+                        <input type="radio" name="status" id="1" value="1">已上架
                     </label>
                 </div>
 
                 <div class="text-right">
-                    <button type="submit" class="btn btn-info">新增</button>
+                    <button type="submit" class="d-none d-sm-inline-block btn btn-facebook shadow-sm">新增</button>
                 </div>
 
                 <p>&nbsp;</p>
