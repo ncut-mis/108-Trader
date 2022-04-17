@@ -16,7 +16,7 @@
         <th></th>
     </tr>
     </thead>
-    @foreach($orders as $order)
+    @foreach($data as $order)
     <tfoot>
     <tbody>
     <tr>

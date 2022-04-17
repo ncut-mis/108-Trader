@@ -4,7 +4,7 @@
 
 @section('breadcrumb')
     <li class="breadcrumb-item" style="color: #4E4F97"><a href="#">首頁</a></li>
-    <li class="breadcrumb-item" style="color: #4E4F97"><a href="{{route('seller.orders.index')}}">訂單管理</a></li>
+    <li class="breadcrumb-item" style="color: #4E4F97"><a href="{{route('seller.orders.index',$product->seller_id)}}">訂單管理</a></li>
     <li class="breadcrumb-item active" style="color: #4E4F97">未完成訂單</li>
 @endsection
 
@@ -17,7 +17,7 @@
         <th width="20" >
     </tr>
     </thead>
-    @foreach($orders as $order)
+    @foreach($data as $order)
         <tfoot>
         <tbody>
         <tr>
@@ -37,7 +37,7 @@
                 <td >已完成</td>
             @endif
             <td >{{$order->price}}</td>
-            <td ><a href="{{route('seller.products.detail',$order->id)}}" style="color:#4E4F97">訂單詳細資料</a></td>
+            <td ><a href="" style="color:#4E4F97">訂單詳細資料</a></td>
         </tr>
         </tfoot>
         </tbody>
