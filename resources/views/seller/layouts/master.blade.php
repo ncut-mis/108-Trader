@@ -56,13 +56,13 @@
         <ul class="navbar-nav sidebar  accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('seller.dashboard',$product->seller_id)}}">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('seller.dashboard')}}">
                 <div class="sidebar-brand-text mx-3" style="color: #6E75A4">賣家後台</div>
             </a>
             <hr class="sidebar-divider my-0">
 
             <li class="nav-item">
-                <a class="nav-link" href="{{route('seller.dashboard',$product->seller_id)}}">
+                <a class="nav-link" href="{{route('seller.dashboard')}}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-graph-up" viewBox="0 0 16 16" style="color: #8F77B5">
                         <path fill-rule="evenodd" d="M0 0h1v15h15v1H0V0Zm14.817 3.113a.5.5 0 0 1 .07.704l-4.5 5.5a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61 4.15-5.073a.5.5 0 0 1 .704-.07Z"/>
                     </svg>
@@ -81,13 +81,18 @@
                    </a>
                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                        <div class="bg py-2 collapse-inner rounded">
-                           <a class="collapse-item" href="{{route('seller.products.index',$product->seller_id)}}" style="color: #113285">所有商品</a>
+                           <a class="collapse-item" href="{{route('seller.products.index')}}" style="color: #113285">所有商品</a>
+                           <?php
+
+
+                           ?>
+                           <a class="collapse-item" href="{{route('products.exams.index',)}}" style="color: #113285">所有品質鑑定商品</a>
                            <hr class="sidebar-divider my-0">
                            <h6 class="collapse-header" style="color: #70649A">分類</h6>
-                           <a class="collapse-item" href="{{route('seller.products.type.coat',$product->seller_id)}}" style="color: #113285">大衣洋裝類</a>
-                           <a class="collapse-item" href="{{route('seller.products.type.pan',$product->seller_id)}}" style="color: #113285">鋼筆類</a>
-                           <a class="collapse-item" href="{{route('seller.products.type.book',$product->seller_id)}}" style="color: #113285">書籍類</a>
-                           <a class="collapse-item" href="{{route('seller.products.type.album',$product->seller_id)}}" style="color: #113285">專輯類</a>
+                           <a class="collapse-item" href="{{route('seller.products.type.coat')}}" style="color: #113285">大衣洋裝類</a>
+                           <a class="collapse-item" href="{{route('seller.products.type.pan')}}" style="color: #113285">鋼筆類</a>
+                           <a class="collapse-item" href="{{route('seller.products.type.book')}}" style="color: #113285">書籍類</a>
+                           <a class="collapse-item" href="{{route('seller.products.type.album')}}" style="color: #113285">專輯類</a>
                        </div>
                    </div>
                </li>
@@ -105,9 +110,9 @@
                    <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                         data-parent="#accordionSidebar">
                        <div class="bg py-2 collapse-inner rounded">
-                           <a class="collapse-item" href="{{route('seller.orders.index')}}" style="color: #113285">所有訂單</a>
-                           <a class="collapse-item" href="{{route('seller.orders.undone')}}" style="color: #113285">未完成訂單</a>
-                           <a class="collapse-item" href="{{route('seller.orders.history')}}" style="color: #113285">歷史訂單</a>
+                           <a class="collapse-item" href="{{route('seller.orders.index',auth()->user()->id)}}" style="color: #113285">所有訂單</a>
+                           <a class="collapse-item" href="{{route('seller.orders.undone',auth()->user()->id)}}" style="color: #113285">未完成訂單</a>
+                           <a class="collapse-item" href="{{route('seller.orders.history',auth()->user()->id)}}" style="color: #113285">已完成訂單</a>
                        </div>
                    </div>
                </li>
@@ -295,7 +300,12 @@
                            <li class="nav-item dropdown no-arrow">
                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                   <span class="mr-2 d-none d-lg-inline text-gray-600 small"></span>
+                                   <?php
+                                   $id=\App\Models\Product::where('seller_id','=',auth()->user()->id)->value('seller_id');
+                                   $seller=\App\Models\Seller::where('id','=',$id)->value('member_id');
+                                   $sname=\App\Models\Member::where('id','=',$seller)->value('name');
+                                   ?>
+                                   <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{$sname}}</span>
                                    <img class="img-profile rounded-circle"
                                         src="img/1111.jpg">
                                </a>
