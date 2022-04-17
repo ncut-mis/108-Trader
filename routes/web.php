@@ -54,6 +54,19 @@ Route::resource('seller.products', \App\Http\Controllers\SellerproductController
     'create'=>'seller.products.create'
 ]);
 
+//商品各類別
+Route::prefix('/seller/{seller}/products/type')->group(function () {
+    Route::get('/coat', [\App\Http\Controllers\SellerproductController::class, 'type1'])->name('seller.products.type.coat');
+    Route::get('/pan', [\App\Http\Controllers\SellerproductController::class, 'type2'])->name('seller.products.type.pan');
+    Route::get('/book', [\App\Http\Controllers\SellerproductController::class, 'type3'])->name('seller.products.type.book');
+    Route::get('/album', [\App\Http\Controllers\SellerproductController::class, 'type4'])->name('seller.products.type.album');
+});
 
+Route::prefix('/seller/orders')->group(function () {
+    Route::get('/', [\App\Http\Controllers\SellerorderController::class, 'index'])->name('seller.orders.index');
+    Route::get('/undone', [\App\Http\Controllers\SellerorderController::class, 'undone'])->name('seller.orders.undone');
+    Route::get('/history', [\App\Http\Controllers\SellerorderController::class, 'history'])->name('seller.orders.history');
+    Route::get('/detail/{id}', [\App\Http\Controllers\SellerorderController::class, 'detail'])->name('seller.products.detail');
+});
 
 //Route::get('/detail/{id}', [\App\Http\Controllers\SellerorderController::class, 'detail'])->name('seller.products.detail');
