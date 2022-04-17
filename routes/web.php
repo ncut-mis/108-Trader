@@ -45,6 +45,15 @@ Route::get('/seller/products/launch/{id}', [\App\Http\Controllers\SellerproductC
 //商品下架
 Route::get('/seller/products/stop/{id}', [\App\Http\Controllers\SellerproductController::class, 'stop'])->name('seller.products.stop');
 
+//刪除商品
+Route::get('/seller/products/{id}', [\App\Http\Controllers\SellerproductController::class, 'destroy'])->name('seller.products.destroy');
+
+Route::resource('seller.products', \App\Http\Controllers\SellerproductController::class)->names([
+    'index' =>'seller.products.index',
+    'edit' => 'seller.products.edit',
+    'create'=>'seller.products.create'
+]);
+
 
 
 //Route::get('/detail/{id}', [\App\Http\Controllers\SellerorderController::class, 'detail'])->name('seller.products.detail');
