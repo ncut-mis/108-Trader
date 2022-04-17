@@ -3,7 +3,8 @@
 @section('title','商品管理')
 
 @section('button')
-    <a href="{{route('seller.products.create',$product->id)}}" class="d-none d-sm-inline-block btn btn-sm btn-facebook shadow-sm">新增商品</a>
+
+    <a href="" class="d-none d-sm-inline-block btn btn-sm btn-facebook shadow-sm">新增商品</a>
 @endsection
 
 @section('breadcrumb')
@@ -27,11 +28,10 @@
         <tfoot>
     <tbody>
     <tr >
-      @foreach($data as $product)
+        @foreach($data as $product)
         <td>
             <img class="pic" src="/../../img/{{$product->picture}}"></td>
-        <td>{{$product->name}}
-        </td>
+        <td>{{$product->name}}</td>
 
         @if($product->category_id=='1')
             <td>大衣洋裝</td>
@@ -50,7 +50,7 @@
         @if($product->status == '1')
             <td>已上架<br>
                 <hr class="sidebar-divider d-none d-md-block">
-            <b><a href="{{route('seller.products.stop', $product->id)}}" style="color:#DC9FB4" >下架</a></b>
+            <b><a href="{{route('seller.products.stop',  $product->id)}}" style="color:#DC9FB4" onClick="return confirm('確定要下架此商品?')">下架</a></b>
             </td>
         @else
             <td>未上架<br>
@@ -60,9 +60,9 @@
         @endif
 
         <td>
-            <b><a href="{{ route('seller.products.edit', [$product->seller_id, $product->id]) }}" style="color:#4E4F97">編輯</a></b><br>
+            <b><a href="{{ route('seller.products.edit', $product->id) }}" style="color:#4E4F97">編輯</a></b><br>
             <hr class="sidebar-divider d-none d-md-block">
-            <b><a href="{{ route('seller.products.destroy',[$product->seller_id, $product->id]) }}" style="color:#DC9FB4" onClick="return confirm('確定要刪除此商品?')">刪除</a></b>
+            <b><a href="{{ route('seller.products.destroy',$product->id) }}" style="color:#DC9FB4" onClick="return confirm('確定要刪除此商品?')">刪除</a></b>
         </td>
         <td><b><a href="{{ route('products.exams.create', $product->id) }}" style="color:#4E4F97">申請</a></b></td>
 

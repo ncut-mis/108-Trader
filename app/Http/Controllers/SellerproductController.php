@@ -14,44 +14,49 @@ class SellerproductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index()
     {
         $data = Product::where('seller_id', auth()->user()->id)->get();
-        $product = Product::where('id',$id)->first();
-        return view('seller.products.index', compact('data', 'product'));
+
+
+        return view('seller.products.index', compact('data'));
 
     }
 
-    public function type1($id)
+    public function type1()
     {
         //顯示大衣洋裝類商品
         $data = Product::where('category_id', '1')->get();
-        $product = Product::where('id',$id)->first();
-        return view('seller.products.type.coat',compact('data','product'));
+
+
+        return view('seller.products.type.coat',compact('data'));
     }
 
-    public function type2($id)
+    public function type2()
     {
         //顯示鋼筆類商品
         $data = Product::where('category_id', '2')->get();
-        $product = Product::where('id',$id)->first();
-        return view('seller.products.type.pan', compact('data','product'));
+
+
+        return view('seller.products.type.pan', compact('data'));
     }
 
-    public function type3($id)
+    public function type3()
     {
         //顯示書籍類商品
         $data = Product::where('category_id', '3')->get();
-        $product = Product::where('id',$id)->first();
-        return view('seller.products.type.book', compact('data','product'));
+
+
+        return view('seller.products.type.book', compact('data'));
     }
 
-    public function type4($id)
+    public function type4()
     {
         //顯示專輯類商品
         $data = Product::where('category_id', '4')->get();
-        $product = Product::where('id',$id)->first();
-        return view('seller.products.type.album', compact('data','product'));
+
+
+        return view('seller.products.type.album', compact('data'));
 
 }
 
@@ -60,10 +65,10 @@ class SellerproductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
+    public function create()
     {
-        $product = Product::where('id',$id)->first();
-        return view('seller.products.create', compact('product'));
+
+
     }
 
     /**
@@ -72,9 +77,10 @@ class SellerproductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,$id)
     {
-        //
+
+
     }
 
     /**
@@ -94,10 +100,11 @@ class SellerproductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $products,$id)
+    public function edit($id)
     {
-        $product = Product::where('id',$id)->first();
-        return view('seller.products.index', compact('products','product'));
+        $product = Product::find($id);
+
+        return view('seller.products.edit', compact('product'));
     }
 
     /**
@@ -107,10 +114,12 @@ class SellerproductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id,Product $products)
+    public function update(Request $request, $id)
     {
-        $products = Product::where('id',$id)->first();
-        $products->update($request->all());
+        $product = Product::find($id);
+
+        $product ->update($request->all());
+
         return redirect()->route('seller.products.index', $id);
     }
 
@@ -122,6 +131,32 @@ class SellerproductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product=Product::where('id',$id)->first();
+
+        $product->destroy($id);
+
+        return redirect()->route('seller.products.index', $id);
+    }
+
+    public function launch($id)
+    {
+        $product=Product::where('id',$id)->first();
+
+        $product->status ='1';
+
+        $product->save();
+
+        return redirect()->route('seller.products.index', $id);
+    }
+
+    public function stop($id)
+    {
+        $product=Product::where('id',$id)->first();
+
+        $product->status ='0';
+
+        $product->save();
+
+        return redirect()->route('seller.products.index', $id);
     }
 }

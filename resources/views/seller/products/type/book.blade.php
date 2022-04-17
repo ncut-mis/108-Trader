@@ -3,12 +3,13 @@
 @section('title','商品管理')
 
 @section('button')
-    <a href="{{route('seller.products.create')}}" class="d-none d-sm-inline-block btn btn-sm btn-facebook shadow-sm">新增商品</a>
+
+    <a href="" class="d-none d-sm-inline-block btn btn-sm btn-facebook shadow-sm">新增商品</a>
 @endsection
 
 @section('breadcrumb')
     <li class="breadcrumb-item" style="color: #4E4F97"><a href="#">首頁</a></li>
-    <li class="breadcrumb-item" style="color: #4E4F97"><a href="{{route('seller.products.index')}}">商品管理</a></li>
+    <li class="breadcrumb-item" style="color: #4E4F97"><a href="{{route('seller.products.index'}}">商品管理</a></li>
     <li class="breadcrumb-item active" style="color: #4E4F97">書籍類</li>
 @endsection
 
@@ -27,7 +28,7 @@
 
     </tr>
     </thead>
-    @foreach($products as $product)
+    @foreach($data as $product)
         <tfoot>
         <tbody>
         <tr>
@@ -41,7 +42,7 @@
             @if($product->status == '1')
                 <td >已上架<br>
                     <hr class="sidebar-divider d-none d-md-block">
-                    <b><a href="{{route('seller.products.stop', $product->id)}}" style="color:#DC9FB4" onClick="return confirm('確定要下架此商品?')">下架</a></b>
+                    <b><a href="{{route('seller.products.stop',$product->id)}}" style="color:#DC9FB4" onClick="return confirm('確定要下架此商品?')">下架</a></b>
                 </td>
             @else
                 <td >未上架<br>
@@ -53,7 +54,7 @@
             <td >
                 <a href="{{ route('seller.products.edit', $product->id) }}" style="color:#4E4F97">編輯</a><br>
                 <hr class="sidebar-divider d-none d-md-block">
-                <a href="{{ route('seller.products.destroy', $product->id) }}" style="color:#DC9FB4" onClick="return confirm('確定要刪除此商品?')">刪除</a>
+                <a href="{{ route('seller.products.destroy',$product->id) }}" style="color:#DC9FB4" onClick="return confirm('確定要刪除此商品?')">刪除</a>
             </td>
 
             <td ><a href="#" style="color:#4E4F97">申請</a></td>

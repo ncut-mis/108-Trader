@@ -3,7 +3,7 @@
 @section('title','商品管理')
 
 @section('button')
-    <a href="{{route('seller.products.create')}}" class="d-none d-sm-inline-block btn btn-sm btn-facebook shadow-sm">新增商品</a>
+    <a href="" class="d-none d-sm-inline-block btn btn-sm btn-facebook shadow-sm">新增商品</a>
 @endsection
 
 @section('breadcrumb')
@@ -28,7 +28,7 @@
 
     </tr>
     </thead>
-    @foreach($products as $product)
+    @foreach($data as $product)
     <tfoot>
     <tbody>
     <tr>
@@ -42,7 +42,7 @@
         @if($product->status == '1')
             <td >已上架<br>
                 <hr class="sidebar-divider d-none d-md-block">
-                <b><a href="{{route('seller.products.stop', $product->id)}}" style="color:#DC9FB4" onClick="return confirm('確定要下架此商品?')">下架</a></b>
+                <b><a href="{{route('seller.products.stop',  $product->id)}}" style="color:#DC9FB4" onClick="return confirm('確定要下架此商品?')">下架</a></b>
             </td>
         @else
             <td >未上架<br>

@@ -3,7 +3,7 @@
 @section('title','商品管理')
 
 @section('button')
-    <a href="{{route('seller.products.create')}}" class="d-none d-sm-inline-block btn btn-sm btn-facebook shadow-sm">新增商品</a>
+    <a href="" class="d-none d-sm-inline-block btn btn-sm btn-facebook shadow-sm">新增商品</a>
 @endsection
 
 @section('breadcrumb')
@@ -27,7 +27,7 @@
 
     </tr>
     </thead>
-    @foreach($products as $product)
+    @foreach($data as $product)
         <tfoot>
         <tbody>
         <tr>
@@ -53,7 +53,7 @@
             <td >
                 <a href="{{ route('seller.products.edit', $product->id) }}" style="color:#4E4F97">編輯</a><br>
                 <hr class="sidebar-divider d-none d-md-block">
-                <a href="{{ route('seller.products.destroy', $product->id) }}" style="color:#DC9FB4" onClick="return confirm('確定要刪除此商品?')">刪除</a>
+                <a href="{{ route('seller.products.destroy',  $product->id) }}" style="color:#DC9FB4" onClick="return confirm('確定要刪除此商品?')">刪除</a>
             </td>
 
             <td ><a href="#" style="color:#4E4F97">申請</a></td>

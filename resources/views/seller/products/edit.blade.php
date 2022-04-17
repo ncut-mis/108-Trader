@@ -21,7 +21,7 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <form action="/seller/products/{{$product->id}}" method="POST" role="form">
+            <form action="/seller/{{$product->seller_id}}/products/{{$product->id}}" method="POST" role="form">
                 @method('PATCH')
                 @csrf
                 <div class="form-group">
