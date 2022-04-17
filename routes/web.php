@@ -69,4 +69,10 @@ Route::prefix('/seller/orders')->group(function () {
     Route::get('/detail/{id}', [\App\Http\Controllers\SellerorderController::class, 'detail'])->name('seller.products.detail');
 });
 
+Route::resource('products.exams', \App\Http\Controllers\ExamController::class)->names([
+    'index' =>'products.exams.index',
+    'store'=>'products.exams.store',
+    'create'=>'products.exams.create'
+]);
+
 //Route::get('/detail/{id}', [\App\Http\Controllers\SellerorderController::class, 'detail'])->name('seller.products.detail');
