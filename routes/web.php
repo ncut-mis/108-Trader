@@ -35,14 +35,16 @@ Route::get('/products_detail', function () {
 Route::resource('products', \App\Http\Controllers\ProductController::class);
 Route::resource('categories', \App\Http\Controllers\CategoryController::class);
 
+Route::get('/seller/dashboard', function () {
+    return view('seller.dashboard');
+})->name('seller.dashboard');
 
-Route::prefix('admin')->group(function () {
-    Route::get('/', [\App\Http\Controllers\SellerproductController::class, 'index'])->name('seller.products.index');
-    Route::post('products', [\App\Http\Controllers\SellerproductController::class,'store'])->name('seller.products.store');
-    Route::get('products', [\App\Http\Controllers\SellerproductController::class, 'index'])->name('seller.products.index');
-    Route::get('products/create', [\App\Http\Controllers\SellerproductController::class, 'create'])->name('seller.products.create');
-    Route::get('products/{id}/edit', [\App\Http\Controllers\SellerproductController::class, 'edit'])->name('seller.products.edit');
-    Route::patch('products/{id}', [\App\Http\Controllers\SellerproductController::class, 'update'])->name('seller.products.update');
-    Route::get('products/{id}', [\App\Http\Controllers\SellerproductController::class, 'destroy'])->name('seller.products.destroy');
-});
+//商品上架
+Route::get('/seller/products/launch/{id}', [\App\Http\Controllers\SellerproductController::class, 'launch'])->name('seller.products.launch');
 
+//商品下架
+Route::get('/seller/products/stop/{id}', [\App\Http\Controllers\SellerproductController::class, 'stop'])->name('seller.products.stop');
+
+
+
+//Route::get('/detail/{id}', [\App\Http\Controllers\SellerorderController::class, 'detail'])->name('seller.products.detail');
