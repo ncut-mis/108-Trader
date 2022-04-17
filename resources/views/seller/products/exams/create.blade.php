@@ -26,14 +26,14 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <form action="/products/{{$product}}/exams" method="POST" role="form" class="row g-3 ">
+            <form action="/products/{{$pid}}/exams" method="POST" role="form" class="row g-3 ">
                 @method('POST')
                 @csrf
 
                 <div class="row g-3">
                     <div class="col-md-12 mb-3">
                         <label for="inputname" class="form-label">商品名稱</label>
-                        <input type="text" class="form-control"  aria-label="name" >
+                        <input type="text" class="form-control"  aria-label="name" value="{{$name}}">
                     </div>
 
                     <div class="col-md-7 mb-3">
@@ -58,11 +58,6 @@
                             <label for="no" class="form-label ">信用卡/簽帳金融卡號</label>
                             <input type="text" class="form-control" id="no" value="1234-1234-5678-5678" pattern="[0-9]{13,16}" >
                         </div>
-
-                            <div class="col-md-4 mb-auto">
-                                <label for="name" class="form-label ">持卡人姓名</label>
-                                <input type="text" class="form-control" id="name" required>
-                            </div>
 
                             <div class="col-md-7" style="margin-top: 20px">
                                 <label for="date" class="form-label">到期日</label>
