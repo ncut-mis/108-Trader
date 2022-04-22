@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Exam;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -48,14 +49,14 @@ Route::get('/seller/products/stop/{id}', [\App\Http\Controllers\SellerproductCon
 //刪除商品
 Route::get('/seller/products/{id}', [\App\Http\Controllers\SellerproductController::class, 'destroy'])->name('seller.products.destroy');
 
-Route::resource('seller.products', \App\Http\Controllers\SellerproductController::class)->names([
+Route::resource('seller/products', \App\Http\Controllers\SellerproductController::class)->names([
     'index' =>'seller.products.index',
     'edit' => 'seller.products.edit',
     'create'=>'seller.products.create'
 ]);
 
 //商品各類別
-Route::prefix('/seller/{seller}/products/type')->group(function () {
+Route::prefix('/seller/products/type')->group(function () {
     Route::get('/coat', [\App\Http\Controllers\SellerproductController::class, 'type1'])->name('seller.products.type.coat');
     Route::get('/pan', [\App\Http\Controllers\SellerproductController::class, 'type2'])->name('seller.products.type.pan');
     Route::get('/book', [\App\Http\Controllers\SellerproductController::class, 'type3'])->name('seller.products.type.book');
@@ -69,10 +70,10 @@ Route::prefix('/seller/orders')->group(function () {
     Route::get('/detail/{id}', [\App\Http\Controllers\SellerorderController::class, 'detail'])->name('seller.products.detail');
 });
 
-Route::resource('products.exams', \App\Http\Controllers\ExamController::class)->names([
-    'index' =>'products.exams.index',
-    'store'=>'products.exams.store',
-    'create'=>'products.exams.create'
-]);
+Route::get('products/exams', [\App\Http\Controllers\ExamController::class, 'index'])->name('products.exams.index');
+
+Route::get('products/{products}/exams/create', [\App\Http\Controllers\ExamController::class, 'create'])->name('products.exams.create');
+
+Route::get('products/{products}/exams', [\App\Http\Controllers\ExamController::class, 'store'])->name('products.exams.store');
 
 //Route::get('/detail/{id}', [\App\Http\Controllers\SellerorderController::class, 'detail'])->name('seller.products.detail');

@@ -4,7 +4,7 @@
 
 @section('breadcrumb')
     <li class="breadcrumb-item" style="color: #4E4F97"><a href="#">首頁</a></li>
-    <li class="breadcrumb-item" style="color: #4E4F97"><a href="{{route('seller.orders.index',$product->seller_id)}}">訂單管理</a></li>
+    <li class="breadcrumb-item" style="color: #4E4F97"><a href="{{route('seller.orders.index')}}">訂單管理</a></li>
     <li class="breadcrumb-item active" style="color: #4E4F97">未完成訂單</li>
 @endsection
 

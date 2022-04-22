@@ -38,29 +38,22 @@ class SellerorderController extends Controller
     }
 
 
-    public function undone($id)
+    public function undone()
     {
-
-        $product = Product::where('seller_id', auth()->user()->id)->first();
-
-        $order= Order::where('id',$id)->get();
 
         $data = Order::where('member_id',auth()->user()->id)->where('status','4')->get();
 
-        return view('seller.orders.undone',compact('data','product','order'));
+        return view('seller.orders.undone',compact('data'));
+
     }
 
 
-    public function history($id)
+    public function history()
     {
-
-        $product = Product::where('seller_id', auth()->user()->id)->first();
-
-        $order= Order::where('id',$id)->get();
 
         $data = DB::table('orders')->where('member_id',auth()->user()->id)->where('status','5')->get();
 
-        return view('seller.orders.history', compact('data','product','order'));
+        return view('seller.orders.history', compact('data'));
     }
 
     public function create()
