@@ -19,6 +19,7 @@ class CreateExamsTable extends Migration
             $table->integer('section_id');
             $table->integer('pass');
             $table->integer('perfect');
+            $table->string('photo', 2048);
             $table->date('date');
         });
     }
