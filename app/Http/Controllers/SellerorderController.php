@@ -21,6 +21,8 @@ class SellerorderController extends Controller
 
         $data = Order::where('member_id',auth()->user()->id)->get();
 
+
+
         return view('seller.order', compact('data','product'));
     }
 
@@ -33,8 +35,11 @@ class SellerorderController extends Controller
     public function detail($order)
     {
         $data= DB::table('orders')->where('id','=',$order)->get();
+        $data2= DB::table('order_details')->where('order_id','=',$order)->get();
+        $products= DB::table('products')->get();
+//        return view('seller.orders.detail', ['order' => $data],['order_de' => $data2],['products' => $product]);
+        return view('seller.orders.detail',compact('data','data2','products'));
 
-        return view('seller.orders.detail', ['order' => $data],);
     }
 
 

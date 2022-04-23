@@ -38,6 +38,11 @@
 
 
         <td >{{$order->price}}</td>
+        @if($order->status=='0')
+        <td ><a href="{{route('seller.products.detail',$order->id)}}}">確認訂單</a></td>
+        @else
+         <td ><a href="{{route('seller.products.detail',$order->id)}}}">詳細資料</a></td>
+        @endif
 
     </tr>
     </tfoot>

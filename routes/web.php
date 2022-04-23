@@ -67,7 +67,7 @@ Route::prefix('/seller/orders')->group(function () {
     Route::get('/', [\App\Http\Controllers\SellerorderController::class, 'index'])->name('seller.orders.index');
     Route::get('/undone', [\App\Http\Controllers\SellerorderController::class, 'undone'])->name('seller.orders.undone');
     Route::get('/history', [\App\Http\Controllers\SellerorderController::class, 'history'])->name('seller.orders.history');
-    Route::get('/detail/{id}', [\App\Http\Controllers\SellerorderController::class, 'detail'])->name('seller.products.detail');
+    Route::get('/detail/{order}', [\App\Http\Controllers\SellerorderController::class, 'detail'])->name('seller.products.detail');
 });
 
 Route::get('products/exams', [\App\Http\Controllers\ExamController::class, 'index'])->name('products.exams.index');
