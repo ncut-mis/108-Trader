@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Seller;
+use App\Models\Product;
 use App\Http\Requests\StoreSellerRequest;
 use App\Http\Requests\UpdateSellerRequest;
 
@@ -15,9 +16,17 @@ class SellerController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
+    public function search()
+    {
+        $name=$_GET['search'];
+
+        $products=Product::where('name','like','%'.$name.'%')->get();
+        $data=['products' => $products];
+        return view('market', $data);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -45,9 +54,11 @@ class SellerController extends Controller
      * @param  \App\Models\Seller  $seller
      * @return \Illuminate\Http\Response
      */
-    public function show(Seller $seller)
+    public function show($seller)
     {
-        //
+        $sellers=Seller::where('id', $seller)->get();
+        $data=['sellers' => $sellers];
+        return view('market', $data);
     }
 
     /**

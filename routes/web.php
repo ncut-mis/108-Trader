@@ -26,15 +26,15 @@ Route::get('/home', function () {
 });
 
 
-Route::get('/products_detail', function () {
-    return view('products_detail');
+Route::get('/market', function () {
+    return view('market');
 });
-
-//Route::get('/products/{type}', [\App\Http\Controllers\ProductController::class, 'type'])->name('products.type');
 
 Route::resource('products', \App\Http\Controllers\ProductController::class);
 Route::resource('categories', \App\Http\Controllers\CategoryController::class);
-
+Route::resource('sellers', \App\Http\Controllers\SellerController::class);
+Route::get('/search', [\App\Http\Controllers\ProductController::class, 'search'])->name('products.search');
+Route::get('/market_search', [\App\Http\Controllers\SellerController::class, 'search'])->name('sellers.search');
 
 Route::prefix('admin')->group(function () {
     Route::get('/', [\App\Http\Controllers\SellerproductController::class, 'index'])->name('seller.products.index');
