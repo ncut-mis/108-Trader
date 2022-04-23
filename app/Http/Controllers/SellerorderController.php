@@ -77,13 +77,23 @@ class SellerorderController extends Controller
         return redirect()->route('seller.orders.index');
     }
 
-    public function comment()
+    public function comment()//所有評論評分
     {
         $data= DB::table('orders')->get();
         $data2= DB::table('order_details')->get();
         $products= DB::table('products')->get();
         $members= DB::table('members')->get();
         return view('seller.orders.comment',compact('data','data2','products','members'));
+
+    }
+
+    public function amount()//進帳
+    {
+        $data= DB::table('orders')->where('status','5')->where('pay','1')->get();
+        //訂單已完成且已付款
+        $data2= DB::table('order_details')->get();
+        $products= DB::table('products')->get();
+        return view('seller.orders.amount',compact('data','data2','products'));
 
     }
 

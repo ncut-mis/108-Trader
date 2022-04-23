@@ -70,6 +70,8 @@ Route::prefix('/seller/orders')->group(function () {
     Route::get('/detail/{order}', [\App\Http\Controllers\SellerorderController::class, 'detail'])->name('seller.products.detail');
     Route::get('/confirm/{order}', [\App\Http\Controllers\SellerorderController::class, 'confirm'])->name('seller.products.confirm');//確認訂單
     Route::get('/comment', [\App\Http\Controllers\SellerorderController::class, 'comment'])->name('seller.products.comment');//評論評分
+    Route::get('/amount', [\App\Http\Controllers\SellerorderController::class, 'amount'])->name('seller.products.amount');//進帳
+
 });
 
 Route::get('products/exams', [\App\Http\Controllers\ExamController::class, 'index'])->name('products.exams.index');

@@ -111,7 +111,7 @@
                            <a class="collapse-item" href="{{route('seller.orders.undone')}}" style="color: #113285">未完成訂單</a>
                            <a class="collapse-item" href="{{route('seller.orders.history')}}" style="color: #113285">已完成訂單</a>
                            <a class="collapse-item" href="{{route('seller.products.comment')}}" style="color: #113285">所有評論評分</a>
-                           <a class="collapse-item" href="{{route('seller.orders.history')}}" style="color: #113285">所有進帳</a>
+                           <a class="collapse-item" href="{{route('seller.products.amount')}}" style="color: #113285">所有進帳</a>
                        </div>
                    </div>
                </li>
