@@ -86,7 +86,7 @@
                     </span><br><br>
 
                     <span class="mtext-106 cl2">
-						賣家：{{ $products->seller_id }}
+						賣家：<a href="{{route('sellers.show', $products->seller_id)}}">{{ $products->seller_id }}</a>
                     </span>
 
 
