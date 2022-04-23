@@ -61,7 +61,7 @@ class SellerorderController extends Controller
         return view('seller.orders.history', compact('data'));
     }
 
-    public  function  confirm($order)
+    public  function  confirm($order)//確認訂單
     {
         DB::table('orders')->where('id', $order)->update(
             [
@@ -75,6 +75,16 @@ class SellerorderController extends Controller
             ]
         );
         return redirect()->route('seller.orders.index');
+    }
+
+    public function comment()
+    {
+        $data= DB::table('orders')->get();
+        $data2= DB::table('order_details')->get();
+        $products= DB::table('products')->get();
+        $members= DB::table('members')->get();
+        return view('seller.orders.comment',compact('data','data2','products','members'));
+
     }
 
     public function create()
