@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -12,14 +11,44 @@
     <title>賣家後台 | @yield('title')</title>
 
     <!-- Custom fonts for this template-->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="{{asset('vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="{{asset('css/sb-admin-2.min.css')}}" rel="stylesheet">
+    <style>
+        .pic
+        {
+            border: 5px black;
+            border-radius: 5px;
+            max-width: 100px;
+            max-height: 100px;
+        }
+        .breadcrumb
+        {
+            display: flex;
+            flex-wrap:wrap;
+            padding: 0.75rem 1rem;
+            margin-bottom: 1rem;
+            list-style: none;
+            background:none;
 
+        }
+        .breadcrumb-item + .breadcrumb-item::before {
+            float: left;
+            padding-right: 0.5rem;
+            color: #858796;
+            content:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E");
+
+        }
+        .bg
+        {
+            background-color: #FCFAF2;
+        }
+
+    </style>
 </head>
 <body>
 <div id="wrapper">
@@ -27,40 +56,64 @@
         <ul class="navbar-nav sidebar  accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('seller.dashboard')}}">
                 <div class="sidebar-brand-text mx-3" style="color: #6E75A4">賣家後台</div>
             </a>
             <hr class="sidebar-divider my-0">
 
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('seller.dashboard')}}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-graph-up" viewBox="0 0 16 16" style="color: #8F77B5">
+                        <path fill-rule="evenodd" d="M0 0h1v15h15v1H0V0Zm14.817 3.113a.5.5 0 0 1 .07.704l-4.5 5.5a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61 4.15-5.073a.5.5 0 0 1 .704-.07Z"/>
+                    </svg>
+                    <span style="color: #211E55">營運資料</span></a>
+            </li>
+
                <!-- Nav Item - Pages Collapse Menu -->
                <li class="nav-item">
-                   <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                   <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
                       aria-expanded="true" aria-controls="collapseTwo">
-                       <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 15 15" style="color: #211E55">
-                           <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z"/>
+                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-dash" viewBox="0 0 16 16" style="color: #8F77B5">
+                           <path fill-rule="evenodd" d="M5.5 10a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5z"/>
+                           <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z"/>
                        </svg>
                        <span style="color: #211E55">商品管理</span>
                    </a>
                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                       <div class="bg-white py-2 collapse-inner rounded">
+                       <div class="bg py-2 collapse-inner rounded">
+                           <a class="collapse-item" href="{{route('seller.products.index')}}" style="color: #113285">所有商品</a>
+
+                           <a class="collapse-item" href="{{route('products.exams.index')}}" style="color: #113285">所有品質鑑定商品</a>
+                           <hr class="sidebar-divider my-0">
                            <h6 class="collapse-header" style="color: #70649A">分類</h6>
-                           <a class="collapse-item" href="#" style="color: #113285">大衣洋裝類</a>
-                           <a class="collapse-item" href="#" style="color: #113285">書籍類</a>
-                           <a class="collapse-item" href="#" style="color: #113285">鋼筆類</a>
-                           <a class="collapse-item" href="#" style="color: #113285">專輯類</a>
+                           <a class="collapse-item" href="{{route('seller.products.type.coat')}}" style="color: #113285">大衣洋裝類</a>
+                           <a class="collapse-item" href="{{route('seller.products.type.pan')}}" style="color: #113285">鋼筆類</a>
+                           <a class="collapse-item" href="{{route('seller.products.type.book')}}" style="color: #113285">書籍類</a>
+                           <a class="collapse-item" href="{{route('seller.products.type.album')}}" style="color: #113285">專輯類</a>
                        </div>
                    </div>
                </li>
 
                <!-- Nav Item - Utilities Collapse Menu -->
-               <li class="nav-item">
-                   <a class="nav-link collapsed" href="#" aria-expanded="false" >
-                       <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-clipboard2-fill" viewBox="0 0 15 15" style="color: #211E55">
-                           <path d="M9.5 0a.5.5 0 0 1 .5.5.5.5 0 0 0 .5.5.5.5 0 0 1 .5.5V2a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 2v-.5a.5.5 0 0 1 .5-.5.5.5 0 0 0 .5-.5.5.5 0 0 1 .5-.5h3Z"/>
-                           <path d="M3.5 1h.585A1.498 1.498 0 0 0 4 1.5V2a1.5 1.5 0 0 0 1.5 1.5h5A1.5 1.5 0 0 0 12 2v-.5c0-.175-.03-.344-.085-.5h.585A1.5 1.5 0 0 1 14 2.5v12a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 14.5v-12A1.5 1.5 0 0 1 3.5 1Z"/>
-                       </svg>
+            <li class="nav-item">
+                <a class="nav-link collapsed"  data-toggle="collapse" data-target="#collapseUtilities"
+                   aria-expanded="true" aria-controls="collapseUtilities">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16" style="color: #8F77B5">
+                        <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+                        <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+                    </svg>
                        <span style="color: #211E55">訂單管理</span>
                    </a>
+                   <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                        data-parent="#accordionSidebar">
+                       <div class="bg py-2 collapse-inner rounded">
+                           <a class="collapse-item" href="{{route('seller.orders.index')}}" style="color: #113285">所有訂單</a>
+                           <a class="collapse-item" href="{{route('seller.orders.undone')}}" style="color: #113285">未完成訂單</a>
+                           <a class="collapse-item" href="{{route('seller.orders.history')}}" style="color: #113285">已完成訂單</a>
+                           <a class="collapse-item" href="{{route('seller.products.comment')}}" style="color: #113285">所有評論評分</a>
+                           <a class="collapse-item" href="{{route('seller.products.amount')}}" style="color: #113285">所有進帳</a>
+                       </div>
+                   </div>
                </li>
                <!-- Divider -->
                <hr class="sidebar-divider d-none d-md-block">
@@ -83,19 +136,19 @@
                            </button>
                        </form>
 
-                       <!-- Topbar Search -->
-                       <form
+                       <!-- Topbar Search
+                       <form  method="GET" action=""
                            class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                            <div class="input-group">
-                               <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                                      aria-label="Search" aria-describedby="basic-addon2">
+                               <input type="text" class="form-control bg-light border-0 small" placeholder="搜尋商品"
+                                      aria-label="Search" aria-describedby="basic-addon2" name="search" >
                                <div class="input-group-append">
-                                   <button class="btn btn-primary" type="button">
+                                   <button class="btn btn-primary" type="submit">
                                        <i class="fas fa-search fa-sm"></i>
                                    </button>
                                </div>
                            </div>
-                       </form>
+                       </form>-->
 
                        <!-- Topbar Navbar -->
                        <ul class="navbar-nav ml-auto">
@@ -112,8 +165,7 @@
                                    <form class="form-inline mr-auto w-100 navbar-search">
                                        <div class="input-group">
                                            <input type="text" class="form-control bg-light border-0 small"
-                                                  placeholder="Search for..." aria-label="Search"
-                                                  aria-describedby="basic-addon2">
+                                                  aria-label="Search" aria-describedby="basic-addon2">
                                            <div class="input-group-append">
                                                <button class="btn btn-primary" type="button">
                                                    <i class="fas fa-search fa-sm"></i>
@@ -247,10 +299,16 @@
                            <li class="nav-item dropdown no-arrow">
                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                   <span class="mr-2 d-none d-lg-inline text-gray-600 small">Ryan</span>
+                                   <?php
+                                   $id=\App\Models\Product::where('seller_id','=',auth()->user()->id)->value('seller_id');
+                                   $seller=\App\Models\Seller::where('id','=',$id)->value('member_id');
+                                   $sname=\App\Models\Member::where('id','=',$seller)->value('name');
+                                   ?>
+                                   <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{$sname}}</span>
                                    <img class="img-profile rounded-circle"
                                         src="img/1111.jpg">
                                </a>
+
                                <!-- Dropdown - User Information -->
                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                     aria-labelledby="userDropdown">
@@ -271,32 +329,28 @@
                    </nav>
                    <!-- End of Topbar -->
                    <div class="container-fluid">
+
                        <div class="card shadow mb-4">
-                           <div class="card-header py-3">
-                               <h6 class="m-0 font-weight-bold text-primary">
-                                   <div class="container">
-                                       <ol class="breadcrumb" >
-                                           @yield('breadcrumb')
-                                       </ol>
-                                   </div>
-                               </h6>
-                           </div>
+
                            <div class="card-body">
                                <div class="table-responsive">
-                                   <div class="row" style="margin-bottom: 10px; text-align: right">
-                                       <div class="col-lg-12">
-                                          @yield('button')
+
+                                   <table class="table table-hover" frame="void" >
+                                       <ol class="breadcrumb mar">
+                                           @yield('breadcrumb')
+                                       </ol>
+                                       <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                           @yield('button')
                                        </div>
-                                   </div>
-                                   <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                        @yield('content')
+                                       @yield('content')
+
                                    </table>
                                </div>
                            </div>
                        </div>
                </div>
+               </div>
                <!-- End of Main Content -->
-           </div>
            <!-- End of Content Wrapper -->
                <!-- Footer -->
                <footer class="sticky-footer bg-white">
@@ -312,24 +366,26 @@
                <i class="fas fa-angle-up"></i>
            </a>
        @show
+
 </div>
 </div>
 
-<script src="vendor/jquery-admin/jquery.min.js"></script>
-<script src="vendor/bootstrap-admin/js/bootstrap.bundle.min.js"></script>
+
+<script src="{{asset('vendor/jquery-admin/jquery.min.js')}}"></script>
+<script src="{{asset('vendor/bootstrap-admin/js/bootstrap.bundle.min.js')}}"></script>
 
 <!-- Core plugin JavaScript-->
-<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="{{asset('vendor/jquery-easing/jquery.easing.min.js')}}"></script>
 
 <!-- Custom scripts for all pages-->
-<script src="js/sb-admin-2.min.js"></script>
+<script src="{{asset('js/sb-admin-2.min.js')}}"></script>
 
 <!-- Page level plugins -->
-<script src="vendor/chart.js/Chart.min.js"></script>
+<script src="{{asset('vendor/chart.js/Chart.min.js')}}"></script>
 
 <!-- Page level custom scripts -->
-<script src="js/demo/chart-area-demo.js"></script>
-<script src="js/demo/chart-pie-demo.js"></script>
+<script src="{{asset('js/demo/chart-area-demo.js')}}"></script>
+<script src="{{asset('js/demo/chart-pie-demo.js')}}"></script>
 
 
 </body>

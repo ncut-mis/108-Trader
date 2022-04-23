@@ -16,9 +16,49 @@ class SellerproductController extends Controller
      */
     public function index()
     {
-            $data = DB::table('products')->where('seller_id')->get();
-            return view('seller.products.index', ['products' => $data]);
+        $data = Product::where('seller_id', auth()->user()->id)->get();
+
+
+        return view('seller.products.index', compact('data'));
+
     }
+
+    public function type1()
+    {
+        //顯示大衣洋裝類商品
+        $data = Product::where('category_id', '1')->get();
+
+
+        return view('seller.products.type.coat',compact('data'));
+    }
+
+    public function type2()
+    {
+        //顯示鋼筆類商品
+        $data = Product::where('category_id', '2')->get();
+
+
+        return view('seller.products.type.pan', compact('data'));
+    }
+
+    public function type3()
+    {
+        //顯示書籍類商品
+        $data = Product::where('category_id', '3')->get();
+
+
+        return view('seller.products.type.book', compact('data'));
+    }
+
+    public function type4()
+    {
+        //顯示專輯類商品
+        $data = Product::where('category_id', '4')->get();
+
+
+        return view('seller.products.type.album', compact('data'));
+
+}
 
     /**
      * Show the form for creating a new resource.
@@ -27,7 +67,8 @@ class SellerproductController extends Controller
      */
     public function create()
     {
-        //
+
+
     }
 
     /**
@@ -36,9 +77,10 @@ class SellerproductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,$id)
     {
-        //
+
+
     }
 
     /**
@@ -60,7 +102,9 @@ class SellerproductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $product = Product::find($id);
+
+        return view('seller.products.edit', compact('product'));
     }
 
     /**
@@ -72,7 +116,11 @@ class SellerproductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $product = Product::find($id);
+
+        $product ->update($request->all());
+
+        return redirect()->route('seller.products.index', $id);
     }
 
     /**
@@ -83,6 +131,32 @@ class SellerproductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product=Product::where('id',$id)->first();
+
+        $product->destroy($id);
+
+        return redirect()->route('seller.products.index', $id);
+    }
+
+    public function launch($id)
+    {
+        $product=Product::where('id',$id)->first();
+
+        $product->status ='1';
+
+        $product->save();
+
+        return redirect()->route('seller.products.index', $id);
+    }
+
+    public function stop($id)
+    {
+        $product=Product::where('id',$id)->first();
+
+        $product->status ='0';
+
+        $product->save();
+
+        return redirect()->route('seller.products.index', $id);
     }
 }

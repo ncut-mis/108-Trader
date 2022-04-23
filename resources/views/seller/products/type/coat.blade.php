@@ -3,42 +3,65 @@
 @section('title','商品管理')
 
 @section('button')
-    <a href="" class="btn btn btn-info">新增商品</a>
+    <a href="" class="d-none d-sm-inline-block btn btn-sm btn-facebook shadow-sm">新增商品</a>
 @endsection
 
 @section('breadcrumb')
     <li class="breadcrumb-item" style="color: #4E4F97"><a href="#">首頁</a></li>
-    <li class="breadcrumb-item" style="color: #4E4F97"><a href="#">商品管理</a></li>
-    <li class="breadcrumb-item" style="color: #4E4F97"><a href="#">名牌服飾類</a></li>
+    <li class="breadcrumb-item" style="color: #4E4F97"><a href="{{route('seller.products.index')}}">商品管理</a></li>
+    <li class="breadcrumb-item active" style="color: #4E4F97">名牌服飾類</li>
 @endsection
 
 @section('content')
+
     <thead>
     <tr>
-        <th width="35" style="text-align: center">商品名稱</th>
-        <th width="20" style="text-align: center">類別</th>
-        <th width="20" style="text-align: center">數量</th>
-        <th width="20" style="text-align: center">價格</th>
-        <th width="35" style="text-align: center">狀態</th>
-        <th width="40" style="text-align: center"></th>
-        <th width="35" style="text-align: center">申請品質鑑定</th>
+        <th width="20">商品圖片</th>
+        <th width="20" >商品名稱</th>
+        <th width="20" >類別</th>
+        <th width="20" >價格</th>
+        <th width="20" >庫存</th>
+        <th width="20" >細節說明</th>
+        <th width="20" >上架狀態</th>
+        <th width="20" ></th>
+        <th width="20" >申請品質鑑定</th>
+
     </tr>
     </thead>
+    @foreach($data as $product)
     <tfoot>
+    <tbody>
     <tr>
-        <td style="text-align: center"></td>
-        <td></td>
-        <td style="text-align: center"></td>
-        <td></td>
-        <td></td>
-        <td style="text-align: center">
-            <a href="">編輯</a> /
-            <a href="">刪除</a>
+        <td ><img class="pic" src="/../../img/{{$product->picture}}"></td>
+        <td >{{$product->name}}</td>
+        <td >大衣洋裝</td>
+        <td >{{$product->price}}</td>
+        <td ></td>
+        <td>{{$product->detail}}</td>
+
+        @if($product->status == '1')
+            <td >已上架<br>
+                <hr class="sidebar-divider d-none d-md-block">
+                <b><a href="{{route('seller.products.stop',  $product->id)}}" style="color:#DC9FB4" onClick="return confirm('確定要下架此商品?')">下架</a></b>
+            </td>
+        @else
+            <td >未上架<br>
+                <hr class="sidebar-divider d-none d-md-block">
+                <b><a href="{{route('seller.products.launch', $product->id)}}" style="color:#4E4F97" onClick="return confirm('確定要上架此商品?')">上架</a></b>
+            </td>
+        @endif
+
+        <td >
+            <a href="{{ route('seller.products.edit', $product->id) }}" style="color:#4E4F97">編輯</a><br>
+            <hr class="sidebar-divider d-none d-md-block">
+            <a href="{{ route('seller.products.destroy', $product->id) }}" style="color:#DC9FB4" onClick="return confirm('確定要刪除此商品?')">刪除</a>
         </td>
-        <td></td>
+
+        <td ><a href="#" style="color:#4E4F97">申請</a></td>
     </tr>
     </tfoot>
-    <tbody>
+    </tbody>
+    @endforeach
 @endsection
 
 
