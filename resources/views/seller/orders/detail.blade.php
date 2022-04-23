@@ -3,8 +3,8 @@
 @section('title','訂單詳細資料')
 
 @section('breadcrumb')
-    <li class="breadcrumb-item" style="color: #4E4F97"><a href="javascript:history.back()">首頁</a></li>
-    <li class="breadcrumb-item active" style="color: #4E4F97" >訂單管理</li>
+    <li class="breadcrumb-item" style="color: #4E4F97"><a>首頁</a></li>
+    <li class="breadcrumb-item active" style="color: #4E4F97"  ><a href="{{route('seller.orders.index')}}">訂單管理</a></li>
     <li class="breadcrumb-item active" style="color: #4E4F97">詳細資料</li>
 @endsection
 
@@ -72,7 +72,7 @@
             @elseif($show->status=='1')
                 <td style="text-align: center">確認</td>
             @elseif($show->status=='2')
-                <td style="text-align: center">發貨中</td>
+                <td style="text-align: center">出貨中</td>
             @elseif($show->status=='3')
                 <td style="text-align: center">已出貨</td>
             @elseif($show->status=='4')

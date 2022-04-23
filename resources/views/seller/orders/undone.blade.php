@@ -37,7 +37,7 @@
                 <td >已完成</td>
             @endif
             <td >{{$order->price}}</td>
-            <td ><a href="" style="color:#4E4F97">訂單詳細資料</a></td>
+            <td ><a href="{{route('seller.products.detail',$order->id)}}}" style="color:#4E4F97">訂單詳細資料</a></td>
         </tr>
         </tfoot>
         </tbody>

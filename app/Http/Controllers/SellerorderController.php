@@ -46,7 +46,9 @@ class SellerorderController extends Controller
     public function undone()
     {
 
-        $data = Order::where('member_id',auth()->user()->id)->where('status','4')->get();
+       // $data = Order::where('member_id',auth()->user()->id)->where('status','4')->get();
+        $data = Order::where('seller_id',auth()->user()->id)->where('status','!=','5')->get();
+        //賣家看自己的訂單，以seller_id篩選資料
 
         return view('seller.orders.undone',compact('data'));
 
@@ -56,7 +58,9 @@ class SellerorderController extends Controller
     public function history()
     {
 
-        $data = DB::table('orders')->where('member_id',auth()->user()->id)->where('status','5')->get();
+      //  $data = DB::table('orders')->where('member_id',auth()->user()->id)->where('status','5')->get();
+        $data = DB::table('orders')->where('seller_id',auth()->user()->id)->where('status','5')->get();
+        //賣家看自己的訂單，以seller_id篩選資料
 
         return view('seller.orders.history', compact('data'));
     }
