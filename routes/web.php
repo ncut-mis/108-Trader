@@ -68,6 +68,7 @@ Route::prefix('/seller/orders')->group(function () {
     Route::get('/undone', [\App\Http\Controllers\SellerorderController::class, 'undone'])->name('seller.orders.undone');
     Route::get('/history', [\App\Http\Controllers\SellerorderController::class, 'history'])->name('seller.orders.history');
     Route::get('/detail/{order}', [\App\Http\Controllers\SellerorderController::class, 'detail'])->name('seller.products.detail');
+    Route::get('/confirm/{order}', [\App\Http\Controllers\SellerorderController::class, 'confirm'])->name('seller.products.confirm');//確認訂單
 });
 
 Route::get('products/exams', [\App\Http\Controllers\ExamController::class, 'index'])->name('products.exams.index');

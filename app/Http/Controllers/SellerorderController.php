@@ -61,6 +61,22 @@ class SellerorderController extends Controller
         return view('seller.orders.history', compact('data'));
     }
 
+    public  function  confirm($order)
+    {
+        DB::table('orders')->where('id', $order)->update(
+            [
+
+
+
+                'status'=>'1',
+
+
+
+            ]
+        );
+        return redirect()->route('seller.orders.index');
+    }
+
     public function create()
     {
         //
