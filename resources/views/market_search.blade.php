@@ -30,8 +30,7 @@
                             @foreach($categories as $category)
                                 <tr>
                                     <td>
-                                        <a href="#">{{$category->name}}</a>
-{{--                                        <a href="{{route('sellers.show', $category->id)}}">{{$category->name}}</a>--}}
+                                        <a href="{{route('categories.show', $category->id)}}">{{$category->name}}</a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -63,7 +62,7 @@
 
                 <div class="flex-w flex-sb-m p-b-52">
                     <div class="flex-w flex-l-m filter-tope-group m-tb-10">
-                        <h4>全部</h4>
+                        <h4>搜尋結果</h4>
                     </div>
 
                     <div class="flex-w flex-c-m m-tb-10">
@@ -82,18 +81,13 @@
                                     <i class="zmdi zmdi-search"></i>
                                 </button>
 
-{{--                                因為目前還沒有seller資料，所以內定value為1--}}
                                 <input name="id" type='hidden' id='id' value="1">
                                 <input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" id="search" name="search" placeholder="Search">
-                            </form>
-                        </div>
+                            </form>                        </div>
                     </div>
 
                 </div>
 
-                <?php
-                $products = DB::table('products')->orderBy('id','ASC')->get();
-                ?>
                 <div class="row isotope-grid">
                     @foreach($products as $product)
                         <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
@@ -128,6 +122,13 @@
                             </div>
                         </div>
                     @endforeach
+                    @if($products->isEmpty())
+{{--                            <p>&nbsp;</p>空白失敗--}}
+                        <div style="text-align:center;margin:0px auto;">
+                            <h1>查無結果</h1>
+                        </div>
+
+                    @endif
                 </div>
 
             </div>

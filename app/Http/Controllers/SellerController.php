@@ -22,10 +22,11 @@ class SellerController extends Controller
     public function search()
     {
         $name=$_GET['search'];
+        $id=$_GET['id'];
 
-        $products=Product::where('name','like','%'.$name.'%')->get();
+        $products=Product::where('name','like','%'.$name.'%')->where('seller_id',$id)->get();
         $data=['products' => $products];
-        return view('market', $data);
+        return view('market_search', $data);
     }
     /**
      * Show the form for creating a new resource.
