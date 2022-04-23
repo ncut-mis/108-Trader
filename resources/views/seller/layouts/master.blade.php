@@ -82,11 +82,8 @@
                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                        <div class="bg py-2 collapse-inner rounded">
                            <a class="collapse-item" href="{{route('seller.products.index')}}" style="color: #113285">所有商品</a>
-                           <?php
 
-
-                           ?>
-                           <a class="collapse-item" href="{{route('products.exams.index',)}}" style="color: #113285">所有品質鑑定商品</a>
+                           <a class="collapse-item" href="{{route('products.exams.index')}}" style="color: #113285">所有品質鑑定商品</a>
                            <hr class="sidebar-divider my-0">
                            <h6 class="collapse-header" style="color: #70649A">分類</h6>
                            <a class="collapse-item" href="{{route('seller.products.type.coat')}}" style="color: #113285">大衣洋裝類</a>
@@ -110,9 +107,9 @@
                    <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                         data-parent="#accordionSidebar">
                        <div class="bg py-2 collapse-inner rounded">
-                           <a class="collapse-item" href="{{route('seller.orders.index',auth()->user()->id)}}" style="color: #113285">所有訂單</a>
-                           <a class="collapse-item" href="{{route('seller.orders.undone',auth()->user()->id)}}" style="color: #113285">未完成訂單</a>
-                           <a class="collapse-item" href="{{route('seller.orders.history',auth()->user()->id)}}" style="color: #113285">已完成訂單</a>
+                           <a class="collapse-item" href="{{route('seller.orders.index')}}" style="color: #113285">所有訂單</a>
+                           <a class="collapse-item" href="{{route('seller.orders.undone')}}" style="color: #113285">未完成訂單</a>
+                           <a class="collapse-item" href="{{route('seller.orders.history')}}" style="color: #113285">已完成訂單</a>
                        </div>
                    </div>
                </li>
