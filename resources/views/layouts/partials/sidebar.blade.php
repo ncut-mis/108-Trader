@@ -29,20 +29,41 @@
 
             <!-- Icon header -->
             <div class="wrap-icon-header flex-w flex-r-m">
-                <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11">
-                    {{--                    <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="2">--}}
-                    <h5><i class="zmdi zmdi-shopping-cart">購物車</i></h5>
-                </div>
+                @if(\Illuminate\Support\Facades\Auth::check())
+                    <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11">
+                        {{--                    <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="2">--}}
+                        <h5><i class="zmdi zmdi-shopping-cart">購物車</i></h5>
+                    </div>
 
-                <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11">
-                    <h5>註冊</h5>
-                    {{--                        目前沒看到適合的icon--}}
-                </div>
+                    <li class="active-menu">
+                        <h5><a href="#">會員中心</a></h5>
+                        <ul class="sub-menu">
+                            <li><a href="#">會員資料</a></li>
+                            <li><a href="#">訂單紀錄</a></li>
+                            <?php
+                            $sellers = DB::table('sellers')->where('member_id','=',auth()->user()->id)->get();?>
+                            @if($sellers->isEmpty())
+                                <li><a href="#">成為賣家</a></li>
+                            @else
+                                <li><a href="#">賣家後台</a></li>
+                            @endif
+                            <li><a href="#">登出</a></li>
+                        </ul>
+                    </li>
+                @else
+                    <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11">
+                        {{--                    <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="2">--}}
+                        <a href="{{ route('login') }}"><h5><i class="zmdi zmdi-shopping-cart">購物車</i></h5></a>
+                    </div>
 
-                <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11">
-                    <h5>登入</h5>
-                    {{--                        目前沒看到適合的icon--}}
-                </div>
+                    <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11">
+                        <a href="{{ route('register') }}"><h5>註冊</h5></a>
+                    </div>
+
+                    <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11">
+                        <a href="{{ route('login') }}"><h5>登入</h5></a>
+                    </div>
+                @endif
 
                 <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
                     <h5>
@@ -50,7 +71,6 @@
                             <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
                         </svg>
                     </h5>
-                    {{--        搜尋目前樣子         --}}
                 </div>
 
             </div>
