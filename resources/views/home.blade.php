@@ -49,7 +49,7 @@
             <nav class="limiter-menu-desktop container">
 
                 <!-- Icon -->
-                <a href="/home" class="logo">
+                <a href="/" class="logo">
                     <img src="images/icons/logo-01.png" alt="IMG-LOGO">
                 </a>
 
@@ -79,21 +79,33 @@
                             <h5><i class="zmdi zmdi-shopping-cart">購物車</i></h5>
                         </div>
 
-                        <li class="active-menu">
-                            <h5><a href="#">會員中心</a></h5>
-                            <ul class="sub-menu">
-                                <li><a href="#">會員資料</a></li>
-                                <li><a href="#">訂單紀錄</a></li>
-                                <?php
-                                $sellers = DB::table('sellers')->where('member_id','=',auth()->user()->id)->get();?>
-                                @if($sellers->isEmpty())
-                                    <li><a href="#">成為賣家</a></li>
-                                @else
-                                    <li><a href="#">賣家後台</a></li>
-                                @endif
-                                <li><a href="#">登出</a></li>
+                        <div class="menu-desktop">
+                            <ul class="main-menu">
+                                <li class="active-menu">
+                                    <h5><a href="#">會員中心</a></h5>
+                                    <ul class="sub-menu">
+                                        <li><a href="#">會員資料</a></li>
+                                        <li><a href="#">訂單紀錄</a></li>
+                                        <?php
+                                        $sellers = DB::table('sellers')->where('member_id','=',auth()->user()->id)->get();?>
+                                        @if($sellers->isEmpty())
+                                            <li><a href="#">成為賣家</a></li>
+                                        @else
+                                            <li><a href="#">賣家後台</a></li>
+                                        @endif
+                                        <li><a class="dropdown-item" href="{{ route('logout') }}" style="font-size:15px;color: #6b7280"
+                                                onclick="event.preventDefault();
+                                            document.getElementById('logout-form').submit();">
+                                                {{ __('登出') }}
+                                            </a>
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                                @csrf
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </li>
                             </ul>
-                        </li>
+                        </div>
                     @else
                         <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11">
                             {{--                    <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="2">--}}
