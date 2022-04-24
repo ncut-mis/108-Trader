@@ -174,7 +174,8 @@
                                     ?>
                                     <img src="{{ asset('img/'.$p2.'') }}" alt="IMG-PRODUCT" height="200">
 {{--                                    </div>--}}
-                                    <a href="{{route('products.show', $p->id)}}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
+                                    <a href="{{route('products.detail', $p->id)}}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
+{{--                                    <a href="{{route('products.show', $p->id)}}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">--}}
                                         Quick View
                                     </a>
 
@@ -182,7 +183,8 @@
 
                                 <div class="block2-txt flex-w flex-t p-t-14">
                                     <div class="block2-txt-child1 flex-col-l ">
-                                        <a href="{{route('products.show', $p->id)}}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                                        <a href="{{route('products.detail', $p->id)}}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+{{--                                        <a href="{{route('products.show', $p->id)}}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">--}}
                                             {{$p->name}}
                                         </a>
 

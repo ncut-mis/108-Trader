@@ -17,7 +17,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products=Product::orderBy('id','DESC')->get();
+        $products=Product::orderBy('id','ASC')->get();
         $data=['products' => $products];
         return view('products', $data);
     }
@@ -58,6 +58,13 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
+    public function detail($product)
+    {
+        $products=Product::where('id', $product)->first();
+        $data=['products' => $products];
+        return view('products_detail', $data);
+    }
+
     public function show($product)
     {
         $products=Product::where('id', $product)->first();
