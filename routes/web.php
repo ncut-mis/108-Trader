@@ -34,6 +34,12 @@ Route::get('/market', function () {
 Route::resource('products', \App\Http\Controllers\ProductController::class);
 Route::resource('categories', \App\Http\Controllers\CategoryController::class);
 Route::resource('sellers', \App\Http\Controllers\SellerController::class);
+Route::resource('orders', \App\Http\Controllers\OrderController::class);
+
+//訂單詳細資料，show方法有bug
+Route::get('/orders_detail/{id}', [\App\Http\Controllers\OrderController::class, 'detail'])->name('orders.detail');
+
+
 Route::get('/search', [\App\Http\Controllers\ProductController::class, 'search'])->name('products.search');
 
 //瀏覽個別商品，目前有BUG
