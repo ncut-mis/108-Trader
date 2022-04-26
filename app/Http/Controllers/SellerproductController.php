@@ -67,7 +67,7 @@ class SellerproductController extends Controller
      */
     public function create()
     {
-
+      return view('seller.products.create');
 
     }
 
@@ -120,7 +120,7 @@ class SellerproductController extends Controller
 
         $product ->update($request->all());
 
-        return redirect()->route('seller.products.index', $id);
+        return redirect()->route('seller.products.index');
     }
 
     /**
@@ -131,11 +131,9 @@ class SellerproductController extends Controller
      */
     public function destroy($id)
     {
-        $product=Product::where('id',$id)->first();
+        Product::destroy($id);
 
-        $product->destroy($id);
-
-        return redirect()->route('seller.products.index', $id);
+        return redirect()->route('seller.products.index');
     }
 
     public function launch($id)
@@ -146,7 +144,7 @@ class SellerproductController extends Controller
 
         $product->save();
 
-        return redirect()->route('seller.products.index', $id);
+        return redirect()->route('seller.products.index');
     }
 
     public function stop($id)
@@ -157,6 +155,6 @@ class SellerproductController extends Controller
 
         $product->save();
 
-        return redirect()->route('seller.products.index', $id);
+        return redirect()->route('seller.products.index');
     }
 }
