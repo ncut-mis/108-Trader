@@ -15,13 +15,15 @@ class ExamController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index()
     {
-        $product = Exam::where('product_id', $id)->get();
+        $product = Exam::orderBy('id', 'ASC')->get();
 
-        $name=Product::where('id','=',$id)->value('name');
+        $pid=Exam::orderBy('product_id', 'ASC')->value('product_id');
 
-        $category_id=Product::where('id','=',$id)->value('category_id');
+        $name=Product::where('id','=',$pid)->value('name');
+
+        $category_id=Product::where('id','=',$pid)->value('category_id');
 
         $category=Category::where('id','=',$category_id)->value('name');
 
@@ -55,6 +57,37 @@ class ExamController extends Controller
         //
     }
 
+    public function undone()
+    {
+        $product = Exam::where('date','>',strtotime(date('Y-m-d')))->get();
+
+        $pid=Exam::orderBy('product_id', 'ASC')->value('product_id');
+
+        $name=Product::where('id','=',$pid)->value('name');
+
+        $category_id=Product::where('id','=',$pid)->value('category_id');
+
+        $category=Category::where('id','=',$category_id)->value('name');
+
+        return view('seller.products.exams.undone', compact('product','name','category'));
+    }
+
+    public function finish()
+    {
+
+        $product = Exam::where('date','<',strtotime(date('Y-m-d')))->get();
+
+        $pid=Exam::orderBy('product_id', 'ASC')->value('product_id');
+
+        $name=Product::where('id','=',$pid)->value('name');
+
+        $category_id=Product::where('id','=',$pid)->value('category_id');
+
+        $category=Category::where('id','=',$category_id)->value('name');
+
+        return view('seller.products.exams.finish', compact('product','name','category'));
+
+    }
     /**
      * Display the specified resource.
      *

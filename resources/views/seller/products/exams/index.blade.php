@@ -14,8 +14,8 @@
         <th width="20" >類別</th>
         <th width="20" >是否通過</th>
         <th width="20" >是否優良</th>
-        <th width="20" ></th>
         <th width="20" >鑑定日期</th>
+        <th width="20" >檢測情形</th>
 
     </tr>
     </thead>
@@ -40,8 +40,31 @@
                 <td>優良</td>
             @endif
 
-            <td ><a href="#" style="color:#4E4F97"></a></td>
             <td>{{$exam->date}}</td>
+
+            <?php
+            $today = date('Y-m-d');
+            $now= date('H-i');
+            ?>
+
+            @if(strtotime($exam->date)<strtotime($today))
+
+            <td>已完成</td>
+
+            @elseif(strtotime($exam->date)==strtotime($today)||strtotime($exam->start)>strtotime($now))
+
+            <td>已完成</td>
+
+            @elseif(strtotime($exam->date)==strtotime($today)||strtotime($exam->start)<strtotime($now))
+
+            <td>取消檢測</td>
+
+            @elseif(strtotime($exam->date)>strtotime($today))
+
+            <td>取消檢測</td>
+
+            @endif
+
         </tr>
         </tfoot>
         </tbody>
