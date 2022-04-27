@@ -31,9 +31,19 @@ Route::get('/market', function () {
     return view('market');
 });
 
+Route::get('/carts', function () {
+    return view('carts');
+});
+
 Route::resource('products', \App\Http\Controllers\ProductController::class);
 Route::resource('categories', \App\Http\Controllers\CategoryController::class);
 Route::resource('sellers', \App\Http\Controllers\SellerController::class);
+
+Route::resource('cart_items', \App\Http\Controllers\CartItemController::class);
+
+//加入購物車，store做不出來
+Route::get('/cart_items/{id}', [\App\Http\Controllers\CartItemController::class, 'add'])->name('cart_items.add');
+
 Route::get('/search', [\App\Http\Controllers\ProductController::class, 'search'])->name('products.search');
 
 //瀏覽個別商品，目前有BUG

@@ -45,9 +45,6 @@
                                     ?>
                                     <img src="{{ asset('img/'.$pictures.'') }}" alt="IMG-PRODUCT" height="200">
 
-                                    <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/product-detail-01.jpg">
-                                        <i class="fa fa-expand"></i>
-                                    </a>
 {{--                                </div>--}}
 {{--                            </div>--}}
 
@@ -104,9 +101,23 @@
                                     </div>
                                 </div>
 
-                                <button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-                                    加入購物車
-                                </button>
+{{--                                <form action="/" method="post">--}}
+{{--                                    @method('POST')--}}
+{{--                                    @csrf--}}
+{{--                                    <input type="hidden" name="member_id" value="1">--}}
+{{--                                    <input type="hidden" name="product_id" value="{{ $products->id }}">--}}
+{{--                                    <input type="hidden" name="quantity" value="1">--}}
+
+{{--                                    <button type="submit" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">--}}
+{{--                                        加入購物車--}}
+{{--                                    </button>--}}
+{{--                                </form>--}}
+                                    <a href="{{route('cart_items.add', $products->id)}}" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+                                        加入購物車
+                                    </a>
+{{--                                <button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">--}}
+{{--                                    加入購物車--}}
+{{--                                </button>--}}
                             </div>
                         </div>
                     </div>
@@ -135,16 +146,6 @@
             </div>
         </div>
     </div>
-{{--下方會有一條灰色區塊、顯示Categories: Jacket, Men--}}
-{{--    <div class="bg6 flex-c-m flex-w size-302 m-t-73 p-tb-15">--}}
-{{--			<span class="stext-107 cl6 p-lr-25">--}}
-{{--				--}}
-{{--			</span>--}}
-
-{{--        <span class="stext-107 cl6 p-lr-25">--}}
-{{--				Categories: Jacket, Men--}}
-{{--			</span>--}}
-{{--    </div>--}}
 </section>
 
 
