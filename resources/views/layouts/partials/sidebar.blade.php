@@ -32,7 +32,7 @@
                 @if(\Illuminate\Support\Facades\Auth::check())
                     <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11">
                         {{--                    <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="2">--}}
-                        <h5><i class="zmdi zmdi-shopping-cart">購物車</i></h5>
+                        <a href="{{ route('cart_items.index') }}"><h5><i class="zmdi zmdi-shopping-cart">購物車</i></h5></a>
                     </div>
                     <div class="menu-desktop">
                         <ul class="main-menu">
