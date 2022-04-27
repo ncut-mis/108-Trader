@@ -39,10 +39,17 @@ Route::resource('products', \App\Http\Controllers\ProductController::class);
 Route::resource('categories', \App\Http\Controllers\CategoryController::class);
 Route::resource('sellers', \App\Http\Controllers\SellerController::class);
 
+
 Route::resource('cart_items', \App\Http\Controllers\CartItemController::class);
 
 //加入購物車，store做不出來
 Route::get('/cart_items/{id}', [\App\Http\Controllers\CartItemController::class, 'add'])->name('cart_items.add');
+
+Route::resource('orders', \App\Http\Controllers\OrderController::class);
+
+//訂單詳細資料，show方法有bug
+Route::get('/orders_detail/{id}', [\App\Http\Controllers\OrderController::class, 'detail'])->name('orders.detail');
+
 
 Route::get('/search', [\App\Http\Controllers\ProductController::class, 'search'])->name('products.search');
 
@@ -64,6 +71,7 @@ Route::get('/seller/products/stop/{id}', [\App\Http\Controllers\SellerproductCon
 
 //刪除商品
 Route::get('/seller/products/{id}', [\App\Http\Controllers\SellerproductController::class, 'destroy'])->name('seller.products.destroy');
+
 
 Route::resource('seller/products', \App\Http\Controllers\SellerproductController::class)->names([
     'index' =>'seller.products.index',
@@ -90,10 +98,16 @@ Route::prefix('/seller/orders')->group(function () {
 
 });
 
-Route::get('products/exams', [\App\Http\Controllers\ExamController::class, 'index'])->name('products.exams.index');
+Route::get('/exams', [\App\Http\Controllers\ExamController::class, 'index'])->name('products.exams.index');
 
-Route::get('products/{products}/exams/create', [\App\Http\Controllers\ExamController::class, 'create'])->name('products.exams.create');
+Route::get('/products/{products}/exams/create', [\App\Http\Controllers\ExamController::class, 'create'])->name('products.exams.create');
 
-Route::get('products/{products}/exams', [\App\Http\Controllers\ExamController::class, 'store'])->name('products.exams.store');
+Route::get('/products/{products}/exams', [\App\Http\Controllers\ExamController::class, 'store'])->name('products.exams.store');
+
+Route::get('/exams/undone', [\App\Http\Controllers\ExamController::class, 'undone'])->name('products.exams.undone');
+
+Route::get('/exams/finish', [\App\Http\Controllers\ExamController::class, 'finish'])->name('products.exams.finish');
+
+Route::get('/exams/{id}', [\App\Http\Controllers\ExamController::class, 'destroy'])->name('products.exams.destroy');
 
 //Route::get('/detail/{id}', [\App\Http\Controllers\SellerorderController::class, 'detail'])->name('seller.products.detail');

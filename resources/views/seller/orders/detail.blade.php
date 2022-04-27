@@ -85,7 +85,7 @@
             @else
             <td style="text-align: center">{{$show->score}}</td><!--買家評分-->
             @endif
-            @if($show->score=='')
+            @if($show->comment=='')
                 <td style="text-align: center">尚未評論</td><!--買家評論-->
             @else
                 <td style="text-align: center">{{$show->comment}}</td><!--買家評論-->

@@ -14,8 +14,8 @@
         <th width="20" >類別</th>
         <th width="20" >是否通過</th>
         <th width="20" >是否優良</th>
-        <th width="20" ></th>
         <th width="20" >鑑定日期</th>
+        <th width="20" >檢測情形</th>
 
     </tr>
     </thead>
@@ -28,11 +28,11 @@
             <td>{{$name}}</td>
             <td>{{$category}}</td>
 
-                @if($exam->pass=='0')
-                <td>未通過</td>
-                @else
-                <td>通過</td>
-                @endif
+            @if($exam->pass=='0')
+            <td>未通過</td>
+            @else
+            <td>通過</td>
+            @endif
 
             @if($exam->perfect=='0')
                 <td>非優良</td>
@@ -40,8 +40,23 @@
                 <td>優良</td>
             @endif
 
-            <td ><a href="#" style="color:#4E4F97"></a></td>
             <td>{{$exam->date}}</td>
+
+            @if(strtotime($exam->date)<strtotime(date('Y-m-d')))
+
+            <td>已完成</td>
+
+            @elseif(strtotime($exam->date)==strtotime(date('Y-m-d'))&&strtotime($exam->start)>strtotime(date('H-i')))
+            <td>已完成</td>
+
+            @elseif(strtotime($exam->date)==strtotime(date('Y-m-d'))&&strtotime($exam->start)>strtotime(date('H-i')))
+            <td><a href="{{ route('products.exams.destroy',$exam->id) }}">取消檢測</a></td>
+
+            @else
+            <td><a href="{{ route('products.exams.destroy',$exam->id) }}" onclick="return confirm('確定要取消檢測?')">取消檢測</a></td>
+
+            @endif
+
         </tr>
         </tfoot>
         </tbody>

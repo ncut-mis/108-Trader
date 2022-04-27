@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -15,7 +16,8 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $data=Order::where('member_id', auth()->user()->id)->get();
+        return view('orders', compact('data'));
     }
 
     /**
@@ -45,9 +47,20 @@ class OrderController extends Controller
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function show(Order $order)
+//    public function show(Order $order)
+//    {
+//        $data= DB::table('orders')->where('id','=',$order)->get();
+//        $data2= DB::table('order_details')->where('order_id','=',$order)->get();
+//        $products= DB::table('products')->get();
+//        return view('orders_detail',compact('data','data2','products'));
+//    }
+    public function detail($id)
     {
-        //
+        $data= DB::table('orders')->where('id','=',$id)->get();
+        $data2= DB::table('order_details')->where('order_id','=',$id)->get();
+        $products= DB::table('products')->get();
+        return view('orders_detail',compact('data','data2','products'));
+
     }
 
     /**
