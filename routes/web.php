@@ -97,5 +97,6 @@ Route::get('/exams/undone', [\App\Http\Controllers\ExamController::class, 'undon
 
 Route::get('/exams/finish', [\App\Http\Controllers\ExamController::class, 'finish'])->name('products.exams.finish');
 
+Route::get('/exams/{id}', [\App\Http\Controllers\ExamController::class, 'destroy'])->name('products.exams.destroy');
 
 //Route::get('/detail/{id}', [\App\Http\Controllers\SellerorderController::class, 'detail'])->name('seller.products.detail');

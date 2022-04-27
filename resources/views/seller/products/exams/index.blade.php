@@ -28,11 +28,11 @@
             <td>{{$name}}</td>
             <td>{{$category}}</td>
 
-                @if($exam->pass=='0')
-                <td>未通過</td>
-                @else
-                <td>通過</td>
-                @endif
+            @if($exam->pass=='0')
+            <td>未通過</td>
+            @else
+            <td>通過</td>
+            @endif
 
             @if($exam->perfect=='0')
                 <td>非優良</td>
@@ -42,26 +42,18 @@
 
             <td>{{$exam->date}}</td>
 
-            <?php
-            $today = date('Y-m-d');
-            $now= date('H-i');
-            ?>
-
-            @if(strtotime($exam->date)<strtotime($today))
+            @if(strtotime($exam->date)<strtotime(date('Y-m-d')))
 
             <td>已完成</td>
 
-            @elseif(strtotime($exam->date)==strtotime($today)||strtotime($exam->start)>strtotime($now))
-
+            @elseif(strtotime($exam->date)==strtotime(date('Y-m-d'))&&strtotime($exam->start)>strtotime(date('H-i')))
             <td>已完成</td>
 
-            @elseif(strtotime($exam->date)==strtotime($today)||strtotime($exam->start)<strtotime($now))
+            @elseif(strtotime($exam->date)==strtotime(date('Y-m-d'))&&strtotime($exam->start)>strtotime(date('H-i')))
+            <td><a href="{{ route('products.exams.destroy',$exam->id) }}">取消檢測</a></td>
 
-            <td>取消檢測</td>
-
-            @elseif(strtotime($exam->date)>strtotime($today))
-
-            <td>取消檢測</td>
+            @else
+            <td><a href="{{ route('products.exams.destroy',$exam->id) }}" onclick="return confirm('確定要取消檢測?')">取消檢測</a></td>
 
             @endif
 

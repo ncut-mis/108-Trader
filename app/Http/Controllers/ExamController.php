@@ -28,6 +28,7 @@ class ExamController extends Controller
         $category=Category::where('id','=',$category_id)->value('name');
 
         return view('seller.products.exams.index', compact('product','name','category'));
+
     }
 
     /**
@@ -74,7 +75,6 @@ class ExamController extends Controller
 
     public function finish()
     {
-
         $product = Exam::where('date','<',strtotime(date('Y-m-d')))->get();
 
         $pid=Exam::orderBy('product_id', 'ASC')->value('product_id');
@@ -128,8 +128,10 @@ class ExamController extends Controller
      * @param  \App\Models\Exam  $exam
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Exam $exam)
+    public function destroy($id)
     {
-        //
+        Exam::destroy($id);
+
+        return redirect()->route('products.exams.index');
     }
 }
