@@ -27,22 +27,13 @@
             <td>{{$name}}</td>
             <td>{{$category}}</td>
 
-            @if($exam->pass=='0')
-                <td>未通過</td>
-            @else
-                <td>通過</td>
-            @endif
+            <td>尚未檢測</td>
 
-            @if($exam->perfect=='0')
-                <td>非優良</td>
-            @else
-                <td>優良</td>
-            @endif
+            <td>尚未檢測</td>
 
             <td>{{$exam->date}}</td>
 
             <td><a href="{{ route('products.exams.destroy',$exam->id) }}" onclick="return confirm('確定要取消檢測?')" >取消檢測</a></td>
-
 
         </tr>
         </tfoot>
