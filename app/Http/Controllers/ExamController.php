@@ -55,12 +55,12 @@ class ExamController extends Controller
      */
     public function store(StoreExamRequest $request)
     {
-        //
+
     }
 
     public function undone()
     {
-        $product = Exam::where('date','>',strtotime(date('Y-m-d')))->get();
+        $product = Exam::where('date','>',date('Y-m-d'))->get();
 
         $pid=Exam::orderBy('product_id', 'ASC')->value('product_id');
 
@@ -75,7 +75,7 @@ class ExamController extends Controller
 
     public function finish()
     {
-        $product = Exam::where('date','<',strtotime(date('Y-m-d')))->get();
+        $product = Exam::where('date','<',date('Y-m-d'))->get();
 
         $pid=Exam::orderBy('product_id', 'ASC')->value('product_id');
 
