@@ -62,8 +62,8 @@ class CartItemController extends Controller
                 echo "<script>alert('已加入購物車'); location.href ='../';</script>";
             }
             else if($addOK==1) {
-                //  "<script>alert('已存在該商品'); location.href ='../';</script>"; 這種跳轉才會有訊息，但不知為何在這怪怪的
-                return redirect()->route('home.index');//先以不跳訊息的方式呈現
+                 echo "<script>alert('已存在該商品'); location.href ='../';</script>"; //這種跳轉才會有訊息，但不知為何在這怪怪的
+//               return redirect()->route('home.index');//先以不跳訊息的方式呈現
             }
         }
         else
@@ -131,8 +131,9 @@ class CartItemController extends Controller
      * @param  \App\Models\Cart_item  $cart_item
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Cart_item $cart_item)
+    public function destroy($cart_item)
     {
-        //
+        Cart_item::destroy($cart_item);
+        return redirect()->route('products.index');
     }
 }

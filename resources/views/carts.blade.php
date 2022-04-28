@@ -72,11 +72,11 @@
                         <tr>
 {{--                            <th>SELLER_NAME</th>--}}
                             <th width="25%" style="text-align: center">圖片</th>
-                            <th width="15%" style="text-align: center">商品名稱</th>
+                            <th width="20%" style="text-align: center">商品名稱</th>
                             <th width="10%" style="text-align: center">單價</th>
                             <th width="10%" style="text-align: center">數量</th>
                             <th width="10%" style="text-align: center">小計</th>
-                            <th width="15%" style="text-align: center">操作</th>
+                            <th width="10%" style="text-align: center">操作</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -107,7 +107,12 @@
                                         ${{$total}}
                                     </td>
                                     <td style="text-align: center;vertical-align: middle">
-{{--                                        <form action="/cart/destroy/{{$cart->id}}" method="POST" style=" display: inline">--}}
+                                        <form action="{{ route('cart_items.destroy',$cart_item->id) }}" method="POST" style="display: inline">
+                                            @method('DELETE')
+                                            @csrf
+                                            <button class="btn btn-danger" type="submit" style="width:100px;height:30px; padding:5px 5px;" onClick="return confirm('確定要移除此商品?')">移除商品</button>
+                                        </form>
+                                        {{--                                        <form action="/cart/destroy/{{$cart->id}}" method="POST" style=" display: inline">--}}
 {{--                                            @method('DELETE')--}}
 {{--                                            @csrf--}}
 {{--                                            <button type="submit" class="btn btn-danger">刪除</button>--}}
