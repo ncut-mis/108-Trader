@@ -43,7 +43,7 @@ Route::resource('sellers', \App\Http\Controllers\SellerController::class);
 Route::resource('cart_items', \App\Http\Controllers\CartItemController::class);
 
 //加入購物車，store做不出來
-Route::get('/cart_items/{id}', [\App\Http\Controllers\CartItemController::class, 'add'])->name('cart_items.add');
+Route::get('/cartitems/{id}', [\App\Http\Controllers\CartItemController::class, 'add'])->name('cart_items.add');
 
 Route::resource('orders', \App\Http\Controllers\OrderController::class);
 
