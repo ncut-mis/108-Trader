@@ -30,14 +30,18 @@
 
             @if($exam->pass=='0')
             <td>未通過</td>
-            @else
+            @elseif($exam->pass=='1')
             <td>通過</td>
+            @else
+            <td>尚未檢測</td>
             @endif
 
             @if($exam->perfect=='0')
                 <td>非優良</td>
-            @else
+            @elseif($exam->perfect=='1')
                 <td>優良</td>
+            @else
+            <td>尚未檢測</td>
             @endif
 
             <td>{{$exam->date}}</td>
@@ -50,7 +54,7 @@
             <td>已完成</td>
 
             @elseif(strtotime($exam->date)==strtotime(date('Y-m-d'))&&strtotime($exam->start)>strtotime(date('H-i')))
-            <td><a href="{{ route('products.exams.destroy',$exam->id) }}">取消檢測</a></td>
+            <td><a href="{{ route('products.exams.destroy',$exam->id) }}" onclick="return confirm('確定要取消檢測?')">取消檢測</a></td>
 
             @else
             <td><a href="{{ route('products.exams.destroy',$exam->id) }}" onclick="return confirm('確定要取消檢測?')">取消檢測</a></td>
