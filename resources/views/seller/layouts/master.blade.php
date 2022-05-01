@@ -322,8 +322,6 @@
                                    $sname=\App\Models\Member::where('id','=',$seller)->value('name');
                                    ?>
                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{$sname}}</span>
-                                   <img class="img-profile rounded-circle"
-                                        src="img/1111.jpg">
                                </a>
 
                                <!-- Dropdown - User Information -->
@@ -334,8 +332,13 @@
                                        個人資料
                                    </a>
                                    <div class="dropdown-divider"></div>
-                                   <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                   <a class="dropdown-item" href="{{ route('logout') }}" data-toggle="modal" data-target="#logoutModal"
+                                      onclick="event.preventDefault();
+                                            document.getElementById('logout-form').submit();">
                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                       <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                           @csrf
+                                       </form>
                                        登出
                                    </a>
                                </div>

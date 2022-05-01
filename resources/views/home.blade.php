@@ -91,7 +91,7 @@
                                         @if($sellers->isEmpty())
                                             <li><a href="#">成為賣家</a></li>
                                         @else
-                                            <li><a href="#">賣家後台</a></li>
+                                            <li><a href="{{route('seller.dashboard')}}">賣家後台</a></li>
                                         @endif
                                         <li><a class="dropdown-item" href="{{ route('logout') }}" style="font-size:15px;color: #6b7280"
                                                 onclick="event.preventDefault();
