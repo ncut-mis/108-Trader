@@ -58,88 +58,111 @@
                 <h4>我的購物車</h4>
             </div>
         </div>
-        <?php
-            $products = DB::table('products')->get();
-        ?>
+
         <div class="row">
             <div class="col-lg-12 col-md-12 mx-auto">
-
-{{--                @if(count($carts)>0)--}}
-
-                <table class="table table-bordered table-hover">
-                        <h5>SELLER_NAME</h5>
-                        <thead>
-                        <tr>
-{{--                            <th>SELLER_NAME</th>--}}
-                            <th width="25%" style="text-align: center">圖片</th>
-                            <th width="20%" style="text-align: center">商品名稱</th>
-                            <th width="10%" style="text-align: center">單價</th>
-                            <th width="10%" style="text-align: center">數量</th>
-                            <th width="10%" style="text-align: center">小計</th>
-                            <th width="10%" style="text-align: center">操作</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-
+                @if(count($cart_items)>0)
+                    @foreach($sellers as $seller)
+                        <?php
+                            $c=\App\Models\Product::
+                                join('cart_items','products.id','=','cart_items.product_id')
+                                ->join('sellers','products.seller_id','=','sellers.id')
+                                ->where('sellers.id','=',$seller->id)
+                                ->select('sellers.id')
+                                ->get();
+                        ?>
+                        @if(count($c)>0)
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th colspan='6'>
+                                    賣家：{{ $seller->name }}
+                                </th>
+                            </tr>
+                            <tr>
+                                <th width="25%" style="text-align: center">圖片</th>
+                                <th width="20%" style="text-align: center">商品名稱</th>
+                                <th width="10%" style="text-align: center">單價</th>
+                                <th width="10%" style="text-align: center">數量</th>
+                                <th width="10%" style="text-align: center">小計</th>
+                                <th width="10%" style="text-align: center">操作</th>
+                            </tr>
+                            </thead>
+                            <?php
+                            $products_total = 0;
+                            ?>
+                        @endif
                         @foreach($cart_items as $cart_item)
-                            @foreach($products as $product)
-                                @if($product->id == $cart_item->product_id)
-                                <tr style="">
-                                    <td style="text-align: center;line-height:100px;">
-                                        <?php
-                                            $p=$product->pictures;
-                                        ?>
-                                        <img src="{{ asset('img/'.$p.'') }}" alt="IMG-PRODUCT" height="150">
+                            @if($seller->id == $cart_item->seller_id)
+                                <tbody>
+                                    <tr style="">
+                                        <td style="text-align: center;line-height:100px;">
+                                            <?php
+                                                $p=$cart_item->pictures;
+                                            ?>
+                                            <img src="{{ asset('img/'.$p.'') }}" alt="IMG-PRODUCT" height="150">
+                                        </td>
+                                        <td style="text-align: center;vertical-align: middle">
+                                            {{$cart_item->name}}
+                                        </td>
+                                        <td style="text-align: center;vertical-align: middle">
+                                            ${{$cart_item->price}}
+                                        </td>
+                                        <td style="text-align: center;vertical-align: middle">
+                                            {{$cart_item->quantity}}
+                                        </td>
+                                        <td style="text-align: center;vertical-align: middle">
+                                            <?php
+                                                $total=$cart_item->price * $cart_item->quantity;
+                                                $products_total=$products_total+$total;//該賣場總額
+                                            ?>
+                                            ${{$total}}
+                                        </td>
+                                        <td style="text-align: center;vertical-align: middle">
+                                            <form action="{{ route('cart_items.destroy',$cart_item->id) }}" method="POST" style="display: inline">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button class="btn btn-danger" type="submit" style="width:100px;height:30px; padding:5px 5px;" onClick="return confirm('確定要移除此商品?')">移除商品</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                @endif
+                        @endforeach
+                            @if(count($c)>0)
+                                <tr>
+                                    <td colspan='5'>
+                                        <div style="text-align:right">
+                                                <b>總計：<u>${{$products_total}}</u></b>
+                                        </div>
                                     </td>
-                                    <td style="text-align: center;vertical-align: middle">
-                                        {{$product->name}}
-                                    </td>
-                                    <td style="text-align: center;vertical-align: middle">
-                                        {{$product->price}}
-                                    </td>
-                                    <td style="text-align: center;vertical-align: middle">
-                                        {{$cart_item->quantity}}
-                                    </td>
-                                    <td style="text-align: center;vertical-align: middle">
-                                        <?php
-                                            $total=$product->price * $cart_item->quantity;
-                                        ?>
-                                        ${{$total}}
-                                    </td>
-                                    <td style="text-align: center;vertical-align: middle">
-                                        <form action="{{ route('cart_items.destroy',$cart_item->id) }}" method="POST" style="display: inline">
-                                            @method('DELETE')
-                                            @csrf
-                                            <button class="btn btn-danger" type="submit" style="width:100px;height:30px; padding:5px 5px;" onClick="return confirm('確定要移除此商品?')">移除商品</button>
-                                        </form>
-                                        {{--                                        <form action="/cart/destroy/{{$cart->id}}" method="POST" style=" display: inline">--}}
-{{--                                            @method('DELETE')--}}
-{{--                                            @csrf--}}
-{{--                                            <button type="submit" class="btn btn-danger">刪除</button>--}}
-{{--                                        </form>--}}
+                                    <td>
+                                        <div style="text-align:center">
+                                            <a style="text-align:center" class="btn btn-sm btn-primary" href="#">結帳</a>
+                                        </div>
                                     </td>
                                 </tr>
-                                @endif
-                            @endforeach
-                        @endforeach
+                            </table>
+                            @endif
+                    @endforeach
+                @else
+                    <div style="text-align: center">
+                        <div class="title-box">
+                            <p>&nbsp;</p>
+                            <p>&nbsp;</p>
+                            <p>&nbsp;</p>
+                            <p>&nbsp;</p>
+                            <p>&nbsp;</p>
+                            <h2>趕快去購物吧!</h2>
+                            <p>&nbsp;</p>
+                            <p>&nbsp;</p>
+                            <p>&nbsp;</p>
+                            <p>&nbsp;</p>
+                            <p>&nbsp;</p>
+                        </div>
 
-                        </tbody>
-                    </table>
-                    <div style="text-align:right">
-{{--                        <b>總計：<u>${{$total}}</u></b>--}}
                     </div>
-                    <div style="text-align:center">
-                        <a class="btn btn-sm btn-primary" href="#">結帳</a>
-                    </div>
-
-{{--                @else--}}
-{{--                    <div style="text-align: center">--}}
-{{--                        <div class="title-box">--}}
-{{--                            <h2>趕快去購物吧!</h2>--}}
-{{--                        </div>--}}
-
-{{--                    </div>--}}
-{{--                @endif--}}
+                @endif
             </div>
         </div>
     </div>

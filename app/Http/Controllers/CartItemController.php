@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Cart_item;
 use App\Http\Requests\StoreCart_itemRequest;
 use App\Http\Requests\UpdateCart_itemRequest;
+use App\Models\Product;
+use App\Models\Seller;
 
 class CartItemController extends Controller
 {
@@ -15,11 +17,23 @@ class CartItemController extends Controller
      */
     public function index()
     {
+        $sellers = Seller::
+            join('users','sellers.member_id','=','users.id')
+//            ->join('products','sellers.id','=','products.seller_id')
+            ->select('sellers.id','users.name')
+            ->get();
+
+        $data1=['sellers' => $sellers];
         if(\Illuminate\Support\Facades\Auth::check())
         {
-            $cart_items = Cart_item::where('member_id',auth()->user()->id)->get();
+            $cart_items = Cart_item::
+                join('products','cart_items.product_id','=','products.id')
+                ->where('member_id',auth()->user()->id)
+                ->select('products.seller_id','products.name','products.pictures','products.price','cart_items.id','cart_items.quantity')
+
+                ->get();
             $data=['cart_items' => $cart_items];
-            return view('carts', $data);
+            return view('carts', $data,$data1);
         }
         else
         {
@@ -134,6 +148,6 @@ class CartItemController extends Controller
     public function destroy($cart_item)
     {
         Cart_item::destroy($cart_item);
-        return redirect()->route('products.index');
+        return redirect()->route('cart_items.index');
     }
 }
