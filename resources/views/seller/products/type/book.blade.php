@@ -9,7 +9,7 @@
 
 @section('breadcrumb')
     <li class="breadcrumb-item" style="color: #4E4F97"><a href="#">首頁</a></li>
-    <li class="breadcrumb-item" style="color: #4E4F97"><a href="{{route('seller.products.index'}}">商品管理</a></li>
+    <li class="breadcrumb-item" style="color: #4E4F97"><a href="{{route('seller.products.index')}}">商品管理</a></li>
     <li class="breadcrumb-item active" style="color: #4E4F97">書籍類</li>
 @endsection
 
@@ -57,7 +57,7 @@
                 <a href="{{ route('seller.products.destroy',$product->id) }}" style="color:#DC9FB4" onClick="return confirm('確定要刪除此商品?')">刪除</a>
             </td>
 
-            <td ><a href="#" style="color:#4E4F97">申請</a></td>
+            <td ><a href="{{ route('products.exams.create', $product->id) }}" style="color:#4E4F97">申請</a></td>
         </tr>
         </tfoot>
         </tbody>

@@ -56,7 +56,7 @@
                 <a href="{{ route('seller.products.destroy',  $product->id) }}" style="color:#DC9FB4" onClick="return confirm('確定要刪除此商品?')">刪除</a>
             </td>
 
-            <td ><a href="#" style="color:#4E4F97">申請</a></td>
+            <td ><a href="{{ route('products.exams.create', $product->id) }}" style="color:#4E4F97">申請</a></td>
         </tr>
         </tfoot>
         </tbody>
