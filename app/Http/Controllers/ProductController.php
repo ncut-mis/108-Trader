@@ -17,7 +17,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products=Product::orderBy('id','ASC')->get();
+        //status=1為上架
+        $products=Product::where('status','=','1')->orderBy('id','ASC')->get();
         $data=['products' => $products];
         return view('products', $data);
     }
@@ -26,7 +27,7 @@ class ProductController extends Controller
     {
         $name=$_GET['search'];
 
-        $products=Product::where('name','like','%'.$name.'%')->get();
+        $products=Product::where('name','like','%'.$name.'%')->where('status','=','1')->get();
         $data=['products' => $products];
         return view('search', $data);
     }
