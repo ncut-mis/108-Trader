@@ -19,7 +19,6 @@ class CartItemController extends Controller
     {
         $sellers = Seller::
             join('users','sellers.member_id','=','users.id')
-//            ->join('products','sellers.id','=','products.seller_id')
             ->select('sellers.id','users.name')
             ->get();
 
@@ -29,8 +28,7 @@ class CartItemController extends Controller
             $cart_items = Cart_item::
                 join('products','cart_items.product_id','=','products.id')
                 ->where('member_id',auth()->user()->id)
-                ->select('products.seller_id','products.name','products.pictures','products.price','cart_items.id','cart_items.quantity')
-
+                ->select('products.seller_id','products.inventory','products.name','products.pictures','products.price','cart_items.id','cart_items.quantity')
                 ->get();
             $data=['cart_items' => $cart_items];
             return view('carts', $data,$data1);
@@ -134,10 +132,25 @@ class CartItemController extends Controller
      * @param  \App\Models\Cart_item  $cart_item
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateCart_itemRequest $request, Cart_item $cart_item)
+    public function update(UpdateCart_itemRequest $request,$cart_item)
     {
         //
+
+        /*$cart_item = Cart_item::find($cart_item);
+        $cart_item ->update(['quantity'=>$_GET['quantity']]);
+        return redirect()->route('cart_items.index');*/
     }
+
+    public function renew()
+    {
+        //
+
+//        $cart_item = Cart_item::find($_GET['id']);
+//        $cart_item ->update(['quantity'=>$_GET['quantity']]);
+        Cart_item::where('id',$_GET['id'])->update(['quantity'=>$_GET['quantity']]);
+        return redirect()->route('cart_items.index');
+    }
+
 
     /**
      * Remove the specified resource from storage.

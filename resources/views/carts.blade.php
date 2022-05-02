@@ -47,7 +47,6 @@
 <header class="header-v2">
     <!-- Header desktop -->
     @include('layouts.partials.sidebar')
-
 </header>
 
 <!-- Product -->
@@ -109,14 +108,17 @@
                                             ${{$cart_item->price}}
                                         </td>
                                         <td style="text-align: center;vertical-align: middle">
-                                            {{$cart_item->quantity}}
+                                            <form action="{{route('cart_items.renew')}}">
+                                                <input type="number" name="quantity" value="{{$cart_item->quantity}}" min="1" max="{{$cart_item->inventory}}" class="form-control text-center">
+                                                <input type="hidden" name="id" value="{{$cart_item->id}}" class="form-control text-center">
+                                            </form>
                                         </td>
                                         <td style="text-align: center;vertical-align: middle">
-                                            <?php
-                                                $total=$cart_item->price * $cart_item->quantity;
-                                                $products_total=$products_total+$total;//該賣場總額
-                                            ?>
-                                            ${{$total}}
+                                                <?php
+                                                    $total=$cart_item->price * $cart_item->quantity;
+                                                    $products_total=$products_total+$total;//該賣場總額
+                                                ?>
+                                                 ${{$total}}
                                         </td>
                                         <td style="text-align: center;vertical-align: middle">
                                             <form action="{{ route('cart_items.destroy',$cart_item->id) }}" method="POST" style="display: inline">
