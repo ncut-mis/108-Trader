@@ -19,6 +19,34 @@
                 <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
             </div>
 
+            {{--<div class="mt-4">
+                --}}{{--<x-jet-label for="sex" value="{{ __('Sex') }}" />
+                <x-jet-input id="sex" type="radio" name="sex" :value="old('male')" required />男
+                <x-jet-input id="sex" type="radio" name="sex" :value="old('female')" required />女--}}{{--
+                <label for="sex">Sex</label><br>
+                <label class="radio-inline" for="male">
+                    <input type="radio" name="sex" id="male" value="male">  男
+                </label>
+                <label class="radio-inline" for="female">
+                    <input type="radio" name="sex" id="female" value="female">  女
+                </label>
+            </div>--}}
+
+            <div class="mt-4">
+                <x-jet-label for="birthday" value="{{ __('Birthday') }}  (如1997-01-01)" />
+                <x-jet-input id="birthday" class="block mt-1 w-full" type="text" name="birthday" :value="old('birthday')" required />
+            </div>
+
+            <div class="mt-4">
+                <x-jet-label for="phone" value="{{ __('Phone') }}" />
+                <x-jet-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" required />
+            </div>
+
+            <div class="mt-4">
+                <x-jet-label for="address" value="{{ __('Address') }}" />
+                <x-jet-input id="address" class="block mt-1 w-full" type="text" name="address" :value="old('address')" required />
+            </div>
+
             <div class="mt-4">
                 <x-jet-label for="password" value="{{ __('Password') }}" />
                 <x-jet-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
