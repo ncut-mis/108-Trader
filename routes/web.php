@@ -45,6 +45,9 @@ Route::resource('cart_items', \App\Http\Controllers\CartItemController::class);
 //加入購物車，store做不出來
 Route::get('/cartitems/{id}', [\App\Http\Controllers\CartItemController::class, 'add'])->name('cart_items.add');
 
+//更改購物車數量，update做不出來
+Route::get('/update', [\App\Http\Controllers\CartItemController::class, 'renew'])->name('cart_items.renew');
+
 Route::resource('orders', \App\Http\Controllers\OrderController::class);
 
 //訂單詳細資料，show方法有bug
