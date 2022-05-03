@@ -5,7 +5,12 @@
 @section('content')
 
 <?php
-    $categories = DB::table('categories')->where('id', $products->category_id )->first();//這行怪怪的，執行錯誤
+    $categories = \App\Models\Category::where('id', $products->category_id )->first();
+    $sellers = \App\Models\Seller::
+                    join('users','sellers.member_id','=','users.id')
+                    ->where('sellers.id','=', $products->seller_id)
+                    ->select('users.name','sellers.id')
+                    ->first();
 ?>
 <!-- breadcrumb 首頁/類別/商品名稱-->
 <div class="container">
@@ -83,10 +88,17 @@
                     </span><br><br>
 
                     <span class="mtext-106 cl2">
-						賣家：<a href="{{route('sellers.show', $products->seller_id)}}">{{ $products->seller_id }}</a>
+						賣家：<a href="{{route('sellers.show', $products->seller_id)}}">{{ $sellers->name }}</a>
+                    </span><br><br>
+
+                    <span class="mtext-106 cl2">
+						庫存：{{ $products->inventory }}
                     </span>
-
-
+                    <p>&nbsp;</p>
+                    <p>&nbsp;</p>
+                    <p>&nbsp;</p>
+                    <p>&nbsp;</p>
+                    
                         <div class="flex-w flex-r-m p-b-10">
                             <div class="size-204 flex-w flex-m respon6-next">
                                 <div class="wrap-num-product flex-w m-r-20 m-tb-10">
@@ -112,7 +124,7 @@
 {{--                                        加入購物車--}}
 {{--                                    </button>--}}
 {{--                                </form>--}}
-                                    <a href="{{route('cart_items.add', $products->id)}}" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+                                    <a href="{{route('cart_items.add', $products->id)}}" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
                                         加入購物車
                                     </a>
 {{--                                <button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">--}}
@@ -149,16 +161,20 @@
 </section>
 
 
-<!-- 目前是做賣家其他商品，後面會改成類似商品 (不會重複顯示該筆商品) -->
+<!-- 目前是做賣家其他商品-->
 <section class="sec-relate-product bg0 p-t-45 p-b-105">
     <div class="container">
         <div class="p-b-45">
             <h3 class="ltext-106 cl5 txt-center">
-                類似商品(目前為賣家其他商品)
+                賣家其他商品
             </h3>
         </div>
 <?php
-    $products2 = DB::table('products')->where( 'seller_id' , $products->seller_id)->where('id','!=',$products->id)->get();//抓賣家其他商品
+    $products2 = \App\Models\Product::
+                    where( 'seller_id' , $products->seller_id)
+                    ->where('id','!=',$products->id)
+                    ->where('status','=','1')
+                    ->get();//抓賣家其他商品
 ?>
         <!-- Slide2 -->
         <div class="wrap-slick2">
