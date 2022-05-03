@@ -19,7 +19,6 @@ class CartItemController extends Controller
     {
         $sellers = Seller::
             join('users','sellers.member_id','=','users.id')
-//            ->join('products','sellers.id','=','products.seller_id')
             ->select('sellers.id','users.name')
             ->get();
 
@@ -29,11 +28,10 @@ class CartItemController extends Controller
             $cart_items = Cart_item::
                 join('products','cart_items.product_id','=','products.id')
                 ->where('member_id',auth()->user()->id)
-                ->select('products.seller_id','products.name','products.pictures','products.price','cart_items.id','cart_items.quantity')
-
+                ->select('products.seller_id','products.name','products.pictures','products.price','cart_items.id','cart_items.product_id','cart_items.quantity')
                 ->get();
-            $data=['cart_items' => $cart_items];
-            return view('carts', $data,$data1);
+            $data2=['cart_items' => $cart_items];
+            return view('carts', $data1,$data2);
         }
         else
         {
@@ -73,11 +71,10 @@ class CartItemController extends Controller
 
                     ]
                 );
-                echo "<script>alert('已加入購物車'); location.href ='../';</script>";
+                echo "<script>alert('已加入購物車'); location.href ='/cart_items';</script>";
             }
             else if($addOK==1) {
-                 echo "<script>alert('已存在該商品'); location.href ='../';</script>"; //這種跳轉才會有訊息，但不知為何在這怪怪的
-//               return redirect()->route('home.index');//先以不跳訊息的方式呈現
+                 echo "<script>alert('已存在該商品'); location.href ='/cart_items';</script>";
             }
         }
         else
