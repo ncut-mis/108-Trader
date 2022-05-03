@@ -71,25 +71,25 @@
                                 ->get();
                         ?>
                         @if(count($c)>0)
-                        <table class="table table-bordered table-hover">
-                            <thead>
-                            <tr>
-                                <th colspan='6'>
-                                    賣家：{{ $seller->name }}
-                                </th>
-                            </tr>
-                            <tr>
-                                <th width="25%" style="text-align: center">圖片</th>
-                                <th width="20%" style="text-align: center">商品名稱</th>
-                                <th width="10%" style="text-align: center">單價</th>
-                                <th width="10%" style="text-align: center">數量</th>
-                                <th width="10%" style="text-align: center">小計</th>
-                                <th width="10%" style="text-align: center">操作</th>
-                            </tr>
-                            </thead>
-                            <?php
-                            $products_total = 0;
-                            ?>
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th colspan='6'>
+                                        賣家：{{ $seller->name }}
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th width="25%" style="text-align: center">圖片</th>
+                                    <th width="20%" style="text-align: center">商品名稱</th>
+                                    <th width="10%" style="text-align: center">單價</th>
+                                    <th width="10%" style="text-align: center">數量</th>
+                                    <th width="10%" style="text-align: center">小計</th>
+                                    <th width="10%" style="text-align: center">操作</th>
+                                </tr>
+                                </thead>
+                                <?php
+                                    $products_total = 0;
+                                ?>
                         @endif
                         @foreach($cart_items as $cart_item)
                             @if($seller->id == $cart_item->seller_id)
@@ -102,7 +102,7 @@
                                             <img src="{{ asset('img/'.$p.'') }}" alt="IMG-PRODUCT" height="150">
                                         </td>
                                         <td style="text-align: center;vertical-align: middle">
-                                            {{$cart_item->name}}
+                                            <a href="{{route('products.detail',$cart_item->product_id)}}">{{$cart_item->name}}</a>
                                         </td>
                                         <td style="text-align: center;vertical-align: middle">
                                             ${{$cart_item->price}}
@@ -162,7 +162,6 @@
                             <p>&nbsp;</p>
                             <p>&nbsp;</p>
                         </div>
-
                     </div>
                 @endif
             </div>

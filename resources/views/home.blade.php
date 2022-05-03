@@ -61,7 +61,7 @@
                             <ul class="sub-menu">
                                 <li><a href="{{route('products.index')}}">全部</a></li>
                                 <?php
-                                $categories = DB::table('categories')->orderBy('id','ASC')->get();?>
+                                $categories = \App\Models\Category::orderBy('id','ASC')->get();?>
                                 @foreach($categories as $category)
                                         <li><a href="{{route('categories.show', $category->id)}}">{{$category->name}}</a></li>
                                 @endforeach
@@ -270,7 +270,7 @@
                 <!-- 一格block -->
 {{--                <div class="block1 wrap-pic-w">--}}
                     <?php
-                    $categories = DB::table('categories')->orderBy('id','ASC')->get();?>
+                    $categories = \App\Models\Category::orderBy('id','ASC')->get();?>
                 <!--<li><a href="#"></a></li>-->
                     @foreach($categories as $category)
                         <div class="col-md-4 col-xl-2 p-b-30 m-lr-auto">
@@ -283,7 +283,7 @@
                                             </span>
 
                                         <span class="block1-info stext-102 trans-04">
-                                                Test
+                                                來去購物吧~
                                         </span>
                                     </div>
 
@@ -307,7 +307,7 @@
     <div class="container">
         <div class="p-b-10">
             <h3 class="ltext-103 cl5">
-                NEW ARRIVAL
+                新品上架
             </h3>
         </div>
 
@@ -317,42 +317,48 @@
 
         <div class="row isotope-grid">
             <?php
-                $products = DB::table('products')->orderBy('id','DESC')->get();?>
-        <!--<li><a href="#"></a></li>-->
+                $products = \App\Models\Product::where('status','=','1')->orderBy('id','DESC')->get();
+                $product_count=0;
+            ?>
             @foreach($products as $product)
-            <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
-                <!-- Block2 -->
-                <div class="block2">
-                    <div class="block2-pic hov-img0">
-                        <img src="img/{{ $product->pictures }}" alt="IMG-PRODUCT" height="200">
+                @if($product_count<12)
+                    <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
+                        <!-- Block2 -->
+                        <div class="block2">
+                            <div class="block2-pic hov-img0">
+                                <img src="img/{{ $product->pictures }}" alt="IMG-PRODUCT" height="200">
 
-                        <a href="{{route('products.detail', $product->id)}}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
-{{--                        <a href="{{route('products.show', $product->id)}}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">--}}
-                            Quick View
-                        </a>
-                    </div>
+                                <a href="{{route('products.detail', $product->id)}}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
+        {{--                        <a href="{{route('products.show', $product->id)}}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">--}}
+                                    Quick View
+                                </a>
+                            </div>
 
-                    <div class="block2-txt flex-w flex-t p-t-14">
-                        <div class="block2-txt-child1 flex-col-l ">
-                            <a href="{{route('products.detail', $product->id)}}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-{{--                            <a href="{{route('products.show', $product->id)}}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">--}}
-                                {{ $product->name }}
-                            </a>
+                            <div class="block2-txt flex-w flex-t p-t-14">
+                                <div class="block2-txt-child1 flex-col-l ">
+                                    <a href="{{route('products.detail', $product->id)}}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+        {{--                            <a href="{{route('products.show', $product->id)}}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">--}}
+                                        {{ $product->name }}
+                                    </a>
 
-                            <span class="stext-105 cl3">
-									${{ $product->price }}
-								</span>
+                                    <span class="stext-105 cl3">
+                                            ${{ $product->price }}
+                                        </span>
+                                </div>
+
+                                <div class="block2-txt-child2 flex-r p-t-3">
+                                    <a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+        {{--                                <img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">--}}
+        {{--                                <img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">--}}
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-
-                        <div class="block2-txt-child2 flex-r p-t-3">
-                            <a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-{{--                                <img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">--}}
-{{--                                <img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">--}}
-                            </a>
-                        </div>
                     </div>
-                </div>
-            </div>
+                    <?php
+                        $product_count++;
+                    ?>
+                @endif
             @endforeach
         </div>
 

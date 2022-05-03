@@ -50,7 +50,7 @@ class CategoryController extends Controller
     {
         $categories=Category::where('id',$category)->first();
         $data=['categories' => $categories];
-        $products=Product::where('category_id',$category)->get();
+        $products=Product::where('status','=','1')->where('category_id',$category)->get();
         $data2=['products' => $products];
         return view('categories',$data,$data2);
     }
