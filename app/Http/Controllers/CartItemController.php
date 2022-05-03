@@ -35,8 +35,8 @@ class CartItemController extends Controller
         }
         else
         {
-            echo "<script >alert('尚未登入')</script>";
-            return redirect()->route('login');
+            echo "<script >alert('尚未登入'); location.href ='/login';</script>";
+//            return redirect()->route('login');
         }
     }
 
@@ -79,9 +79,7 @@ class CartItemController extends Controller
         }
         else
         {
-            echo "<script >alert('尚未登入')</script>";
-            return redirect()->route('login');
-
+            echo "<script >alert('尚未登入'); location.href ='/login';</script>";
         }
 
     }
