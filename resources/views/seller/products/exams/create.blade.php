@@ -31,19 +31,35 @@
                 @csrf
 
                 <div class="row g-3">
-                    <div class="col-md-12 mb-3">
-                        <label for="inputname" class="form-label">商品名稱</label>
-                        <input type="text" class="form-control"  aria-label="name" value="{{$name}}">
-                    </div>
-
                     <div class="col-md-7 mb-3">
-                        <label for="inputtime" class="form-label">預約日期</label>
-                        <input type="date" class="form-control"  aria-label="time" >
+                        <label for="inputname" class="form-label">商品名稱</label>
+                        <input type="text" class="form-control"  aria-label="name" value="{{$name}}" disabled>
                     </div>
 
                     <div class="col-md-3 mb-3">
-                        <label for="inputtime" class="form-label">預約時段</label>
-                        <input type="time" class="form-control"  aria-label="time" >
+                        <label for="inputname" class="form-label">類別</label>
+                        <input type="text" class="form-control"  aria-label="name" value="{{$category}}" disabled>
+                    </div>
+
+                    <div class="col-md-7 mb-3">
+                        <label for="inputtime" class="form-label">檢測日期</label>
+                        <input type="date" class="form-control"  aria-label="time"
+                               value="<?php echo date ("Y-m-d")?>"
+                               min="<?php echo date ("Y-m-d"); ?>" max="<?php echo date ("Y-m-d"); ?>">
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label for="inputtime" class="form-label">檢測時段</label>
+
+                        <select  class="form-control"  aria-label="time" name="time">
+
+                        @foreach($time as $t)
+
+                        <option>{{$t->start}}</option>
+
+                        @endforeach
+
+                        </select>
                     </div>
 
                 </div>
@@ -61,7 +77,7 @@
 
                             <div class="col-md-7" style="margin-top: 20px">
                                 <label for="date" class="form-label">到期日</label>
-                                <input type="text" class="form-control" aria-label="date" value="07/28" pattern="[0-9]{4}">
+                                <input type="" class="form-control" aria-label="date" value="07/28" pattern="[0-9]{4}">
                             </div>
 
 
