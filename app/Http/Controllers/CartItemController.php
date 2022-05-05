@@ -134,20 +134,26 @@ class CartItemController extends Controller
     public function update(UpdateCart_itemRequest $request,$cart_item)
     {
         //
-
-        /*$cart_item = Cart_item::find($cart_item);
-        $cart_item ->update(['quantity'=>$_GET['quantity']]);
-        return redirect()->route('cart_items.index');*/
     }
 
     public function renew()
     {
-        //
-
-//        $cart_item = Cart_item::find($_GET['id']);
-//        $cart_item ->update(['quantity'=>$_GET['quantity']]);
         Cart_item::where('id',$_GET['id'])->update(['quantity'=>$_GET['quantity']]);
         return redirect()->route('cart_items.index');
+    }
+
+    public function check($seller_id)
+    {
+        $check = Cart_item::
+            join('products','cart_items.product_id','=','products.id')
+            ->join('sellers','sellers.id','=','products.seller_id')
+            ->where('cart_items.member_id',auth()->user()->id)
+            ->where('sellers.id',$seller_id)
+            ->select('products.pictures','products.name','products.price','cart_items.quantity')
+            ->get();
+
+        $data = ['checks' => $check];
+        return view('check',$data);
     }
 
 
