@@ -109,7 +109,7 @@
                     @else
                         <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11">
                             {{--                    <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="2">--}}
-                            <a href="{{ route('login') }}"><h5><i class="zmdi zmdi-shopping-cart">購物車</i></h5></a>
+                            <a href="{{ route('cart_items.index') }}"><h5><i class="zmdi zmdi-shopping-cart">購物車</i></h5></a>
                         </div>
 
                         <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11">

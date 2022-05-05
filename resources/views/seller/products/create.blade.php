@@ -57,6 +57,11 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="stock">庫存</label>
+                    <input name="stock" class="form-control" placeholder="請輸入商品庫存">
+                </div>
+
+                <div class="form-group">
                     <label for="status">狀態</label>
                     <label class="radio-inline" for="t1">
                         <input type="radio" name="status" id="0" value="0">未上架
@@ -79,3 +84,4 @@
     </div>
     <!-- /.row -->
 @endsection
+

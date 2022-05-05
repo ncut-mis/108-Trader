@@ -83,8 +83,8 @@ Route::get('/seller/products/{id}', [\App\Http\Controllers\SellerproductControll
 
 Route::resource('seller/products', \App\Http\Controllers\SellerproductController::class)->names([
     'index' =>'seller.products.index',
-    'edit' => 'seller.products.edit',
-    'create'=>'seller.products.create'
+    'edit' => 'seller.products.edit','create' => 'seller.products.create',
+
 ]);
 
 //商品各類別
@@ -110,7 +110,7 @@ Route::get('/exams', [\App\Http\Controllers\ExamController::class, 'index'])->na
 
 Route::get('/products/{products}/exams/create', [\App\Http\Controllers\ExamController::class, 'create'])->name('products.exams.create');
 
-Route::get('/products/{products}/exams', [\App\Http\Controllers\ExamController::class, 'store'])->name('products.exams.store');
+Route::POST('/products/{products}/exams', [\App\Http\Controllers\ExamController::class, 'store'])->name('products.exams.store');
 
 Route::get('/exams/undone', [\App\Http\Controllers\ExamController::class, 'undone'])->name('products.exams.undone');
 
