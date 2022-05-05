@@ -51,6 +51,11 @@
                     </td>
             @endforeach
                 </tr>
+                <?php
+                    $member = \App\Models\User::
+                              where('id',auth()->user()->id)
+                              ->first();
+                ?>
                 <tr>
                     <td colspan="5">
                         <div style="text-align: right">
@@ -69,6 +74,7 @@
                     <td colspan="7">
                         <div style="text-align: left">
                             <b>姓名：</b>
+                            <input type="text" value="{{$member->name}}">
                         </div>
                     </td>
                 </tr>
@@ -76,6 +82,7 @@
                     <td colspan="8">
                         <div style="text-align: left">
                             <b>電話：</b>
+                            <input type="text" value="{{$member->phone}}">
                         </div>
                     </td>
                 </tr>
@@ -83,6 +90,7 @@
                     <td colspan="9">
                         <div style="text-align: left">
                             <b>地址：</b>
+                            <input type="text" value="{{$member->address}}">
                         </div>
                     </td>
                 </tr>
