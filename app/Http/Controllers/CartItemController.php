@@ -66,7 +66,7 @@ class CartItemController extends Controller
 
                         'member_id'=>$member_id,
                         'product_id'=>$id,
-                        'quantity'=>1
+                        'quantity'=>$_GET['quantity']
 
 
                     ]

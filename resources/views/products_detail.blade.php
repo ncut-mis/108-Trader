@@ -93,27 +93,40 @@
 
                     <span class="mtext-106 cl2">
 						庫存：{{ $products->inventory }}
-                    </span>
+                    </span><br><br>
+
+                    <form action="{{route('cart_items.add', $products->id)}}">
+                        <span class="mtext-106 cl2">
+                            選擇數量：<input type="number" name="quantity" value="1" min="1" max="{{$products->inventory}}" class="form-control text-center">
+                        </span>
+                        <div class="flex-c-m flex-w w-full p-t-45">
+                            <button type="submit" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+                                加入購物車
+                            </button>
+                        </div>
+                    </form>
+
                     <p>&nbsp;</p>
                     <p>&nbsp;</p>
                     <p>&nbsp;</p>
                     <p>&nbsp;</p>
 
-                        <div class="flex-w flex-r-m p-b-10">
-                            <div class="size-204 flex-w flex-m respon6-next">
-                                <div class="wrap-num-product flex-w m-r-20 m-tb-10">
-                                    <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-                                        <i class="fs-16 zmdi zmdi-minus"></i>
-                                    </div>
+                        <div class="col-md-6 col-lg-5 p-b-30">
+                            <div class="p-r-50 p-t-5 p-lr-0-lg">
+{{--                            <div class="size-204 flex-w flex-m respon6-next">--}}
+{{--                                <div class="wrap-num-product flex-w m-r-20 m-tb-10">--}}
+{{--                                    <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">--}}
+{{--                                        <i class="fs-16 zmdi zmdi-minus"></i>--}}
+{{--                                    </div>--}}
 
-                                    <input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product" value="1">
+{{--                                    <input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product" value="1" min="1">--}}
 
-                                    <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-                                        <i class="fs-16 zmdi zmdi-plus"></i>
-                                    </div>
-                                </div>
+{{--                                    <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">--}}
+{{--                                        <i class="fs-16 zmdi zmdi-plus"></i>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
 
-{{--                                <form action="/" method="post">--}}
+                                {{--                                <form action="/" method="post">--}}
 {{--                                    @method('POST')--}}
 {{--                                    @csrf--}}
 {{--                                    <input type="hidden" name="member_id" value="1">--}}
@@ -124,9 +137,7 @@
 {{--                                        加入購物車--}}
 {{--                                    </button>--}}
 {{--                                </form>--}}
-                                    <a href="{{route('cart_items.add', $products->id)}}" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
-                                        加入購物車
-                                    </a>
+
 {{--                                <button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">--}}
 {{--                                    加入購物車--}}
 {{--                                </button>--}}
