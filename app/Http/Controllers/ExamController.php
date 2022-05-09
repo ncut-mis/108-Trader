@@ -6,7 +6,9 @@ use App\Models\Category;
 use App\Models\Exam;
 use App\Http\Requests\StoreExamRequest;
 use App\Http\Requests\UpdateExamRequest;
+use App\Models\Per_week_schedule;
 use App\Models\Product;
+use Illuminate\Support\Facades\DB;
 
 class ExamController extends Controller
 {
@@ -19,13 +21,9 @@ class ExamController extends Controller
     {
         $product = Exam::orderBy('id', 'ASC')->get();
 
-        $pid=Exam::orderBy('product_id', 'ASC')->value('product_id');
+        $name=Product::orderBy('id', 'ASC')->get();
 
-        $name=Product::where('id','=',$pid)->value('name');
-
-        $category_id=Product::where('id','=',$pid)->value('category_id');
-
-        $category=Category::where('id','=',$category_id)->value('name');
+        $category=Category::orderBy('id', 'ASC')->get();
 
         return view('seller.products.exams.index', compact('product','name','category'));
 
@@ -44,7 +42,12 @@ class ExamController extends Controller
 
         $name=Product::where('id','=',$id)->value('name');
 
-        return view('seller.products.exams.create', compact('product','name','pid'));
+        $category_id=Product::where('id','=',$id)->value('category_id');
+
+        $category=Category::where('id','=',$category_id)->value('name');
+
+
+        return view('seller.products.exams.create', compact('product','name','pid','category'));
     }
 
     /**
@@ -53,7 +56,7 @@ class ExamController extends Controller
      * @param  \App\Http\Requests\StoreExamRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreExamRequest $request)
+    public function store(StoreExamRequest $request,$id)
     {
 
     }
@@ -62,13 +65,9 @@ class ExamController extends Controller
     {
         $product = Exam::where('date','>',date('Y-m-d'))->get();
 
-        $pid=Exam::orderBy('product_id', 'ASC')->value('product_id');
+        $name=Product::orderBy('id', 'ASC')->get();
 
-        $name=Product::where('id','=',$pid)->value('name');
-
-        $category_id=Product::where('id','=',$pid)->value('category_id');
-
-        $category=Category::where('id','=',$category_id)->value('name');
+        $category=Category::orderBy('id', 'ASC')->get();
 
         return view('seller.products.exams.undone', compact('product','name','category'));
     }
@@ -77,13 +76,9 @@ class ExamController extends Controller
     {
         $product = Exam::where('date','<',date('Y-m-d'))->get();
 
-        $pid=Exam::orderBy('product_id', 'ASC')->value('product_id');
+        $name=Product::orderBy('id', 'ASC')->get();
 
-        $name=Product::where('id','=',$pid)->value('name');
-
-        $category_id=Product::where('id','=',$pid)->value('category_id');
-
-        $category=Category::where('id','=',$category_id)->value('name');
+        $category=Category::orderBy('id', 'ASC')->get();
 
         return view('seller.products.exams.finish', compact('product','name','category'));
 

@@ -18,14 +18,15 @@
         <th width="20" >檢測情形</th>
     </tr>
     </thead>
-
     @foreach($product as $exam)
-
+    @foreach($name as $pname)
+        @foreach($category as $pcategory)
+            @if($pname->id==$exam->product_id && $pname->category_id==$pcategory->id)
         <tfoot>
         <tbody>
         <tr>
-            <td>{{$name}}</td>
-            <td>{{$category}}</td>
+            <td>{{$pname->name}}</td>
+            <td>{{$pcategory->name}}</td>
 
             @if($exam->pass=='0')
                 <td>未通過</td>
@@ -46,7 +47,9 @@
         </tr>
         </tfoot>
         </tbody>
-
+            @endif
+        @endforeach
+    @endforeach
     @endforeach
 @endsection
 
