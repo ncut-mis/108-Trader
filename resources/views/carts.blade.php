@@ -140,7 +140,11 @@
                                     </td>
                                     <td>
                                         <div style="text-align:center">
-                                            <a style="text-align:center" class="btn btn-sm btn-primary" href="#">結帳</a>
+                                            @foreach($c as $cc)
+                                                <form action="{{route('cart_items.check', $cc->id )}}">
+                                            @endforeach
+                                                    <button style="text-align:center" class="btn btn-sm btn-primary">結帳</button>
+                                                </form>
                                         </div>
                                     </td>
                                 </tr>

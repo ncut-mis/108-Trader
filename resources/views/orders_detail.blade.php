@@ -61,12 +61,12 @@
                                     <td style="text-align: center">已完成</td>
                                 @endif
                                 @if($show->score=='')
-                                    <td style="text-align: center">尚未評分</td><!--買家評分-->
+                                    <td style="text-align: center"><a href="#">前往評分</a></td><!--買家評分-->
                                 @else
                                     <td style="text-align: center">{{$show->score}}</td><!--買家評分-->
                                 @endif
                                 @if($show->comment=='')
-                                    <td style="text-align: center">尚未評論</td><!--買家評論-->
+                                    <td style="text-align: center"><a href="#">前往評論</a></td><!--買家評論-->
                                 @else
                                     <td style="text-align: center">{{$show->comment}}</td><!--買家評論-->
                                 @endif

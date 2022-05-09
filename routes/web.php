@@ -14,9 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/*Route::get('/', function () {
-    return view('welcome');
-});*/
+Route::get('/we', function () {
+    return view('welcome');//首頁又變成空白狀況了，借用welcome的登入功能
+});
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
@@ -35,6 +35,8 @@ Route::get('/carts', function () {
     return view('carts');
 });
 
+
+
 Route::resource('products', \App\Http\Controllers\ProductController::class);
 Route::resource('categories', \App\Http\Controllers\CategoryController::class);
 Route::resource('sellers', \App\Http\Controllers\SellerController::class);
@@ -47,6 +49,9 @@ Route::get('/cartitems/{id}', [\App\Http\Controllers\CartItemController::class, 
 
 //更改購物車數量，update做不出來
 Route::get('/update', [\App\Http\Controllers\CartItemController::class, 'renew'])->name('cart_items.renew');
+
+//結帳
+Route::get('/check/{seller_id}', [\App\Http\Controllers\CartItemController::class, 'check'])->name('cart_items.check');
 
 Route::resource('orders', \App\Http\Controllers\OrderController::class);
 
@@ -98,6 +103,7 @@ Route::prefix('/seller/orders')->group(function () {
     Route::get('/confirm/{order}', [\App\Http\Controllers\SellerorderController::class, 'confirm'])->name('seller.products.confirm');//確認訂單
     Route::get('/comment', [\App\Http\Controllers\SellerorderController::class, 'comment'])->name('seller.products.comment');//評論評分
     Route::get('/amount', [\App\Http\Controllers\SellerorderController::class, 'amount'])->name('seller.products.amount');//進帳
+    Route::get('/unamount', [\App\Http\Controllers\SellerorderController::class, 'unamount'])->name('seller.products.unamount');//未進帳
 
 });
 
