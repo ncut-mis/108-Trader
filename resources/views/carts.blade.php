@@ -71,7 +71,7 @@
                                 ->get();
                         ?>
                         @if(count($c)>0)
-                            <table class="table table-bordered table-hover">
+                            <table class="table table-bordered table-hover" cellpadding="10" cellspacing="10">
                                 <thead>
                                 <tr>
                                     <th colspan='6'>
