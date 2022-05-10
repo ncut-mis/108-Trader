@@ -8,6 +8,7 @@ use App\Http\Requests\StoreExamRequest;
 use App\Http\Requests\UpdateExamRequest;
 use App\Models\Per_week_schedule;
 use App\Models\Product;
+use App\Models\Staff;
 use Illuminate\Support\Facades\DB;
 
 class ExamController extends Controller
@@ -46,8 +47,14 @@ class ExamController extends Controller
 
         $category=Category::where('id','=',$category_id)->value('name');
 
+        $staff=Staff::where('job','=',$category)->get();
 
-        return view('seller.products.exams.create', compact('product','name','pid','category'));
+        $exam=Exam::where('date','=',date('Y-m-d'))->get();
+
+        $work=Per_week_schedule::where('week','=',date('w'))->where('month','=',date('n'))->get();
+
+        return view('seller.products.exams.create', compact('product','name','pid','category','work','exam','staff'));
+
     }
 
     /**
@@ -58,12 +65,24 @@ class ExamController extends Controller
      */
     public function store(StoreExamRequest $request,$id)
     {
+        $staff=\App\Models\Per_week_schedule::orderby('id','ASC')->value('staff_id');
 
+        $url=\App\Models\Staff::where('id','=',$staff)->value('url');
+
+        Exam::create(['product_id'=>$id,'seller_id'=>auth()->user()->id,
+            'staff_id'=>$_POST['name'],'start'=>$_POST['time'],'end'=>date("H:i:s",strtotime($_POST['time']."+15min")),
+            'date'=>date('Y-m-d'),'url'=>$url]);
+
+        return redirect()->route('products.exams.index');
     }
 
     public function undone()
     {
-        $product = Exam::where('date','>',date('Y-m-d'))->get();
+        $product=DB::table('exams')->where('date','>',date('Y-m-d'))
+            ->orWhere(function($query) {
+                $query->where('date','=',date('Y-m-d'))
+                    ->where('start','>',date('H-i-s-30minutes'));
+            }) ->get();
 
         $name=Product::orderBy('id', 'ASC')->get();
 
@@ -74,7 +93,11 @@ class ExamController extends Controller
 
     public function finish()
     {
-        $product = Exam::where('date','<',date('Y-m-d'))->get();
+        $product=DB::table('exams')->where('date','<',date('Y-m-d'))
+            ->orWhere(function($query) {
+                $query->where('date','=',date('Y-m-d'))
+                    ->where('start','<',date('H-i-s'));
+            }) ->get();
 
         $name=Product::orderBy('id', 'ASC')->get();
 

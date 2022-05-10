@@ -48,14 +48,14 @@
 
             <td>{{$exam->date}}</td>
 
-            @if(strtotime($exam->date)<strtotime(date('Y-m-d')))
+            @if($exam->date<date('Y-m-d'))
 
             <td>已完成</td>
 
-            @elseif(strtotime($exam->date)==strtotime(date('Y-m-d'))&&strtotime($exam->start)>strtotime(date('H-i')))
+            @elseif($exam->date==date('Y-m-d') && $exam->start<date('H-i-s'))
             <td>已完成</td>
 
-            @elseif(strtotime($exam->date)==strtotime(date('Y-m-d'))&&strtotime($exam->start)>strtotime(date('H-i')))
+            @elseif($exam->date==date('Y-m-d') && $exam->start>date('H-i-s-30minutes'))
             <td><a href="{{ route('products.exams.destroy',$exam->id) }}" onclick="return confirm('確定要取消檢測?')">取消檢測</a></td>
 
             @else
