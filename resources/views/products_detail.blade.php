@@ -100,9 +100,25 @@
                             選擇數量：<input type="number" name="quantity" value="1" min="1" max="{{$products->inventory}}" class="form-control text-center">
                         </span>
                         <div class="flex-c-m flex-w w-full p-t-45">
-                            <button type="submit" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-                                加入購物車
-                            </button>
+                            <?php
+                                if(\Illuminate\Support\Facades\Auth::check())
+                                    $s_id=\App\Models\Seller::where('member_id',auth()->user()->id)->first();
+                            ?>
+                            @if(\Illuminate\Support\Facades\Auth::check())
+                                @if($products->seller_id == $s_id->id || $products->inventory == 0)
+                                    <button type="submit" disabled>
+                                        加入購物車
+                                    </button>
+                                @else
+                                    <button type="submit" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
+                                        加入購物車
+                                    </button>
+                                @endif
+                            @else
+                                <button type="submit" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
+                                    加入購物車
+                                </button>
+                            @endif
                         </div>
                     </form>
 
