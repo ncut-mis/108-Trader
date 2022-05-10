@@ -24,9 +24,21 @@ class SellerController extends Controller
         $name=$_GET['search'];
         $id=$_GET['id'];
 
-        $products=Product::where('name','like','%'.$name.'%')->where('seller_id',$id)->get();
-        $data=['products' => $products];
-        return view('market_search', $data);
+        $sellers=Seller::
+            join('users','users.id','=','sellers.member_id')
+            ->where('sellers.id', $id)
+            ->select('sellers.id','users.name')
+            ->first();
+
+        $products=Product::
+            where('name','like','%'.$name.'%')
+            ->where('seller_id', $id)
+            ->where('status','=','1')
+            ->get();
+
+        $data1=['sellers' => $sellers];
+        $data2=['products' => $products];
+        return view('markets_search', $data1 ,$data2);
     }
     /**
      * Show the form for creating a new resource.
@@ -57,9 +69,20 @@ class SellerController extends Controller
      */
     public function show($seller)
     {
-        $sellers=Seller::where('id', $seller)->get();
-        $data=['sellers' => $sellers];
-        return view('market', $data);
+        $sellers=Seller::
+            join('users','users.id','=','sellers.member_id')
+            ->where('sellers.id', $seller)
+            ->select('sellers.id','users.name')
+            ->first();
+        $products=Product::
+            join('sellers','products.seller_id','=','sellers.id')
+            ->where('products.seller_id', $seller)
+            ->where('products.status', '1')
+            ->select('products.id','products.category_id','products.name','products.pictures','products.price')
+            ->get();
+        $data1=['sellers' => $sellers];
+        $data2=['products' => $products];
+        return view('markets', $data1 , $data2);
     }
 
     /**

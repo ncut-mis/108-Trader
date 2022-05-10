@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Test')
+@section('title', $sellers->name.'的賣場')
 
 @section('content')
 
@@ -81,7 +81,7 @@
                                     <i class="zmdi zmdi-search"></i>
                                 </button>
 
-                                <input name="id" type='hidden' id='id' value="1">
+                                <input name="id" type='hidden' id='id' value="{{ $sellers->id }}">
                                 <input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" id="search" name="search" placeholder="Search">
                             </form>                        </div>
                     </div>
@@ -94,16 +94,19 @@
                             <!-- Block2 -->
                             <div class="block2">
                                 <div class="block2-pic hov-img0">
-                                    <img src="img/{{ $product->pictures }}" alt="IMG-PRODUCT" height="200">
+                                    <?php
+                                        $pictures=$product->pictures;
+                                    ?>
+                                    <img src="{{ asset('img/'.$pictures.'') }}" alt="IMG-PRODUCT" height="200">
 
-                                    <a href="{{route('products.show', $product->id)}}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
+                                    <a href="{{route('products.detail', $product->id)}}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
                                         Quick View
                                     </a>
                                 </div>
 
                                 <div class="block2-txt flex-w flex-t p-t-14">
                                     <div class="block2-txt-child1 flex-col-l ">
-                                        <a href="{{route('products.show', $product->id)}}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                                        <a href="{{route('products.detail', $product->id)}}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
                                             {{ $product->name }}
                                         </a>
 
