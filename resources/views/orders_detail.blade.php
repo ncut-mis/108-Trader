@@ -12,7 +12,6 @@
             </ol>
             <thead>
             <tr>
-                <th width="35" style="text-align: center">訂單編號</th>
                 <th width="20" style="text-align: center">商品名稱</th>
                 <th width="20" style="text-align: center">出貨日期</th>
                 <th width="20" style="text-align: center">訂單數量</th>
@@ -31,7 +30,6 @@
                         @if($show2->product_id==$product->id)
                             <tbody>
                             <tr>
-                                <td style="text-align: center">{{$show->id}}</td><!--訂單編號-->
                                 <td style="text-align: center">{{$product->name}}</td><!--商品名稱-->
                                 <td style="text-align: center">{{$show->date}}</td><!--出貨日期-->
                                 <td style="text-align: center">{{$show2->quantity}}</td><!--訂單數量-->

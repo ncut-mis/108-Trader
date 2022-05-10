@@ -12,7 +12,7 @@
         </ol>
     <thead>
     <tr>
-        <th style="text-align: center">訂單編號</th>
+        <th style="text-align: center">訂單日期</th>
         <th style="text-align: center">訂單狀態</th>
         <th style="text-align: center">訂單金額</th>
         <th></th>
@@ -22,7 +22,7 @@
         <tfoot>
         <tbody>
         <tr>
-            <td >{{$order->id}}</td>
+            <td >{{$order->date}}</td>
 
             @if($order->status=='0')
                 <td >新成立</td>
