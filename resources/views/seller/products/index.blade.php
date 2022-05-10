@@ -28,21 +28,16 @@
     <tbody>
     <tr >
         @foreach($data as $product)
+
         <td>
             <img class="pic" src="{{asset('/../../img/'.$product->picture.'')}}"></td>
         <td>{{$product->name}}</td>
 
-        @if($product->category_id=='1')
-            <td>大衣洋裝</td>
-        @elseif($product->category_id=='2')
-            <td>鋼筆</td>
-        @elseif($product->category_id=='3')
-            <td>書籍</td>
-        @elseif($product->category_id=='4')
-            <td>專輯</td>
-        @elseif($product->category_id=='5')
-            <td>拼圖</td>
-        @endif
+         @foreach($name as $cname)
+         @if($product->category_id==$cname->id)
+         <td>{{$cname->name}}</td>
+         @endif
+         @endforeach
 
         <td >{{$product->price}}</td>
 
@@ -68,6 +63,7 @@
     </tr>
         </tfoot>
     </tbody>
+
     @endforeach
 @endsection
 

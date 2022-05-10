@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\Sellerproduct;
 use Illuminate\Http\Request;
@@ -18,8 +19,9 @@ class SellerproductController extends Controller
     {
         $data = Product::where('seller_id', auth()->user()->id)->get();
 
+        $name=Category::all();
 
-        return view('seller.products.index', compact('data'));
+        return view('seller.products.index', compact('data','name'));
 
     }
 
