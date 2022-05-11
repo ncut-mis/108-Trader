@@ -85,7 +85,7 @@
                                     <h5><a href="#">會員中心</a></h5>
                                     <ul class="sub-menu">
                                         <li><a href="#">會員資料</a></li>
-                                        <li><a href="#">訂單紀錄</a></li>
+                                        <li><a href="{{route('orders.index')}}">訂單紀錄</a></li>
                                         <?php
                                         $sellers = DB::table('sellers')->where('member_id','=',auth()->user()->id)->get();?>
                                         @if($sellers->isEmpty())
