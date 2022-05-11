@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Seller;
 use App\Models\Product;
 use App\Http\Requests\StoreSellerRequest;
@@ -40,6 +41,28 @@ class SellerController extends Controller
         $data2=['products' => $products];
         return view('markets_search', $data1 ,$data2);
     }
+
+    public function category()
+    {
+        $category_id=$_GET['category_id'];
+        $seller_id=$_GET['seller_id'];
+
+        $sellers=Seller::
+            join('users','users.id','=','sellers.member_id')
+            ->where('sellers.id', $seller_id)
+            ->select('sellers.id','users.name')
+            ->first();
+
+        $products=Product::
+            where('category_id', $category_id)
+            ->where('seller_id', $seller_id)
+            ->where('status','=','1')
+            ->get();
+
+        $data = ['sellers' => $sellers, 'products' => $products];
+        return view('markets_categories', $data);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

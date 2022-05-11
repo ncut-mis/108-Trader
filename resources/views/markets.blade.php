@@ -24,13 +24,17 @@
                             ?>
                             <tr>
                                 <td>
-                                    <a href="#">全部</a>
+                                    <a href="{{route('sellers.show', $sellers->id)}}">全部</a>
                                 </td>
                             </tr>
                             @foreach($categories as $category)
                                 <tr>
                                     <td>
-                                        <a href="#">{{$category->name}}</a>
+                                        <form action="{{route('sellers.category')}}">
+                                            <input name="seller_id" type='hidden' id='seller_id' value="{{ $sellers->id }}">
+                                            <input type='hidden' name="category_id" id='category_id' value="{{$category->id}}">
+                                            <button>{{$category->name}}</button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach

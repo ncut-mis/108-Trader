@@ -20,17 +20,21 @@
                                 </td>
                             </tr>
                             <?php
-                            $categories = DB::table('categories')->orderBy('id','ASC')->get();
+                                $categories = DB::table('categories')->orderBy('id','ASC')->get();
                             ?>
                             <tr>
                                 <td>
-                                    <a href="/market">全部</a>
+                                    <a href="{{route('sellers.show', $sellers->id)}}">全部</a>
                                 </td>
                             </tr>
                             @foreach($categories as $category)
                                 <tr>
                                     <td>
-                                        <a href="{{route('categories.show', $category->id)}}">{{$category->name}}</a>
+                                        <form action="{{route('sellers.category')}}">
+                                            <input name="seller_id" type='hidden' id='seller_id' value="{{ $sellers->id }}">
+                                            <input type='hidden' name="category_id" id='category_id' value="{{$category->id}}">
+                                            <button>{{$category->name}}</button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach
@@ -39,24 +43,6 @@
                     </div>
                 </div>
 
-{{--                <table>--}}
-{{--                    <tr>--}}
-{{--                        <h2>Seller_name</h2>--}}
-{{--                        <th>Savings</th>--}}
-{{--                    </tr>--}}
-{{--                    <p>&nbsp;</p>--}}
-{{--                    <?php--}}
-{{--                        $categories = DB::table('categories')->orderBy('id','ASC')->get();--}}
-{{--                    ?>--}}
-{{--                    <a href="{{route('products.index')}}">全部</a>--}}
-{{--                    @foreach($categories as $category)--}}
-{{--                        <tr>--}}
-{{--                            <td>--}}
-{{--                                <a href="{{route('categories.show', $category->id)}}">{{$category->name}}</a>--}}
-{{--                            </td>--}}
-{{--                        </tr>--}}
-{{--                    @endforeach--}}
-{{--                </table>--}}
             </div>
             <div class="col-lg-10">
 
