@@ -63,9 +63,10 @@
                     <div class="dis-none panel-search w-full p-t-10 p-b-15">
                         <div class="bor8 dis-flex p-l-15">
                             <form action="{{route('sellers.search')}}">
-                                <button class="size-113 flex-c-m fs-16 cl2 hov-cl1 trans-04">
-                                    <i class="zmdi zmdi-search"></i>
-                                </button>
+{{--                                加上符號，版面很怪--}}
+{{--                                <button class="size-113 flex-c-m fs-16 cl2 hov-cl1 trans-04">--}}
+{{--                                    <i class="zmdi zmdi-search"></i>--}}
+{{--                                </button>--}}
 
                                 <input name="id" type='hidden' id='id' value="{{ $sellers->id }}">
                                 <input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" id="search" name="search" placeholder="Search">
