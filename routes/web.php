@@ -53,6 +53,9 @@ Route::get('/update', [\App\Http\Controllers\CartItemController::class, 'renew']
 //結帳
 Route::get('/check/{seller_id}', [\App\Http\Controllers\CartItemController::class, 'check'])->name('cart_items.check');
 
+//完成下單
+Route::get('/done/{seller_id}', [\App\Http\Controllers\CartItemController::class, 'done'])->name('cart_items.done');
+
 Route::resource('orders', \App\Http\Controllers\OrderController::class);
 
 //訂單詳細資料，show方法有bug

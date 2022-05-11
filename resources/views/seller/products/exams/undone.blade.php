@@ -3,7 +3,7 @@
 @section('title','品質鑑定商品')
 
 @section('breadcrumb')
-    <li class="breadcrumb-item" style="color: #4E4F97"><a href="#">首頁</a></li>
+    <li class="breadcrumb-item" style="color: #4E4F97"><a href="{{route('seller.dashboard')}}">首頁</a></li>
     <li class="breadcrumb-item active" style="color: #4E4F97">未完成品質鑑定商品</li>
 @endsection
 
@@ -19,13 +19,15 @@
 
     </tr>
     </thead>
-
     @foreach($product as $exam)
+    @foreach($name as $pname)
+        @foreach($category as $pcategory)
+            @if($pname->id==$exam->product_id && $pname->category_id==$pcategory->id)
         <tfoot>
         <tbody>
         <tr>
-            <td>{{$name}}</td>
-            <td>{{$category}}</td>
+            <td>{{$pname->name}}</td>
+            <td>{{$pcategory->name}}</td>
 
             <td>尚未檢測</td>
 
@@ -38,7 +40,9 @@
         </tr>
         </tfoot>
         </tbody>
-
+            @endif
+        @endforeach
+    @endforeach
     @endforeach
 @endsection
 

@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Cart_item;
 use App\Http\Requests\StoreCart_itemRequest;
 use App\Http\Requests\UpdateCart_itemRequest;
+use App\Models\Order;
+use App\Models\Order_detail;
 use App\Models\Product;
 use App\Models\Seller;
+use App\Models\User;
 
 class CartItemController extends Controller
 {
@@ -147,11 +150,54 @@ class CartItemController extends Controller
             ->join('sellers','sellers.id','=','products.seller_id')
             ->where('cart_items.member_id',auth()->user()->id)
             ->where('sellers.id',$seller_id)
-            ->select('products.pictures','products.name','products.price','cart_items.quantity')
+            ->select('products.pictures','products.name','products.price','cart_items.quantity','sellers.id')
             ->get();
 
         $data = ['checks' => $check];
         return view('check',$data);
+    }
+
+    public function done($seller_id)
+    {
+        if(!empty($_GET['branch']) && !empty($_GET['account']))
+        {
+            $done = Cart_item::
+                join('products','cart_items.product_id','=','products.id')
+                ->join('sellers','sellers.id','=','products.seller_id')
+                ->where('cart_items.member_id',auth()->user()->id)
+                ->where('sellers.id',$seller_id)
+                ->select('products.id','products.inventory','products.price','cart_items.quantity')
+                ->get();
+            $order = Order::orderby('id','DESC')->first();
+
+            $date = date('Y/m/d');//抓當天日期
+            $final_price = 0;
+            foreach ($done as $finish)
+            {
+                $inventory = $finish->inventory - $finish->quantity;//最終庫存=庫存量-賣出數量
+                $cart_total = $finish->price * $finish->quantity;//購物車商品金額
+                $final_price = $final_price + $cart_total ;//累加為最終金額
+                //更新個人資料
+                User::where('id',auth()->user()->id)->update(['name'=>$_GET['name'],'phone'=>$_GET['phone'],'address'=>$_GET['address']]);
+                //更新庫存
+                Product::where('id',$finish->id)->update(['inventory'=>$inventory]);
+            }
+            //新增order
+            Order::insert(['member_id'=>auth()->user()->id,'seller_id'=>$seller_id,'date'=>$date, 'status'=>'0','pay'=>'1' ,'way'=>'0','price'=>$final_price]);
+            //新增order_detail(bug)
+            if(!empty($order))
+            {
+                foreach ($done as $dd)
+                {
+                    Order_detail::insert(['order_id'=>$order,'product_id'=>$dd->id,'quantity'=>$dd->quantity]);
+                }
+            }
+            return redirect()->route('orders.index');
+        }
+        else
+        {
+            echo "<script >alert('請輸入分行代碼及帳號'); location.href ='/check/".$seller_id."';</script>";
+        }
     }
 
 
