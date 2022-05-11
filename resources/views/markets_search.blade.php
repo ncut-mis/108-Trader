@@ -11,11 +11,11 @@
             <div class="col-lg-2">
                 <div class="flex-w flex-sb-m p-b-52">
                     <div class="flex-w flex-l-m filter-tope-group m-tb-10">
-                        <h2>Seller_name</h2>
 
                         <table>
                             <tr>
                                 <td>
+                                    <h2>{{ $sellers->name }}</h2>
                                     <p>&nbsp;</p>
                                 </td>
                             </tr>
