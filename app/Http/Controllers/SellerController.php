@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Seller;
 use App\Models\Product;
 use App\Http\Requests\StoreSellerRequest;
@@ -24,10 +25,44 @@ class SellerController extends Controller
         $name=$_GET['search'];
         $id=$_GET['id'];
 
-        $products=Product::where('name','like','%'.$name.'%')->where('seller_id',$id)->get();
-        $data=['products' => $products];
-        return view('market_search', $data);
+        $sellers=Seller::
+            join('users','users.id','=','sellers.member_id')
+            ->where('sellers.id', $id)
+            ->select('sellers.id','users.name')
+            ->first();
+
+        $products=Product::
+            where('name','like','%'.$name.'%')
+            ->where('seller_id', $id)
+            ->where('status','=','1')
+            ->get();
+
+        $data1=['sellers' => $sellers];
+        $data2=['products' => $products];
+        return view('markets_search', $data1 ,$data2);
     }
+
+    public function category()
+    {
+        $category_id=$_GET['category_id'];
+        $seller_id=$_GET['seller_id'];
+
+        $sellers=Seller::
+            join('users','users.id','=','sellers.member_id')
+            ->where('sellers.id', $seller_id)
+            ->select('sellers.id','users.name')
+            ->first();
+
+        $products=Product::
+            where('category_id', $category_id)
+            ->where('seller_id', $seller_id)
+            ->where('status','=','1')
+            ->get();
+
+        $data = ['sellers' => $sellers, 'products' => $products];
+        return view('markets_categories', $data);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -57,9 +92,20 @@ class SellerController extends Controller
      */
     public function show($seller)
     {
-        $sellers=Seller::where('id', $seller)->get();
-        $data=['sellers' => $sellers];
-        return view('market', $data);
+        $sellers=Seller::
+            join('users','users.id','=','sellers.member_id')
+            ->where('sellers.id', $seller)
+            ->select('sellers.id','users.name')
+            ->first();
+        $products=Product::
+            join('sellers','products.seller_id','=','sellers.id')
+            ->where('products.seller_id', $seller)
+            ->where('products.status', '1')
+            ->select('products.id','products.category_id','products.name','products.pictures','products.price')
+            ->get();
+        $data1=['sellers' => $sellers];
+        $data2=['products' => $products];
+        return view('markets', $data1 , $data2);
     }
 
     /**

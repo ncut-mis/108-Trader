@@ -66,9 +66,10 @@ Route::get('/search', [\App\Http\Controllers\ProductController::class, 'search']
 
 //瀏覽個別商品，目前有BUG
 Route::get('/products_detail/{id}', [\App\Http\Controllers\ProductController::class, 'detail'])->name('products.detail');
-
-Route::get('/market_search', [\App\Http\Controllers\SellerController::class, 'search'])->name('sellers.search');
-
+//賣家賣場搜尋商品
+Route::get('/markets_search', [\App\Http\Controllers\SellerController::class, 'search'])->name('sellers.search');
+//賣家賣場搜尋商品
+Route::get('/markets_categories', [\App\Http\Controllers\SellerController::class, 'category'])->name('sellers.category');
 
 Route::get('/seller/dashboard', function () {
     return view('seller.dashboard');
