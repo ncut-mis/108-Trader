@@ -168,8 +168,6 @@ class CartItemController extends Controller
                 ->where('sellers.id',$seller_id)
                 ->select('products.id','products.inventory','products.price','cart_items.quantity')
                 ->get();
-            $order = Order::orderby('id','DESC')->first();
-
             $date = date('Y/m/d');//抓當天日期
             $final_price = 0;
             foreach ($done as $finish)
@@ -184,13 +182,23 @@ class CartItemController extends Controller
             }
             //新增order
             Order::insert(['member_id'=>auth()->user()->id,'seller_id'=>$seller_id,'date'=>$date, 'status'=>'0','pay'=>'1' ,'way'=>'0','price'=>$final_price]);
-            //新增order_detail(bug)
-            if(!empty($order))
+            $order = Order::orderby('id','DESC')->first();
+            foreach ($done as $dd)
             {
-                foreach ($done as $dd)
-                {
-                    Order_detail::insert(['order_id'=>$order,'product_id'=>$dd->id,'quantity'=>$dd->quantity]);
-                }
+                //新增order_detail
+                Order_detail::insert(['order_id'=>$order->id,'product_id'=>$dd->id,'quantity'=>$dd->quantity]);
+            }
+            $d = Cart_item::
+                 join('products','cart_items.product_id','=','products.id')
+                ->join('sellers','sellers.id','=','products.seller_id')
+                ->where('cart_items.member_id',auth()->user()->id)
+                ->where('sellers.id',$seller_id)
+                ->select('cart_items.id')
+                ->get();
+            foreach ($d as $d2)
+            {
+                //刪除購物車內已下單之商品
+                Cart_item::destroy($d2->id);
             }
             return redirect()->route('orders.index');
         }

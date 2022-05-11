@@ -43,7 +43,10 @@
                                 @elseif($show->pay=='1')
                                     <td style="text-align: center">已付款</td>
                                 @endif
-                                <td style="text-align: center">{{$show->price}}</td>
+                                <?php
+                                    $sum = $show2->quantity * $product->price;
+                                ?>
+                                <td style="text-align: center">{{$sum}}</td>
 
                                 @if($show->status=='0')
                                     <td style="text-align: center">新成立</td>
