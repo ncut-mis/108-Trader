@@ -49,11 +49,15 @@ class ExamController extends Controller
 
         $staff=Staff::where('job','=',$category)->get();
 
-        $exam=Exam::where('date','=',date('Y-m-d'))->get();
+        $data=['staff'=>$staff];
 
-        $work=Per_week_schedule::where('week','=',date('w'))->where('month','=',date('n'))->get();
+        $exam=Exam::where('date','=',date('Y-m-d'))->get()->first();
 
-        return view('seller.products.exams.create', compact('product','name','pid','category','work','exam','staff'));
+        $data2=['exam'=>$exam];
+
+        $work=Per_week_schedule::where('month','=',date('n'))->where('week','=',date('w'))->get();
+
+        return view('seller.products.exams.create', compact('product','name','pid','category','work','exam'),$data,$data2);
 
     }
 
@@ -65,12 +69,21 @@ class ExamController extends Controller
      */
     public function store(StoreExamRequest $request,$id)
     {
-        $staff=\App\Models\Per_week_schedule::orderby('id','ASC')->value('staff_id');
+        $staff=Per_week_schedule::orderby('id','ASC')->value('staff_id');
 
-        $url=\App\Models\Staff::where('id','=',$staff)->value('url');
+        $url=Staff::where('id','=',$staff)->value('url');
+
+        $category_id=Product::where('id','=',$id)->value('category_id');
+
+        $category=Category::where('id','=',$category_id)->value('name');
+
+        $staff=Staff::where('job','=',$category)->get();
+
+        foreach ($staff as $s)
+            $s=$s->id;
 
         Exam::create(['product_id'=>$id,'seller_id'=>auth()->user()->id,
-            'staff_id'=>$_POST['name'],'start'=>$_POST['time'],'end'=>date("H:i:s",strtotime($_POST['time']."+15min")),
+            'staff_id'=>$s,'start'=>$_POST['time'],'end'=>date("H:i:s",strtotime($_POST['time']."+15min")),
             'date'=>date('Y-m-d'),'url'=>$url]);
 
         return redirect()->route('products.exams.index');
