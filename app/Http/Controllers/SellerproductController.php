@@ -69,7 +69,8 @@ class SellerproductController extends Controller
      */
     public function create()
     {
-      return view('seller.products.create');
+      $data = Category::all();
+      return view('seller.products.create',compact($data));
 
     }
 
@@ -106,7 +107,9 @@ class SellerproductController extends Controller
     {
         $product = Product::find($id);
 
-        return view('seller.products.edit', compact('product'));
+        $name=Category::all();
+
+        return view('seller.products.edit', compact('product','name'));
     }
 
     /**
