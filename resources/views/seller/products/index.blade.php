@@ -30,8 +30,11 @@
     <tr >
         @foreach($data as $product)
 
+        <?php
+            $pic = $product->pictures;
+        ?>
         <td>
-            <img class="pic" src="{{asset('/../../img/'.$product->picture.'')}}"></td>
+            <img class="pic" src="{{ asset('img/'.$pic.'') }}"></td>
         <td>{{$product->name}}</td>
 
          @foreach($name as $cname)
