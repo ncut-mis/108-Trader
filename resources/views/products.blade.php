@@ -271,8 +271,8 @@
         ?>
         <div class="row isotope-grid">
             @foreach($products as $product)
-{{--                最多20個商品--}}
-            @if($product_count<20)
+{{--                最多28個商品--}}
+            @if($product_count<28)
                     <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
                         <!-- Block2 -->
                         <div class="block2">
