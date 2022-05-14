@@ -19,8 +19,8 @@
                 <th width="20" style="text-align: center">是否付款</th>
                 <th width="20" style="text-align: center">訂單金額</th>
                 <th width="20" style="text-align: center">訂單狀態</th>
-                <th width="20" style="text-align: center">我的評分</th>
-                <th width="20" style="text-align: center">我的評論</th>
+{{--                <th width="20" style="text-align: center">我的評分</th>--}}
+{{--                <th width="20" style="text-align: center">我的評論</th>--}}
             </tr>
             </thead>
 
@@ -61,16 +61,16 @@
                                 @elseif($show->status=='5')
                                     <td style="text-align: center">已完成</td>
                                 @endif
-                                @if($show->score=='')
-                                    <td style="text-align: center"><a href="#">前往評分</a></td><!--買家評分-->
-                                @else
-                                    <td style="text-align: center">{{$show->score}}</td><!--買家評分-->
-                                @endif
-                                @if($show->comment=='')
-                                    <td style="text-align: center"><a href="#">前往評論</a></td><!--買家評論-->
-                                @else
-                                    <td style="text-align: center">{{$show->comment}}</td><!--買家評論-->
-                                @endif
+{{--                                @if($show->score=='')--}}
+{{--                                    <td style="text-align: center"><a href="#">前往評分</a></td><!--買家評分-->--}}
+{{--                                @else--}}
+{{--                                    <td style="text-align: center">{{$show->score}}</td><!--買家評分-->--}}
+{{--                                @endif--}}
+{{--                                @if($show->comment=='')--}}
+{{--                                    <td style="text-align: center"><a href="#">前往評論</a></td><!--買家評論-->--}}
+{{--                                @else--}}
+{{--                                    <td style="text-align: center">{{$show->comment}}</td><!--買家評論-->--}}
+{{--                                @endif--}}
 
                             </tr>
 

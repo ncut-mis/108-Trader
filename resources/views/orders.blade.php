@@ -15,6 +15,8 @@
         <th style="text-align: center">訂單日期</th>
         <th style="text-align: center">訂單狀態</th>
         <th style="text-align: center">訂單金額</th>
+        <th style="text-align: center">我的評分</th>
+        <th style="text-align: center">我的評論</th>
         <th></th>
     </tr>
     </thead>
@@ -38,9 +40,20 @@
                 <td >已完成</td>
             @endif
 
+            <td>{{$order->price}}</td>
 
-            <td >{{$order->price}}</td>
-                <td ><a href="{{route('orders.detail',$order->id)}}}">訂單詳細資料</a></td>
+            @if($order->score=='')
+                <td style="text-align: center"><a href="#">前往評分</a></td>
+            @else
+                <td style="text-align: center">{{$order->score}}</td>
+            @endif
+
+            @if($order->comment=='')
+                <td style="text-align: center"><a href="#">前往評論</a></td>
+            @else
+                <td style="text-align: center">{{$order->comment}}</td>
+            @endif
+            <td><a href="{{route('orders.detail',$order->id)}}}">訂單詳細資料</a></td>
 
 
         </tr>
