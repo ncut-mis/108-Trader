@@ -105,9 +105,15 @@ class SellerorderController extends Controller
     {
         $data= DB::table('orders')->where('status','!=','5')->get();
         //在訂單狀態完成前該筆訂單就算付錢了賣家也不會有進帳
-        $data2= DB::table('order_details')->get();
-        $products= DB::table('products')->get();
-        return view('seller.orders.unamount',compact('data','data2','products'));
+       $total=0;
+        foreach ($data as $aa)
+        {
+            $total+=$aa->price;
+        }
+        session_start();
+        $_SESSION['unamount']=$total;
+
+        return view('seller.orders.unamount',compact('data'));
 
     }
 
