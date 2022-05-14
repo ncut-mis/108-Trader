@@ -24,7 +24,7 @@
                             ?>
                             <tr>
                                 <td>
-                                    <a href="{{route('sellers.show', $sellers->id)}}">全部</a>
+                                    <a href="{{route('sellers.show', $sellers->id)}}" style="color: black">全部</a>
                                 </td>
                             </tr>
                             @foreach($categories as $category)

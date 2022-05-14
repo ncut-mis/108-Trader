@@ -57,7 +57,7 @@
                 <div class="menu-desktop">
                     <ul class="main-menu">
                         <li class="active-menu">
-                            <h5><a href="#">分類</a></h5>
+                            <h5><a href="#" style="color: black">分類</a></h5>
                             <ul class="sub-menu">
                                 <li><a href="{{route('products.index')}}">全部</a></li>
                                 <?php
@@ -76,13 +76,13 @@
                     @if(\Illuminate\Support\Facades\Auth::check())
                         <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11">
     {{--                    <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="2">--}}
-                            <a href="{{ route('cart_items.index') }}"><h5><i class="zmdi zmdi-shopping-cart">購物車</i></h5></a>
+                            <a href="{{ route('cart_items.index') }}" style="color: black"><h5><i class="zmdi zmdi-shopping-cart">購物車</i></h5></a>
                         </div>
 
                         <div class="menu-desktop">
                             <ul class="main-menu">
                                 <li class="active-menu">
-                                    <h5><a href="#">會員中心</a></h5>
+                                    <h5><a href="#" style="color: black">會員中心</a></h5>
                                     <ul class="sub-menu">
                                         <li><a href="#">會員資料</a></li>
                                         <li><a href="{{route('orders.index')}}">訂單紀錄</a></li>
@@ -109,15 +109,15 @@
                     @else
                         <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11">
                             {{--                    <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="2">--}}
-                            <a href="{{ route('cart_items.index') }}"><h5><i class="zmdi zmdi-shopping-cart">購物車</i></h5></a>
+                            <a href="{{ route('cart_items.index') }}" style="color: black"><h5><i class="zmdi zmdi-shopping-cart">購物車</i></h5></a>
                         </div>
 
                         <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11">
-                            <a href="{{ route('register') }}"><h5>註冊</h5></a>
+                            <a href="{{ route('register') }}" style="color: black"><h5>註冊</h5></a>
                         </div>
 
                         <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11">
-                            <a href="{{ route('login') }}"><h5>登入</h5></a>
+                            <a href="{{ route('login') }}" style="color: black"><h5>登入</h5></a>
                         </div>
                     @endif
                     <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
