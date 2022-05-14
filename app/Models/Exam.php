@@ -8,6 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class Exam extends Model
 {
     use HasFactory;
+    public $timestamps = false;
+    protected $fillable =[
+        'id',
+        'product_id',
+        'seller_id',
+        'staff_id',
+        'pass',
+        'perfect',
+        'start',
+        'end',
+        'date',
+        'url'
+    ];
     public function products()
     {
         return $this->belongsTo(Product::class);

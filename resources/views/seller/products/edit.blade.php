@@ -32,43 +32,10 @@
                 <div class="form-group">
                     <label for="type">類別</label>
                     <select id="type" name="type" class="form-control" rows="10">
-                        @if($product->category_id=='1')
-                           <option value="1" selected>大衣洋裝</option>
-                           <option value="2">鋼筆</option>
-                           <option value="3">書籍</option>
-                           <option value="4">專輯</option>
-                           <option value="5">拼圖</option>
+                        @foreach($name as $c)
+                          <option value="{{$c->id}}">{{$c->name}}</option>
+                        @endforeach
                     </select>
-                        @elseif($product->category_id=='2')
-                            <option value="1" >大衣洋裝</option>
-                            <option value="2" selected>鋼筆</option>
-                            <option value="3">書籍</option>
-                            <option value="4">專輯</option>
-                            <option value="5">拼圖</option>
-                    </select>
-                        @elseif($product->category_id=='3')
-                            <option value="1" >大衣洋裝</option>
-                            <option value="2" >鋼筆</option>
-                            <option value="3" selected>書籍</option>
-                            <option value="4">專輯</option>
-                            <option value="5">拼圖</option>
-                    </select>
-                        @elseif($product->category_id=='4')
-                            <option value="1" >大衣洋裝</option>
-                            <option value="2" >鋼筆</option>
-                            <option value="3">書籍</option>
-                            <option value="4" selected>專輯</option>
-                            <option value="5">拼圖</option>
-                    </select>
-                        @elseif($product->category_id=='5')
-                            <option value="1" >大衣洋裝</option>
-                            <option value="2" >鋼筆</option>
-                            <option value="3">書籍</option>
-                            <option value="4" >專輯</option>
-                            <option value="5" selected>拼圖</option>
-
-                    </select>
-                    @endif
                 </div>
 
                 <div class="form-group">
