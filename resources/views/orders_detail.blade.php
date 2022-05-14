@@ -6,7 +6,7 @@
     <div class="table-responsive" style="margin-bottom:5%;text-align: center">
         <table class="table text-start align-middle table-bordered table-hover mb-0">
             <ol class="breadcrumb mar">
-                <li class="breadcrumb-item" style="color: grey"><a>首頁</a></li>
+                <li class="breadcrumb-item" style="color: grey"><a style="color: grey" href="/">首頁</a></li>
                 <li class="breadcrumb-item active" style="color: grey"  ><a style="color: grey" href="{{route('orders.index')}}">所有訂單</a></li>
                 <li class="breadcrumb-item active" style="color: grey">詳細資料</li>
             </ol>
