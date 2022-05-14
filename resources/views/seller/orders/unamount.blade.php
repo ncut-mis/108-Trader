@@ -62,7 +62,7 @@
             @endforeach
                    <?php
 
-                       echo '<td xmlns="http://www.w3.org/1999/html"></td><td></td><td style="text-align: right"><a><strong>總計: ' .$_SESSION['unamount'].'</a></strong></td>';
+                       echo '<td></td><td></td><td style="text-align: right"><a><strong>總計: ' .$_SESSION['unamount'].'</a></strong></td>';
                        ?>
 
 
