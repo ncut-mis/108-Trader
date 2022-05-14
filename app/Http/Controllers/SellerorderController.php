@@ -34,7 +34,7 @@ class SellerorderController extends Controller
 
     public function detail($order)
     {
-        $data= DB::table('orders')->where('id','=',$order)->get();
+        $data= DB::table('orders')->where('id','=',$order)->first();
         $data2= DB::table('order_details')->where('order_id','=',$order)->get();
         $products= DB::table('products')->get();
 //        return view('seller.orders.detail', ['order' => $data],['order_de' => $data2],['products' => $product]);
