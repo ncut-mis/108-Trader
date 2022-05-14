@@ -307,60 +307,110 @@
     <div class="container">
         <div class="p-b-10">
             <h3 class="ltext-103 cl5">
-                新品上架
+                最新上架
             </h3>
         </div>
 
         <div class="flex-w flex-sb-m p-b-52">
-{{--            可在 NEW ARRIVAL 下加小字--}}
+            品質檢測通過
         </div>
-
-        <div class="row isotope-grid">
-            <?php
-                $products = \App\Models\Product::where('status','=','1')->orderBy('id','DESC')->get();
-                $product_count=0;
-            ?>
-            @foreach($products as $product)
-                @if($product_count<12)
-                    <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
+        <?php
+            $products = \App\Models\Product::
+                            join('exams','exams.product_id','=','products.id')
+                            ->where('status','=','1')
+                            ->orderBy('products.id','DESC')
+                            ->select('products.id','products.name','products.pictures','products.price','exams.pass','exams.perfect')
+                            ->get();
+        ?>
+        <div class="wrap-slick2">
+            <div class="slick2">
+                @foreach($products as $product)
+                    <div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
                         <!-- Block2 -->
                         <div class="block2">
                             <div class="block2-pic hov-img0">
-                                <img src="img/{{ $product->pictures }}" alt="IMG-PRODUCT" height="200">
-
+                                {{--                                    <div class="t_div">--}}
+                                {{--                                        <img src="img/{{$p->pictures}}" alt="IMG-PRODUCT" class="t_img">--}}
+                                <?php
+                                    $p=$product->pictures;
+                                ?>
+                                <img src="{{ asset('img/'.$p.'') }}" alt="IMG-PRODUCT" height="200">
+                                {{--                                    </div>--}}
                                 <a href="{{route('products.detail', $product->id)}}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
-        {{--                        <a href="{{route('products.show', $product->id)}}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">--}}
+                                    {{--                                    <a href="{{route('products.show', $p->id)}}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">--}}
                                     Quick View
                                 </a>
+
                             </div>
 
                             <div class="block2-txt flex-w flex-t p-t-14">
                                 <div class="block2-txt-child1 flex-col-l ">
                                     <a href="{{route('products.detail', $product->id)}}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-        {{--                            <a href="{{route('products.show', $product->id)}}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">--}}
-                                        {{ $product->name }}
+                                        {{--                                        <a href="{{route('products.show', $p->id)}}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">--}}
+                                        {{$product->name}}
                                     </a>
 
                                     <span class="stext-105 cl3">
-                                            ${{ $product->price }}
+                                             ${{$product->price}}
                                         </span>
                                 </div>
-
-                                <div class="block2-txt-child2 flex-r p-t-3">
-                                    <a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-        {{--                                <img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">--}}
-        {{--                                <img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">--}}
-                                    </a>
-                                </div>
+<!--                                --><?php
+//                                    $exams=\App\Models\Exam::where('product_id', $product->id)->first();
+//                                ?>
+{{--                                @if($exams !== null)--}}
+                                    @if($product->perfect == 1)
+                                        <img src="{{ asset('img/medal.png') }}" height="25" style="float: right;">
+                                    @elseif($product->pass == 1)
+                                        <img src="{{ asset('img/pass.png') }}" height="25" style="float: right;">
+                                    @endif
+{{--                                @endif--}}
                             </div>
                         </div>
                     </div>
-                    <?php
-                        $product_count++;
-                    ?>
-                @endif
-            @endforeach
+                @endforeach
+
+            </div>
         </div>
+{{--        <div class="row isotope-grid">--}}
+{{--            <?php--}}
+{{--                $products = \App\Models\Product::where('status','=','1')->orderBy('id','DESC')->get();--}}
+{{--            ?>--}}
+{{--            @foreach($products as $product)--}}
+{{--                    <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">--}}
+{{--                        <!-- Block2 -->--}}
+{{--                        <div class="block2">--}}
+{{--                            <div class="block2-pic hov-img0">--}}
+{{--                                <img src="img/{{ $product->pictures }}" alt="IMG-PRODUCT" height="200">--}}
+
+{{--                                <a href="{{route('products.detail', $product->id)}}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">--}}
+{{--        --}}{{--                        <a href="{{route('products.show', $product->id)}}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">--}}
+{{--                                    Quick View--}}
+{{--                                </a>--}}
+{{--                            </div>--}}
+
+{{--                            <div class="block2-txt flex-w flex-t p-t-14">--}}
+{{--                                <div class="block2-txt-child1 flex-col-l ">--}}
+{{--                                    <a href="{{route('products.detail', $product->id)}}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">--}}
+{{--        --}}{{--                            <a href="{{route('products.show', $product->id)}}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">--}}
+{{--                                        {{ $product->name }}--}}
+{{--                                    </a>--}}
+
+{{--                                    <span class="stext-105 cl3">--}}
+{{--                                            ${{ $product->price }}--}}
+{{--                                        </span>--}}
+{{--                                </div>--}}
+
+{{--                                <div class="block2-txt-child2 flex-r p-t-3">--}}
+{{--                                    <a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">--}}
+{{--        --}}{{--                                <img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">--}}
+{{--        --}}{{--                                <img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">--}}
+{{--                                    </a>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--            @endforeach--}}
+{{--        </div>--}}
 
         <!-- Load more -->
         <div class="flex-c-m flex-w w-full p-t-45">

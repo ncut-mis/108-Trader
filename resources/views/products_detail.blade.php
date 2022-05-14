@@ -81,6 +81,13 @@
                 <div class="p-r-50 p-t-5 p-lr-0-lg">
                     <h4 class="mtext-105 cl2 js-name-detail p-b-14">
                         {{ $products->name }}
+                        @if($exams !== null)
+                            @if($exams->perfect == 1)
+                                <img src="{{ asset('img/medal.png') }}" height="30" style="float: right;">
+                            @elseif($exams->pass == 1)
+                                <img src="{{ asset('img/pass.png') }}" height="30" style="float: right;">
+                            @endif
+                        @endif
                     </h4>
 
                     <span class="mtext-106 cl2">
@@ -236,7 +243,16 @@
                                              ${{$p->price}}
                                         </span>
                                     </div>
-
+                                    <?php
+                                        $exams2=\App\Models\Exam::where('product_id', $p->id)->first();
+                                    ?>
+                                    @if($exams2 !== null)
+                                        @if($exams2->perfect == 1)
+                                            <img src="{{ asset('img/medal.png') }}" height="25" style="float: right;">
+                                        @elseif($exams2->pass == 1)
+                                            <img src="{{ asset('img/pass.png') }}" height="25" style="float: right;">
+                                        @endif
+                                    @endif
                                 </div>
                             </div>
                         </div>
