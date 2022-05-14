@@ -78,6 +78,7 @@
         <th width="20" style="text-align: center">商品名稱</th>
         <th width="20" style="text-align: center">商品數量</th>
         <th width="20" style="text-align: center">商品圖片</th>
+        <th width="20" style="text-align: center">商品單價</th>
     </tr>
     </thead>
         <tbody>
@@ -89,9 +90,10 @@
 
         <td style="text-align: center">{{$product->name}}</td><!--商品名稱-->
 
-    <td style="text-align: center">{{$show2->quantity}}</td>
-        <td><div class="div"><img class="img" src="{{ asset('img/'.$product->pictures.'') }}" alt="IMG-PRODUCT" height="125" style="display:block; margin:auto;"></div></td>
+       <td style="text-align: center">{{$show2->quantity}}</td>
 
+        <td><div><img  src="{{ asset('img/'.$product->pictures.'') }}" alt="IMG-PRODUCT" height="125" style="display:block; margin:auto;"></div></td>
+        <td style="text-align: center">{{$product->price}}</td><!--商品金額-->
 {{--            <td style="text-align: center">--}}
 
 {{--                {{$array->$array[3]}}--}}
