@@ -24,16 +24,45 @@
 
         @if($order->status=='0')
             <td >新成立</td>
-        @elseif($order->status=='1')
-            <td >確認</td>
-        @elseif($order->status=='2')
-            <td >出貨中</td>
-        @elseif($order->status=='3')
-            <td >已出貨</td>
-        @elseif($order->status=='4')
-            <td >已送達</td>
+{{--        @elseif($order->status=='1')--}}
+{{--            <td >確認</td>--}}
+{{--        @elseif($order->status=='2')--}}
+{{--            <td >出貨中</td>--}}
+{{--        @elseif($order->status=='3')--}}
+{{--            <td >已出貨</td>--}}
+{{--        @elseif($order->status=='4')--}}
+{{--            <td >已送達</td>--}}
         @elseif($order->status=='5')
             <td >已完成</td>
+        @endif
+        @if($order->status!='0'&&$order->status!='5')
+        <td>
+        <select onChange="location = this.options[this.selectedIndex].value;">
+
+
+            @if($order->status=='1')
+
+                  <option value="#">確認</option>
+                  <option value="/seller/orders/status/{{$order->id}}/2">出貨中</option>
+                  <option value="/seller/orders/status/{{$order->id}}/3">已出貨</option>
+                  <option value="/seller/orders/status/{{$order->id}}/4">已送達</option>
+                  <option value="/seller/orders/status/{{$order->id}}/5">已完成</option>
+
+            @elseif($order->status=='2')
+                <option value="#">出貨中</option>
+                <option value="/seller/orders/status/{{$order->id}}/3">已出貨</option>
+                <option value="/seller/orders/status/{{$order->id}}/4">已送達</option>
+                <option value="/seller/orders/status/{{$order->id}}/5">已完成</option>
+            @elseif($order->status=='3')
+                 <option value="#">已出貨</option>
+                 <option value="/seller/orders/status/{{$order->id}}/4">已送達</option>
+                 <option value="/seller/orders/status/{{$order->id}}/5">已完成</option>
+            @elseif($order->status=='4')
+               <option value="#">已送達</option>
+               <option value="/seller/orders/status/{{$order->id}}/5">已完成</option>
+            @endif
+        </select>
+        </td>
         @endif
 
 

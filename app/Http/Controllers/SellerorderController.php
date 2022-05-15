@@ -19,7 +19,8 @@ class SellerorderController extends Controller
     {
         $product = Product::where('seller_id', auth()->user()->id)->first();
 
-        $data = Order::where('member_id',auth()->user()->id)->get();
+//        $data = Order::where('member_id',auth()->user()->id)->get();
+        $data = DB::table('orders')->get();
 
 
 
@@ -73,6 +74,21 @@ class SellerorderController extends Controller
 
 
                 'status'=>'1',
+
+
+
+            ]
+        );
+        return redirect()->route('seller.orders.index');
+    }
+    public  function  orderstatus($order,$st)//改變訂單狀態
+    {
+        DB::table('orders')->where('id', $order)->update(
+            [
+
+
+
+                'status'=>$st,
 
 
 

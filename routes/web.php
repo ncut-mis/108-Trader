@@ -108,6 +108,7 @@ Route::prefix('/seller/orders')->group(function () {
     Route::get('/comment', [\App\Http\Controllers\SellerorderController::class, 'comment'])->name('seller.products.comment');//評論評分
     Route::get('/amount', [\App\Http\Controllers\SellerorderController::class, 'amount'])->name('seller.products.amount');//進帳
     Route::get('/unamount', [\App\Http\Controllers\SellerorderController::class, 'unamount'])->name('seller.products.unamount');//未進帳
+    Route::get('/status/{order}/{st}', [\App\Http\Controllers\SellerorderController::class, 'orderstatus'])->name('seller.orders.status');//改變訂單狀態
 
 });
 
