@@ -69,10 +69,10 @@ class SellerproductController extends Controller
      */
     public function create()
     {
-      $data = Category::all();
-      return view('seller.products.create',compact($data));
-
+        $data = Category::all();
+        return view('seller.products.create',compact('data'));
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -80,10 +80,14 @@ class SellerproductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,$id)
+    public function store(Request $request)
     {
 
+       Product::create(['seller_id'=>auth()->user()->id,
+            'category_id'=>$_POST['type'],'name'=>$_POST['name'],'picture'=>$_POST['photo'],
+            'price'=>$_POST['price'],'detail'=>$_POST['content'],'status'=>$_POST['status'],'stock'=>$_POST['stock']]);
 
+        return redirect()->route('seller.products.index');
     }
 
     /**
