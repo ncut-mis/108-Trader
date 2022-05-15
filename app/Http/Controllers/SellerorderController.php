@@ -34,7 +34,7 @@ class SellerorderController extends Controller
 
     public function detail($order)
     {
-        $data= DB::table('orders')->where('id','=',$order)->get();
+        $data= DB::table('orders')->where('id','=',$order)->first();
         $data2= DB::table('order_details')->where('order_id','=',$order)->get();
         $products= DB::table('products')->get();
 //        return view('seller.orders.detail', ['order' => $data],['order_de' => $data2],['products' => $product]);
@@ -95,9 +95,14 @@ class SellerorderController extends Controller
     {
         $data= DB::table('orders')->where('status','5')->where('pay','1')->get();
         //訂單已完成且已付款
-        $data2= DB::table('order_details')->get();
-        $products= DB::table('products')->get();
-        return view('seller.orders.amount',compact('data','data2','products'));
+        $total=0;
+        foreach ($data as $aa)
+        {
+            $total+=$aa->price;
+        }
+        session_start();
+        $_SESSION['amount']=$total;
+        return view('seller.orders.amount',compact('data'));
 
     }
 
@@ -105,9 +110,15 @@ class SellerorderController extends Controller
     {
         $data= DB::table('orders')->where('status','!=','5')->get();
         //在訂單狀態完成前該筆訂單就算付錢了賣家也不會有進帳
-        $data2= DB::table('order_details')->get();
-        $products= DB::table('products')->get();
-        return view('seller.orders.unamount',compact('data','data2','products'));
+       $total=0;
+        foreach ($data as $aa)
+        {
+            $total+=$aa->price;
+        }
+        session_start();
+        $_SESSION['unamount']=$total;
+
+        return view('seller.orders.unamount',compact('data'));
 
     }
 

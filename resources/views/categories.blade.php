@@ -41,9 +41,18 @@
                                         ${{ $product->price }}
                                     </span>
                                     </div>
-    {{--                                <div class="block2-txt-child2 flex-r p-t-3">--}}
-    {{--                                   --}}
-    {{--                                </div>--}}
+                                    <div class="block2-txt-child2 flex-r p-t-3">
+                                        <?php
+                                            $exams=\App\Models\Exam::where('product_id', $product->id)->first();
+                                        ?>
+                                        @if($exams !== null)
+                                            @if($exams->perfect == 1)
+                                                <img src="{{ asset('img/medal.png') }}" height="25" style="float: right;">
+                                            @elseif($exams->pass == 1)
+                                                <img src="{{ asset('img/pass.png') }}" height="25" style="float: right;">
+                                            @endif
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
                         </div>

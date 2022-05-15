@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Exam;
 use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StoreProductRequest;
@@ -18,7 +19,7 @@ class ProductController extends Controller
     public function index()
     {
         //status=1為上架
-        $products=Product::where('status','=','1')->orderBy('id','ASC')->get();
+        $products=Product::where('status','=','1')->get();
         $data=['products' => $products];
         return view('products', $data);
     }
@@ -62,7 +63,8 @@ class ProductController extends Controller
     public function detail($product)
     {
         $products=Product::where('id', $product)->first();
-        $data=['products' => $products];
+        $exams=Exam::where('product_id', $product)->first();
+        $data=['products' => $products , 'exams' => $exams];
         return view('products_detail', $data);
     }
 
