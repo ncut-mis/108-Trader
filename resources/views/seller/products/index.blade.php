@@ -3,7 +3,7 @@
 @section('title','商品管理')
 
 @section('button')
-    <a href="{{route('seller.products.create')}}">新增商品</a>
+    <a href="{{url('/products/create')}}" class="d-none d-sm-inline-block btn btn-sm btn-facebook shadow-sm">新增商品</a>
 @endsection
 
 @section('breadcrumb')
@@ -31,7 +31,7 @@
         @foreach($data as $product)
 
         <td>
-            <img class="pic" src="{{asset('/../../img/'.$product->picture.'')}}"></td>
+            <img class="pic" src="{{asset('img/'.$product->picture.'')}}"></td>
         <td>{{$product->name}}</td>
 
          @foreach($name as $cname)
