@@ -84,11 +84,12 @@ Route::get('/seller/products/stop/{id}', [\App\Http\Controllers\SellerproductCon
 //刪除商品
 Route::get('/seller/products/{id}', [\App\Http\Controllers\SellerproductController::class, 'destroy'])->name('seller.products.destroy');
 
+//新增商品
+Route::get('/products/create', [\App\Http\Controllers\SellerproductController::class, 'create'])->name('products.create');
 
 Route::resource('seller/products', \App\Http\Controllers\SellerproductController::class)->names([
     'index' =>'seller.products.index',
-    'edit' => 'seller.products.edit','create' => 'seller.products.create',
-
+    'edit' => 'seller.products.edit',
 ]);
 
 //商品各類別
