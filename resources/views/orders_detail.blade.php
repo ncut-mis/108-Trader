@@ -62,11 +62,11 @@
             @endif
 
             <thead>
-            <tr>
-                <th width="20" style="text-align: center">商品名稱</th>
-                <th width="20" style="text-align: center">商品數量</th>
-                <th width="20" style="text-align: center">商品圖片</th>
-                <th width="20" style="text-align: center">商品單價</th>
+            <tr style="background-color:#9D9D9D">
+                <th width="20" style="text-align: center;color: white">商品名稱</th>
+                <th width="20" style="text-align: center;color: white">商品數量</th>
+                <th width="20" style="text-align: center;color: white">商品圖片</th>
+                <th width="20" style="text-align: center;color: white">商品單價</th>
             </tr>
             </thead>
 
