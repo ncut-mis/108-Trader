@@ -16,8 +16,9 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $data=Order::where('member_id', auth()->user()->id)->get();
-        return view('orders', compact('data'));
+        $orders=Order::where('member_id', auth()->user()->id)->get();
+        $data=['orders' => $orders];
+        return view('orders', $data);
     }
 
     /**
@@ -63,6 +64,14 @@ class OrderController extends Controller
 
     }
 
+    public function scores()
+    {
+        Order::where('id',$_GET['id'])->update(['score'=>$_GET['scores']]);
+        $orders=Order::where('member_id', auth()->user()->id)->get();
+        $data=['orders' => $orders];
+        return view('orders', $data);
+
+    }
     /**
      * Show the form for editing the specified resource.
      *

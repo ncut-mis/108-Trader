@@ -20,7 +20,7 @@
         <th></th>
     </tr>
     </thead>
-    @foreach($data as $order)
+    @foreach($orders as $order)
         <tfoot>
         <tbody>
         <tr>
@@ -40,10 +40,34 @@
                 <td >已完成</td>
             @endif
 
-            <td>{{$order->price}}</td>
+            <td>${{$order->price}}</td>
 
             @if($order->score=='')
-                <td style="text-align: center"><a href="{{route('orders.scores',$order->id)}}}">前往評分</a></td>
+{{--                <td style="text-align: center"><a href="{{route('orders.scores',$order->id)}}}">前往評分</a></td>--}}
+                @if(isset($_GET['order_id']))
+                    @if($_GET['order_id'] == $order->id)
+                        <td style="text-align: center">
+                            <form action="{{route('orders.scores')}}">
+                                <input type="number" name="scores" value="1" min="1" max="5" class="form-control text-center">
+                                <input type="hidden" name="id" value="{{$order->id}}" class="form-control text-center">
+                            </form>
+                        </td>
+                    @else
+                        <td style="text-align: center">
+                            <form action="{{route('orders.index')}}">
+                                <input name="order_id" type='hidden' id='order_id' value="{{ $order->id }}">
+                                <button>前往評分</button>
+                            </form>
+                        </td>
+                    @endif
+                @else
+                    <td style="text-align: center">
+                        <form action="{{route('orders.index')}}">
+                            <input name="order_id" type='hidden' id='order_id' value="{{ $order->id }}">
+                            <button>前往評分</button>
+                        </form>
+                    </td>
+                @endif
             @else
                 <td style="text-align: center">{{$order->score}}</td>
             @endif
@@ -55,7 +79,11 @@
             @endif
             <td><a href="{{route('orders.detail',$order->id)}}}">訂單詳細資料</a></td>
 
+{{--            @if(isset($_GET['order_id']))--}}
+{{--                @if($_GET['order_id'] == $order->id)--}}
 
+{{--                @endif--}}
+{{--            @endif--}}
         </tr>
         </tfoot>
         </tbody>

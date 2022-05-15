@@ -61,6 +61,8 @@ Route::resource('orders', \App\Http\Controllers\OrderController::class);
 //訂單詳細資料，show方法有bug
 Route::get('/orders_detail/{id}', [\App\Http\Controllers\OrderController::class, 'detail'])->name('orders.detail');
 
+//訂單評分
+Route::get('/orders_scores', [\App\Http\Controllers\OrderController::class, 'scores'])->name('orders.scores');
 
 Route::get('/search', [\App\Http\Controllers\ProductController::class, 'search'])->name('products.search');
 
