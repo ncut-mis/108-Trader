@@ -94,7 +94,6 @@
                 <td style="text-align: center"><a href="{{route('orders.comments',  $order->id )}}" style="color: black">查看評論</a></td>
             @endif
             <td><a href="{{route('orders.detail',$order->id)}}}">訂單詳細資料</a></td>
-            
         </tr>
         </tfoot>
         </tbody>

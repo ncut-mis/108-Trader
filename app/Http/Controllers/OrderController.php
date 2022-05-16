@@ -57,7 +57,7 @@ class OrderController extends Controller
 //    }
     public function detail($id)
     {
-        $data= DB::table('orders')->where('id','=',$id)->get();
+        $data= DB::table('orders')->where('id','=',$id)->first();
         $data2= DB::table('order_details')->where('order_id','=',$id)->get();
         $products= DB::table('products')->get();
         return view('orders_detail',compact('data','data2','products'));

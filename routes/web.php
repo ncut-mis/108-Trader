@@ -53,6 +53,9 @@ Route::get('/update', [\App\Http\Controllers\CartItemController::class, 'renew']
 //結帳
 Route::get('/check/{seller_id}', [\App\Http\Controllers\CartItemController::class, 'check'])->name('cart_items.check');
 
+//確認購物清單後填入買家資訊
+Route::get('/next_step/{seller_id}', [\App\Http\Controllers\CartItemController::class, 'next_step'])->name('cart_items.next_step');
+
 //完成下單
 Route::get('/done/{seller_id}', [\App\Http\Controllers\CartItemController::class, 'done'])->name('cart_items.done');
 
@@ -90,11 +93,12 @@ Route::get('/seller/products/stop/{id}', [\App\Http\Controllers\SellerproductCon
 //刪除商品
 Route::get('/seller/products/{id}', [\App\Http\Controllers\SellerproductController::class, 'destroy'])->name('seller.products.destroy');
 
+//新增商品
+Route::get('/products/create', [\App\Http\Controllers\SellerproductController::class, 'create'])->name('products.create');
 
 Route::resource('seller/products', \App\Http\Controllers\SellerproductController::class)->names([
     'index' =>'seller.products.index',
-    'edit' => 'seller.products.edit','create' => 'seller.products.create',
-
+    'edit' => 'seller.products.edit',
 ]);
 
 //商品各類別
@@ -114,6 +118,7 @@ Route::prefix('/seller/orders')->group(function () {
     Route::get('/comment', [\App\Http\Controllers\SellerorderController::class, 'comment'])->name('seller.products.comment');//評論評分
     Route::get('/amount', [\App\Http\Controllers\SellerorderController::class, 'amount'])->name('seller.products.amount');//進帳
     Route::get('/unamount', [\App\Http\Controllers\SellerorderController::class, 'unamount'])->name('seller.products.unamount');//未進帳
+    Route::get('/status/{order}/{st}', [\App\Http\Controllers\SellerorderController::class, 'orderstatus'])->name('seller.orders.status');//改變訂單狀態
 
 });
 
