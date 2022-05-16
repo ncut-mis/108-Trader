@@ -33,11 +33,9 @@
                 <div class="form-group">
                     <label for="type">類別</label>
                     <select  name="type" class="form-control" rows="10">
-                        <option value="1" selected>大衣洋裝</option>
-                        <option value="2">鋼筆</option>
-                        <option value="3">書籍</option>
-                        <option value="4">專輯</option>
-                        <option value="5">拼圖</option>
+                        @foreach($data as $category)
+                            <option value="{{$category->id}}" >{{$category->name}}</option>
+                        @endforeach
                     </select>
                 </div>
 
@@ -53,7 +51,7 @@
 
                 <div class="form-group">
                     <label for="photo">圖片</label>
-                    <input type="file" name="photo" >
+                    <input type="file" name="photo">
                 </div>
 
                 <div class="form-group">

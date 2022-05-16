@@ -18,6 +18,7 @@ class Product extends Model
         'picture',
         'detail',
         'status',
+        'stock'
     ];
 
     public function cart_items()
