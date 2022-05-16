@@ -53,6 +53,9 @@ Route::get('/update', [\App\Http\Controllers\CartItemController::class, 'renew']
 //結帳
 Route::get('/check/{seller_id}', [\App\Http\Controllers\CartItemController::class, 'check'])->name('cart_items.check');
 
+//確認購物清單後填入買家資訊
+Route::get('/next_step/{seller_id}', [\App\Http\Controllers\CartItemController::class, 'next_step'])->name('cart_items.next_step');
+
 //完成下單
 Route::get('/done/{seller_id}', [\App\Http\Controllers\CartItemController::class, 'done'])->name('cart_items.done');
 
