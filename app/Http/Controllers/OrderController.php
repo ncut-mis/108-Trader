@@ -67,9 +67,22 @@ class OrderController extends Controller
     public function scores()
     {
         Order::where('id',$_GET['id'])->update(['score'=>$_GET['scores']]);
-        $orders=Order::where('member_id', auth()->user()->id)->get();
+//        $orders=Order::where('member_id', auth()->user()->id)->get();
+//        $data=['orders' => $orders];
+        echo "<script >alert('評分成功'); location.href ='/orders';</script>";
+
+    }
+
+    public function comments($order)
+    {
+        $orders=Order::
+                join('order_details','order_details.order_id','=','orders.id')
+                ->join('products','order_details.product_id','=','products.id')
+                ->where('orders.id', $order)
+                ->select('products.pictures','products.name','orders.id','orders.comment')
+                ->get();
         $data=['orders' => $orders];
-        return view('orders', $data);
+        return view('orders_comments', $data);
 
     }
     /**

@@ -31,9 +31,9 @@ Route::get('/market', function () {
     return view('market');
 });
 
-Route::get('/carts', function () {
-    return view('carts');
-});
+//Route::get('/orders_comments', function () {
+//    return view('orders_comments');
+//});
 
 
 
@@ -63,6 +63,10 @@ Route::get('/orders_detail/{id}', [\App\Http\Controllers\OrderController::class,
 
 //訂單評分
 Route::get('/orders_scores', [\App\Http\Controllers\OrderController::class, 'scores'])->name('orders.scores');
+
+//訂單評論
+Route::get('/orders_comments/{order}', [\App\Http\Controllers\OrderController::class, 'comments'])->name('orders.comments');
+
 
 Route::get('/search', [\App\Http\Controllers\ProductController::class, 'search'])->name('products.search');
 

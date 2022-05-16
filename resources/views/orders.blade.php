@@ -21,6 +21,22 @@
     </tr>
     </thead>
     @foreach($orders as $order)
+
+            @if(isset($_GET['id']))
+                @if($_GET['id'] == $order->id)
+                    <?php
+                        \App\Models\Order::where('id',$_GET['id'])->update(['comment'=>$_GET['comments']]);
+                        echo "<script >alert('評論成功'); location.href ='/orders';</script>";
+                    ?>
+                @endif
+            @elseif(isset($_GET['id2']))
+                @if($_GET['id2'] == $order->id)
+                    <?php
+                        \App\Models\Order::where('id',$_GET['id2'])->update(['comment'=>$_GET['comments']]);
+                        echo "<script >alert('評論修改成功'); location.href ='/orders';</script>";
+                    ?>
+                @endif
+            @endif
         <tfoot>
         <tbody>
         <tr>
@@ -72,18 +88,13 @@
                 <td style="text-align: center">{{$order->score}}</td>
             @endif
 
-            @if($order->comment=='')
-                <td style="text-align: center"><a href="#">前往評論</a></td>
+            @if($order->comment == null)
+                <td style="text-align: center"><a href="{{route('orders.comments',  $order->id )}}" style="color: black">前往評論</a></td>
             @else
-                <td style="text-align: center">{{$order->comment}}</td>
+                <td style="text-align: center"><a href="{{route('orders.comments',  $order->id )}}" style="color: black">查看評論</a></td>
             @endif
             <td><a href="{{route('orders.detail',$order->id)}}}">訂單詳細資料</a></td>
-
-{{--            @if(isset($_GET['order_id']))--}}
-{{--                @if($_GET['order_id'] == $order->id)--}}
-
-{{--                @endif--}}
-{{--            @endif--}}
+            
         </tr>
         </tfoot>
         </tbody>
