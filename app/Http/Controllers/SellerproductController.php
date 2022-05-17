@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Models\Category;
+use App\Models\Order;
+use App\Models\Order_detail;
 use App\Models\Product;
 use App\Models\Sellerproduct;
 use Illuminate\Http\Request;
@@ -22,6 +24,35 @@ class SellerproductController extends Controller
         $name=Category::all();
 
         return view('seller.products.index', compact('data','name'));
+
+    }
+
+    public function dashboard()
+    {
+        $order=Order::where('seller_id','=',auth()->user()->id)->get();
+        $count=Order::where('seller_id','=',auth()->user()->id)->count();
+        $total=Order_detail::orderby('id','ASC')->get();
+        $quantity=0;
+        $price=0;
+        $score=0;
+
+        foreach ($order as $o)
+        {
+                foreach ($total as $sum)
+                {
+                    if($sum->order_id==$o->id)
+                    {
+                        $quantity=$quantity+$sum->quantity;
+                    }
+                }
+                $price=$price+$o->price;
+                $score=$score+$o->score;
+                $p[]=$o['price'];;
+        }
+
+        $score=number_format($score/$count,1);
+
+        return view('seller.dashboard', compact('quantity','price','score','count','p'));
 
     }
 
@@ -57,7 +88,6 @@ class SellerproductController extends Controller
         //顯示專輯類商品
         $data = Product::where('category_id', '4')->get();
 
-
         return view('seller.products.type.album', compact('data'));
 
 }
@@ -72,7 +102,6 @@ class SellerproductController extends Controller
         $data = Category::all();
         return view('seller.products.create',compact('data'));
     }
-
 
     /**
      * Store a newly created resource in storage.
