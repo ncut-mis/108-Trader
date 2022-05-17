@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title')
+@section('title','訂單詳細資料')
 
 @section('content')
     <div class="table-responsive" style="margin-bottom:5%;text-align: center">
@@ -11,14 +11,14 @@
                 <li class="breadcrumb-item active" style="color: grey">詳細資料</li>
             </ol>
             <thead>
-            <tr>
+            <tr style="background-color:#9D9D9D">
 {{--                <th width="20" style="text-align: center">商品名稱</th>--}}
-                <th width="20" style="text-align: center">出貨日期</th>
+                <th width="20%" style="text-align: center;color: white">出貨日期</th>
 {{--                <th width="20" style="text-align: center">訂單數量</th>--}}
-                <th width="20" style="text-align: center">付款方式</th>
-                <th width="20" style="text-align: center">是否付款</th>
-                <th width="20" style="text-align: center">訂單金額</th>
-                <th width="20" style="text-align: center">訂單狀態</th>
+                <th width="20%" style="text-align: center;color: white">付款方式</th>
+                <th width="20%" style="text-align: center;color: white">是否付款</th>
+                <th width="20%" style="text-align: center;color: white">訂單金額</th>
+                <th width="20%" style="text-align: center;color: white">訂單狀態</th>
 {{--                <th width="20" style="text-align: center">我的評分</th>--}}
 {{--                <th width="20" style="text-align: center">我的評論</th>--}}
             </tr>
@@ -34,7 +34,7 @@
             @elseif($data->pay=='1')
                 <td style="text-align: center">已付款</td>
             @endif
-            <td style="text-align: center">{{$data->price}}</td>
+            <td style="text-align: center">${{$data->price}}</td>
 
             @if($data->status=='0')
                 <td style="text-align: center">新成立</td>
@@ -52,24 +52,32 @@
 
             <thead>
             <tr style="background-color:#9D9D9D">
-                <th width="20" style="text-align: center;color: white">商品名稱</th>
-                <th width="20" style="text-align: center;color: white">商品數量</th>
-                <th width="20" style="text-align: center;color: white">商品圖片</th>
-                <th width="20" style="text-align: center;color: white">商品單價</th>
+                <th width="20%" style="text-align: center;color: white">商品圖片</th>
+                <th width="20%" style="text-align: center;color: white">商品名稱</th>
+                <th width="20%" style="text-align: center;color: white">商品數量</th>
+                <th width="20%" style="text-align: center;color: white">商品單價</th>
+                <th width="20%" style="text-align: center;color: white">商品總計</th>
             </tr>
             </thead>
 
             <tbody>
+            <?php
+                $total=0;
+            ?>
             @foreach($data2 as $show2)
                 @foreach($products as $product)
                     @if($show2->product_id==$product->id)
                         {{--                            <tr>--}}
-                        <td style="text-align: center">{{$product->name}}</td><!--商品名稱-->
-                        <td style="text-align: center">{{$show2->quantity}}</td><!--商品數量-->
                         <td>
                             <div><img  src="{{ asset('img/'.$product->pictures.'') }}" alt="IMG-PRODUCT" height="125" style="display:block; margin:auto;"></div>
                         </td>
-                        <td style="text-align: center">{{$product->price}}</td><!--商品金額-->
+                        <td style="text-align: center;vertical-align: middle">{{$product->name}}</td><!--商品名稱-->
+                        <td style="text-align: center;vertical-align: middle">{{$show2->quantity}}</td><!--商品數量-->
+                        <td style="text-align: center;vertical-align: middle">${{$product->price}}</td><!--商品金額-->
+                        <?php
+                            $total=$show2->quantity * $product->price;
+                        ?>
+                        <td style="text-align: center;vertical-align: middle">${{$total}}</td>
             {{--                                <?php--}}
             {{--                                    $sum = $show2->quantity * $product->price;--}}
             {{--                                ?>--}}
@@ -77,8 +85,8 @@
             {{--                            </tr>--}}
             <tfoot></tfoot>
             </tbody>
-            @endif
-            @endforeach
+                    @endif
+                @endforeach
             @endforeach
         </table>
     </div>
