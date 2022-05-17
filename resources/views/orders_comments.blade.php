@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title','訂單評分')
+@section('title','訂單評論')
 
 @section('content')
     <ol class="breadcrumb mar">
