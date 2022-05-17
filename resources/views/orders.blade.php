@@ -85,7 +85,7 @@
                     </td>
                 @endif
             @else
-                <td style="text-align: center">{{$order->score}}</td>
+                <td style="text-align: center">{{$order->score}} / 5</td>
             @endif
 
             @if($order->comment == null)
