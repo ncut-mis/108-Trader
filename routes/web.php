@@ -71,9 +71,8 @@ Route::get('/markets_search', [\App\Http\Controllers\SellerController::class, 's
 //賣家賣場搜尋商品
 Route::get('/markets_categories', [\App\Http\Controllers\SellerController::class, 'category'])->name('sellers.category');
 
-Route::get('/seller/dashboard', function () {
-    return view('seller.dashboard');
-})->name('seller.dashboard');
+//資料統計
+Route::get('/seller/dashboard', [\App\Http\Controllers\SellerproductController::class, 'dashboard'])->name('seller.dashboard');
 
 //商品上架
 Route::get('/seller/products/launch/{id}', [\App\Http\Controllers\SellerproductController::class, 'launch'])->name('seller.products.launch');
