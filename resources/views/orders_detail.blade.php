@@ -6,7 +6,7 @@
     <div class="table-responsive" style="margin-bottom:5%;text-align: center">
         <table class="table text-start align-middle table-bordered table-hover mb-0">
             <ol class="breadcrumb mar">
-                <li class="breadcrumb-item" style="color: grey"><a>首頁</a></li>
+                <li class="breadcrumb-item" style="color: grey"><a style="color: grey" href="/">首頁</a></li>
                 <li class="breadcrumb-item active" style="color: grey"  ><a style="color: grey" href="{{route('orders.index')}}">所有訂單</a></li>
                 <li class="breadcrumb-item active" style="color: grey">詳細資料</li>
             </ol>
@@ -19,8 +19,8 @@
                 <th width="20" style="text-align: center">是否付款</th>
                 <th width="20" style="text-align: center">訂單金額</th>
                 <th width="20" style="text-align: center">訂單狀態</th>
-                <th width="20" style="text-align: center">我的評分</th>
-                <th width="20" style="text-align: center">我的評論</th>
+{{--                <th width="20" style="text-align: center">我的評分</th>--}}
+{{--                <th width="20" style="text-align: center">我的評論</th>--}}
             </tr>
             </thead>
             <td style="text-align: center">{{$data->date}}</td><!--出貨日期-->
@@ -50,17 +50,6 @@
                 <td style="text-align: center">已完成</td>
             @endif
 
-            @if($data->score=='')
-                <td style="text-align: center"><a href="#">前往評分</a></td><!--買家評分-->
-            @else
-                <td style="text-align: center">{{$data->score}}</td><!--買家評分-->
-            @endif
-            @if($data->comment=='')
-                <td style="text-align: center"><a href="#">前往評論</a></td><!--買家評論-->
-            @else
-                <td style="text-align: center">{{$data->comment}}</td><!--買家評論-->
-            @endif
-
             <thead>
             <tr style="background-color:#9D9D9D">
                 <th width="20" style="text-align: center;color: white">商品名稱</th>
@@ -71,35 +60,84 @@
             </thead>
 
             <tbody>
-                @foreach($data2 as $show2)
-                    @foreach($products as $product)
-                        @if($show2->product_id==$product->id)
+            @foreach($data2 as $show2)
+                @foreach($products as $product)
+                    @if($show2->product_id==$product->id)
+                        {{--                            <tr>--}}
+                        <td style="text-align: center">{{$product->name}}</td><!--商品名稱-->
+                        <td style="text-align: center">{{$show2->quantity}}</td><!--商品數量-->
+                        <td>
+                            <div><img  src="{{ asset('img/'.$product->pictures.'') }}" alt="IMG-PRODUCT" height="125" style="display:block; margin:auto;"></div>
+                        </td>
+                        <td style="text-align: center">{{$product->price}}</td><!--商品金額-->
+            {{--                                <?php--}}
+            {{--                                    $sum = $show2->quantity * $product->price;--}}
+            {{--                                ?>--}}
+            {{--                                <td style="text-align: center">{{$sum}}</td>--}}
+            {{--                            </tr>--}}
+            <tfoot></tfoot>
+            </tbody>
+            @endif
+            @endforeach
+            @endforeach
+        </table>
+    </div>
+@endsection
+{{--                @foreach($data2 as $show2)--}}
+{{--                    @foreach($products as $product)--}}
+{{--                        @if($show2->product_id==$product->id)--}}
 
 {{--                            <tr>--}}
-                                <td style="text-align: center">{{$product->name}}</td><!--商品名稱-->
+{{--                                <td style="text-align: center">{{$product->name}}</td><!--商品名稱-->--}}
 
-                                <td style="text-align: center">{{$show2->quantity}}</td><!--商品數量-->
-                                <td>
-                                    <div><img  src="{{ asset('img/'.$product->pictures.'') }}" alt="IMG-PRODUCT" height="125" style="display:block; margin:auto;"></div>
-                                </td>
-                                <td style="text-align: center">{{$product->price}}</td><!--商品金額-->
+{{--<<<<<<< HEAD--}}
+{{--                                @if($show->status=='0')--}}
+{{--                                    <td style="text-align: center">新成立</td>--}}
+{{--                                @elseif($show->status=='1')--}}
+{{--                                    <td style="text-align: center">確認</td>--}}
+{{--                                @elseif($show->status=='2')--}}
+{{--                                    <td style="text-align: center">出貨中</td>--}}
+{{--                                @elseif($show->status=='3')--}}
+{{--                                    <td style="text-align: center">已出貨</td>--}}
+{{--                                @elseif($show->status=='4')--}}
+{{--                                    <td style="text-align: center">已送達</td>--}}
+{{--                                @elseif($show->status=='5')--}}
+{{--                                    <td style="text-align: center">已完成</td>--}}
+{{--                                @endif--}}
+{{--                                @if($show->score=='')--}}
+{{--                                    <td style="text-align: center"><a href="#">前往評分</a></td><!--買家評分-->--}}
+{{--                                @else--}}
+{{--                                    <td style="text-align: center">{{$show->score}}</td><!--買家評分-->--}}
+{{--                                @endif--}}
+{{--                                @if($show->comment=='')--}}
+{{--                                    <td style="text-align: center"><a href="#">前往評論</a></td><!--買家評論-->--}}
+{{--                                @else--}}
+{{--                                    <td style="text-align: center">{{$show->comment}}</td><!--買家評論-->--}}
+{{--                                @endif--}}
+{{--=======--}}
+{{--                                <td style="text-align: center">{{$show2->quantity}}</td><!--商品數量-->--}}
+{{--                                <td>--}}
+{{--                                    <div><img  src="{{ asset('img/'.$product->pictures.'') }}" alt="IMG-PRODUCT" height="125" style="display:block; margin:auto;"></div>--}}
+{{--                                </td>--}}
+{{--                                <td style="text-align: center">{{$product->price}}</td><!--商品金額-->--}}
 
-                                {{--                                <?php--}}
+{{--                                --}}{{--                                <?php--}}
 {{--                                    $sum = $show2->quantity * $product->price;--}}
 {{--                                ?>--}}
 {{--                                <td style="text-align: center">{{$sum}}</td>--}}
 
+{{-->>>>>>> 338323317f98a076d6c724f5ff52d919e2ca1563--}}
 
 
 {{--                            </tr>--}}
 
-                            <tfoot></tfoot>
-                            </tbody>
+{{--                            <tfoot></tfoot>--}}
+{{--                            </tbody>--}}
 
-    @endif
-    @endforeach
-    @endforeach
+{{--    @endif--}}
+{{--    @endforeach--}}
+{{--    @endforeach--}}
 
-        </table>
-    </div>
-@endsection
+{{--        </table>--}}
+{{--    </div>--}}
+{{--@endsection--}}

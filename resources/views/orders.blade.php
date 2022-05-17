@@ -7,7 +7,7 @@
     <div class="table-responsive" style="margin-bottom:5%;text-align: center;">
     <table class="table text-start align-middle table-bordered table-hover mb-0">
         <ol class="breadcrumb mar">
-            <li class="breadcrumb-item" style="color: grey"><a>首頁</a></li>
+            <li class="breadcrumb-item" style="color: grey"><a style="color: grey" href="/">首頁</a></li>
             <li class="breadcrumb-item active" style="color: grey"  ><a style="color: grey" href="{{route('orders.index')}}">所有訂單</a></li>
         </ol>
     <thead>
@@ -15,10 +15,28 @@
         <th style="text-align: center">訂單日期</th>
         <th style="text-align: center">訂單狀態</th>
         <th style="text-align: center">訂單金額</th>
+        <th style="text-align: center">我的評分</th>
+        <th style="text-align: center">我的評論</th>
         <th></th>
     </tr>
     </thead>
-    @foreach($data as $order)
+    @foreach($orders as $order)
+
+            @if(isset($_GET['id']))
+                @if($_GET['id'] == $order->id)
+                    <?php
+                        \App\Models\Order::where('id',$_GET['id'])->update(['comment'=>$_GET['comments']]);
+                        echo "<script >alert('評論成功'); location.href ='/orders';</script>";
+                    ?>
+                @endif
+            @elseif(isset($_GET['id2']))
+                @if($_GET['id2'] == $order->id)
+                    <?php
+                        \App\Models\Order::where('id',$_GET['id2'])->update(['comment'=>$_GET['comments']]);
+                        echo "<script >alert('評論修改成功'); location.href ='/orders';</script>";
+                    ?>
+                @endif
+            @endif
         <tfoot>
         <tbody>
         <tr>
@@ -38,11 +56,44 @@
                 <td >已完成</td>
             @endif
 
+            <td>${{$order->price}}</td>
 
-            <td >{{$order->price}}</td>
-                <td ><a href="{{route('orders.detail',$order->id)}}}">訂單詳細資料</a></td>
+            @if($order->score=='')
+{{--                <td style="text-align: center"><a href="{{route('orders.scores',$order->id)}}}">前往評分</a></td>--}}
+                @if(isset($_GET['order_id']))
+                    @if($_GET['order_id'] == $order->id)
+                        <td style="text-align: center">
+                            <form action="{{route('orders.scores')}}">
+                                <input type="number" name="scores" value="1" min="1" max="5" class="form-control text-center">
+                                <input type="hidden" name="id" value="{{$order->id}}" class="form-control text-center">
+                            </form>
+                        </td>
+                    @else
+                        <td style="text-align: center">
+                            <form action="{{route('orders.index')}}">
+                                <input name="order_id" type='hidden' id='order_id' value="{{ $order->id }}">
+                                <button>前往評分</button>
+                            </form>
+                        </td>
+                    @endif
+                @else
+                    <td style="text-align: center">
+                        <form action="{{route('orders.index')}}">
+                            <input name="order_id" type='hidden' id='order_id' value="{{ $order->id }}">
+                            <button>前往評分</button>
+                        </form>
+                    </td>
+                @endif
+            @else
+                <td style="text-align: center">{{$order->score}}</td>
+            @endif
 
-
+            @if($order->comment == null)
+                <td style="text-align: center"><a href="{{route('orders.comments',  $order->id )}}" style="color: black">前往評論</a></td>
+            @else
+                <td style="text-align: center"><a href="{{route('orders.comments',  $order->id )}}" style="color: black">查看評論</a></td>
+            @endif
+            <td><a href="{{route('orders.detail',$order->id)}}}">訂單詳細資料</a></td>
         </tr>
         </tfoot>
         </tbody>

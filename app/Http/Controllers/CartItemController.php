@@ -157,9 +157,23 @@ class CartItemController extends Controller
         return view('check',$data);
     }
 
+    public function next_step($seller_id)
+    {
+        $check2 = Cart_item::
+        join('products','cart_items.product_id','=','products.id')
+            ->join('sellers','sellers.id','=','products.seller_id')
+            ->where('cart_items.member_id',auth()->user()->id)
+            ->where('sellers.id',$seller_id)
+            ->select('products.pictures','products.name','products.price','cart_items.quantity','sellers.id')
+            ->get();
+
+        $data2 = ['check2' => $check2];
+        return view('customer',$data2);
+    }
+
     public function done($seller_id)
     {
-        if(!empty($_GET['branch']) && !empty($_GET['account']))
+        if(!empty($_GET['card_number']) && !empty($_GET['card_date']) && !empty($_GET['card_csv']))
         {
             $done = Cart_item::
                 join('products','cart_items.product_id','=','products.id')
@@ -175,13 +189,26 @@ class CartItemController extends Controller
                 $inventory = $finish->inventory - $finish->quantity;//最終庫存=庫存量-賣出數量
                 $cart_total = $finish->price * $finish->quantity;//購物車商品金額
                 $final_price = $final_price + $cart_total ;//累加為最終金額
-                //更新個人資料
-                User::where('id',auth()->user()->id)->update(['name'=>$_GET['name'],'phone'=>$_GET['phone'],'address'=>$_GET['address']]);
+                //更新收貨人資料
+                //Order::where('id',auth()->user()->id)->update(['receiver'=>$_GET['name'],'receiver_phone'=>$_GET['phone'],'receiver_address'=>$_GET['address']]);
                 //更新庫存
                 Product::where('id',$finish->id)->update(['inventory'=>$inventory]);
             }
+            //判斷付款方式
+            $way = 0;
+            $pay = 0;
+            if($_GET['way']==0)
+            {
+                $way = 0;
+                $pay = 1;
+            }
+            else if($_GET['way']==1)
+            {
+                $way = 1;
+                $pay = 0;
+            }
             //新增order
-            Order::insert(['member_id'=>auth()->user()->id,'seller_id'=>$seller_id,'date'=>$date, 'status'=>'0','pay'=>'1' ,'way'=>'0','price'=>$final_price]);
+            Order::insert(['member_id'=>auth()->user()->id,'seller_id'=>$seller_id,'date'=>$date, 'status'=>'0','pay'=>$pay ,'way'=>$way,'price'=>$final_price,'receiver'=>$_GET['name'],'receiver_phone'=>$_GET['phone'],'receiver_address'=>$_GET['address']]);
             $order = Order::orderby('id','DESC')->first();
             foreach ($done as $dd)
             {
@@ -204,7 +231,7 @@ class CartItemController extends Controller
         }
         else
         {
-            echo "<script >alert('請輸入分行代碼及帳號'); location.href ='/check/".$seller_id."';</script>";
+            echo "<script>alert('請輸入卡號、到期日及安全碼'); location.href ='/next_step/".$seller_id."';</script>";
         }
     }
 

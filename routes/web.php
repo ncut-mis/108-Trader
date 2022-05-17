@@ -31,9 +31,9 @@ Route::get('/market', function () {
     return view('market');
 });
 
-Route::get('/carts', function () {
-    return view('carts');
-});
+//Route::get('/orders_comments', function () {
+//    return view('orders_comments');
+//});
 
 
 
@@ -53,6 +53,9 @@ Route::get('/update', [\App\Http\Controllers\CartItemController::class, 'renew']
 //結帳
 Route::get('/check/{seller_id}', [\App\Http\Controllers\CartItemController::class, 'check'])->name('cart_items.check');
 
+//確認購物清單後填入買家資訊
+Route::get('/next_step/{seller_id}', [\App\Http\Controllers\CartItemController::class, 'next_step'])->name('cart_items.next_step');
+
 //完成下單
 Route::get('/done/{seller_id}', [\App\Http\Controllers\CartItemController::class, 'done'])->name('cart_items.done');
 
@@ -60,6 +63,12 @@ Route::resource('orders', \App\Http\Controllers\OrderController::class);
 
 //訂單詳細資料，show方法有bug
 Route::get('/orders_detail/{id}', [\App\Http\Controllers\OrderController::class, 'detail'])->name('orders.detail');
+
+//訂單評分
+Route::get('/orders_scores', [\App\Http\Controllers\OrderController::class, 'scores'])->name('orders.scores');
+
+//訂單評論
+Route::get('/orders_comments/{order}', [\App\Http\Controllers\OrderController::class, 'comments'])->name('orders.comments');
 
 
 Route::get('/search', [\App\Http\Controllers\ProductController::class, 'search'])->name('products.search');
