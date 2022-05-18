@@ -59,16 +59,24 @@
 
             <td>${{$order->price}}</td>
 
-            @if($order->score=='')
-{{--                <td style="text-align: center"><a href="{{route('orders.scores',$order->id)}}}">前往評分</a></td>--}}
-                @if(isset($_GET['order_id']))
-                    @if($_GET['order_id'] == $order->id)
-                        <td style="text-align: center">
-                            <form action="{{route('orders.scores')}}">
-                                <input type="number" name="scores" value="1" min="1" max="5" class="form-control text-center">
-                                <input type="hidden" name="id" value="{{$order->id}}" class="form-control text-center">
-                            </form>
-                        </td>
+            @if($order->status=='5')
+                @if($order->score=='')
+                    @if(isset($_GET['order_id']))
+                        @if($_GET['order_id'] == $order->id)
+                            <td style="text-align: center">
+                                <form action="{{route('orders.scores')}}">
+                                    <input type="number" name="scores" value="1" min="1" max="5" class="form-control text-center">
+                                    <input type="hidden" name="id" value="{{$order->id}}" class="form-control text-center">
+                                </form>
+                            </td>
+                        @else
+                            <td style="text-align: center">
+                                <form action="{{route('orders.index')}}">
+                                    <input name="order_id" type='hidden' id='order_id' value="{{ $order->id }}">
+                                    <button>前往評分</button>
+                                </form>
+                            </td>
+                        @endif
                     @else
                         <td style="text-align: center">
                             <form action="{{route('orders.index')}}">
@@ -78,22 +86,22 @@
                         </td>
                     @endif
                 @else
-                    <td style="text-align: center">
-                        <form action="{{route('orders.index')}}">
-                            <input name="order_id" type='hidden' id='order_id' value="{{ $order->id }}">
-                            <button>前往評分</button>
-                        </form>
-                    </td>
+                    <td style="text-align: center">{{$order->score}} / 5</td>
                 @endif
             @else
-                <td style="text-align: center">{{$order->score}} / 5</td>
+                <td style="text-align: center">請先完成訂單</td>
             @endif
 
-            @if($order->comment == null)
-                <td style="text-align: center"><a href="{{route('orders.comments',  $order->id )}}" style="color: black">前往評論</a></td>
+            @if($order->status=='5')
+                @if($order->comment == null)
+                    <td style="text-align: center"><a href="{{route('orders.comments',  $order->id )}}" style="color: black">前往評論</a></td>
+                @else
+                    <td style="text-align: center"><a href="{{route('orders.comments',  $order->id )}}" style="color: black">查看評論</a></td>
+                @endif
             @else
-                <td style="text-align: center"><a href="{{route('orders.comments',  $order->id )}}" style="color: black">查看評論</a></td>
+                <td style="text-align: center">請先完成訂單</td>
             @endif
+
             <td><a href="{{route('orders.detail',$order->id)}}}" style="color: black">訂單詳細資料</a></td>
 
             <td>
