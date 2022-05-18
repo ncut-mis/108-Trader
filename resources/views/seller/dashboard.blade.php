@@ -17,7 +17,7 @@
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                 總銷量</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$quantity}}</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$quantity}}件</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -52,7 +52,13 @@
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                 賣家評價</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$score}}({{$count}}個評價)</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                @if($count!=0)
+                                {{$score}}({{$count}}個評價)
+                                @else
+                                目前沒有評價!!
+                                @endif
+                            </div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -80,16 +86,16 @@
                         <canvas id="myChart">
                             <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
                                <script>
-                                   const p= {!! json_encode($p) !!};
+                                   const p1= {!! json_encode($p) !!};
                                    var ctx = document.getElementById('myChart').getContext('2d');
                                    var myChart = new Chart(ctx, {
                                     type: 'line', //圖表類型
                                     data: {
                                         //標題
-                                        labels: ['1月', '2月', '3月', '4月', '5月', '6月'],
+                                        labels:['1','2','3','4','5','6','7','8','9','10','11','12'],
                                         datasets: [{
                                             label: '收入', //標籤
-                                            data: p, //資料
+                                            data: p1, //資料
                                             //圖表背景色
                                             backgroundColor: [
                                                 'rgba(106,76,156)'
@@ -109,7 +115,7 @@
                                         scales: {
                                             yAxes: [{
                                                 ticks: {
-                                                    beginAtZero: true,
+                                                    beginAtZero: false,
                                                     responsive: true, //符合響應式
                                                     stepSize: 100,
                                                 }
