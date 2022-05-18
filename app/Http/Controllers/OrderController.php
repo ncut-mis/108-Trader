@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
+use App\Models\Order_detail;
 use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
@@ -114,8 +115,14 @@ class OrderController extends Controller
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Order $order)
+    public function destroy($order)
     {
-        //
+        Order::destroy($order);
+        $order_details=Order_detail::where('order_id','=', $order)->get();
+        foreach ($order_details as $order_detail)
+        {
+            Order_detail::destroy($order_detail->id);
+        }
+        return redirect()->route('orders.index');
     }
 }

@@ -17,7 +17,8 @@
         <th style="text-align: center">訂單金額</th>
         <th style="text-align: center">我的評分</th>
         <th style="text-align: center">我的評論</th>
-        <th></th>
+        <th width="30%" colspan='2'></th>
+{{--        <th></th>--}}
     </tr>
     </thead>
     @foreach($orders as $order)
@@ -93,7 +94,36 @@
             @else
                 <td style="text-align: center"><a href="{{route('orders.comments',  $order->id )}}" style="color: black">查看評論</a></td>
             @endif
-            <td><a href="{{route('orders.detail',$order->id)}}}">訂單詳細資料</a></td>
+            <td><a href="{{route('orders.detail',$order->id)}}}" style="color: black">訂單詳細資料</a></td>
+
+            <td>
+                @if($order->status=='0')
+                    <form action="{{ route('orders.destroy', $order->id) }}" method="POST" style="display: inline">
+                        @method('DELETE')
+                        @csrf
+                        <button class="btn btn-sm btn-info" type="submit" onClick="return confirm('確定要取消訂單?')">取消訂單</button> /
+                    </form>
+{{--                    下面方法有問題--}}
+{{--                    <a href="{{route('orders.destroy', $order->id )}}" class="btn btn-sm btn-info" onClick="return confirm('確定要取消訂單?')">取消訂單</a> /--}}
+                    <form style="display: inline">
+                        <button class="btn btn-sm btn-danger" type="submit" disabled>退貨</button>
+                    </form>
+                @elseif($order->status=='4')
+                    <form style="display: inline">
+                        <button class="btn btn-sm btn-info" type="submit" disabled>取消訂單</button> /
+                    </form>
+                   <form style="display: inline">
+                        <button class="btn btn-sm btn-danger" type="submit" onClick="return confirm('確定要退貨?')">退貨</button>
+                    </form>
+                @else
+                    <form style="display: inline">
+                        <button class="btn btn-sm btn-info" type="submit" disabled>取消訂單</button> /
+                    </form>
+                    <form style="display: inline">
+                        <button class="btn btn-sm btn-danger" type="submit" disabled>退貨</button>
+                    </form>
+                @endif
+            </td>
         </tr>
         </tfoot>
         </tbody>
