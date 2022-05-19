@@ -30,12 +30,12 @@
 {{--            <td >出貨中</td>--}}
 {{--        @elseif($order->status=='3')--}}
 {{--            <td >已出貨</td>--}}
-{{--        @elseif($order->status=='4')--}}
-{{--            <td >已送達</td>--}}
+        @elseif($order->status=='4')
+            <td >已送達</td>
         @elseif($order->status=='5')
             <td >已完成</td>
         @endif
-        @if($order->status!='0'&&$order->status!='5')
+        @if($order->status!='0'&&$order->status!='4'&&$order->status!='5')
         <td>
         <select onChange="location = this.options[this.selectedIndex].value;">
 
@@ -46,20 +46,16 @@
                   <option value="/seller/orders/status/{{$order->id}}/2">出貨中</option>
                   <option value="/seller/orders/status/{{$order->id}}/3">已出貨</option>
                   <option value="/seller/orders/status/{{$order->id}}/4">已送達</option>
-                  <option value="/seller/orders/status/{{$order->id}}/5">已完成</option>
+
 
             @elseif($order->status=='2')
                 <option value="#">出貨中</option>
                 <option value="/seller/orders/status/{{$order->id}}/3">已出貨</option>
                 <option value="/seller/orders/status/{{$order->id}}/4">已送達</option>
-                <option value="/seller/orders/status/{{$order->id}}/5">已完成</option>
+
             @elseif($order->status=='3')
                  <option value="#">已出貨</option>
                  <option value="/seller/orders/status/{{$order->id}}/4">已送達</option>
-                 <option value="/seller/orders/status/{{$order->id}}/5">已完成</option>
-            @elseif($order->status=='4')
-               <option value="#">已送達</option>
-               <option value="/seller/orders/status/{{$order->id}}/5">已完成</option>
             @endif
         </select>
         </td>

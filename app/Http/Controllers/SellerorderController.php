@@ -20,7 +20,7 @@ class SellerorderController extends Controller
         $product = Product::where('seller_id', auth()->user()->id)->first();
 
 //        $data = Order::where('member_id',auth()->user()->id)->get();
-        $data = DB::table('orders')->get();
+        $data = DB::table('orders')->where('seller_id', auth()->user()->id)->get();
 
 
 
@@ -94,6 +94,20 @@ class SellerorderController extends Controller
 
             ]
         );
+        if($st==4)//貨到付款，已送達就算付錢了
+        {
+            DB::table('orders')->where('id', $order)->update(
+                [
+
+
+
+                    'pay'=>1,
+
+
+
+                ]
+            );
+        }
         return redirect()->route('seller.orders.index');
     }
 
