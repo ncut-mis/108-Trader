@@ -94,6 +94,20 @@ class SellerorderController extends Controller
 
             ]
         );
+        if($st==4)//貨到付款，已送達就算付錢了
+        {
+            DB::table('orders')->where('id', $order)->update(
+                [
+
+
+
+                    'pay'=>1,
+
+
+
+                ]
+            );
+        }
         return redirect()->route('seller.orders.index');
     }
 
