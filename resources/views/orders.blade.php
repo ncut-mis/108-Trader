@@ -23,6 +23,7 @@
     </thead>
     @foreach($orders as $order)
 
+{{--        評論訂單    --}}
             @if(isset($_GET['id']))
                 @if($_GET['id'] == $order->id)
                     <?php
@@ -38,6 +39,16 @@
                     ?>
                 @endif
             @endif
+
+            @if(isset($_GET['id_back']))
+                @if($_GET['id_back'] == $order->id)
+                    <?php
+                    \App\Models\Order::where('id',$_GET['id_back'])->update(['status'=>'6']);
+                    echo "<script >alert('退貨申請成功'); location.href ='/orders';</script>";
+                    ?>
+                @endif
+            @endif
+
         <tfoot>
         <tbody>
         <tr>
@@ -55,6 +66,8 @@
                 <td >已送達</td>
             @elseif($order->status=='5')
                 <td >已完成</td>
+            @elseif($order->status=='6')
+                <td >退貨中</td>
             @endif
 
             <td>${{$order->price}}</td>
@@ -121,7 +134,7 @@
                         @csrf
                         <button class="btn btn-sm btn-success" type="submit" onClick="return confirm('確定要完成訂單?')">完成訂單</button> /
                     </form>
-                   <form style="display: inline">
+                   <form action="{{ route('orders.back', $order->id)}}" style="display: inline">
                         <button class="btn btn-sm btn-danger" type="submit" onClick="return confirm('確定要退貨?')">退貨</button>
                     </form>
                 @else

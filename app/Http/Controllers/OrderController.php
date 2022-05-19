@@ -92,6 +92,19 @@ class OrderController extends Controller
         Order::where('id',$order)->update(['status'=>'5']);
         echo "<script >alert('成功完成訂單'); location.href ='/orders';</script>";
     }
+
+    public function back($order)
+    {
+        $orders=Order::
+            join('order_details','order_details.order_id','=','orders.id')
+            ->join('products','order_details.product_id','=','products.id')
+            ->where('orders.id', $order)
+            ->select('products.pictures','products.name','orders.id','orders.comment')
+            ->get();
+        $data=['orders' => $orders];
+        return view('orders_back', $data);
+
+    }
     /**
      * Show the form for editing the specified resource.
      *
