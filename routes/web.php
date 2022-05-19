@@ -70,6 +70,11 @@ Route::get('/orders_scores', [\App\Http\Controllers\OrderController::class, 'sco
 //訂單評論
 Route::get('/orders_comments/{order}', [\App\Http\Controllers\OrderController::class, 'comments'])->name('orders.comments');
 
+//完成訂單
+Route::get('/orders_done/{order}', [\App\Http\Controllers\OrderController::class, 'done'])->name('orders.done');
+
+//退貨
+Route::get('/orders_back/{order}', [\App\Http\Controllers\OrderController::class, 'back'])->name('orders.back');
 
 Route::get('/search', [\App\Http\Controllers\ProductController::class, 'search'])->name('products.search');
 

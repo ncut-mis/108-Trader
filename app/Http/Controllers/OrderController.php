@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
+use App\Models\Order_detail;
 use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
@@ -85,6 +86,25 @@ class OrderController extends Controller
         return view('orders_comments', $data);
 
     }
+
+    public function done($order)
+    {
+        Order::where('id',$order)->update(['status'=>'5']);
+        echo "<script >alert('成功完成訂單'); location.href ='/orders';</script>";
+    }
+
+    public function back($order)
+    {
+        $orders=Order::
+            join('order_details','order_details.order_id','=','orders.id')
+            ->join('products','order_details.product_id','=','products.id')
+            ->where('orders.id', $order)
+            ->select('products.pictures','products.name','orders.id','orders.comment')
+            ->get();
+        $data=['orders' => $orders];
+        return view('orders_back', $data);
+
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -114,8 +134,14 @@ class OrderController extends Controller
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Order $order)
+    public function destroy($order)
     {
-        //
+        Order::destroy($order);
+        $order_details=Order_detail::where('order_id','=', $order)->get();
+        foreach ($order_details as $order_detail)
+        {
+            Order_detail::destroy($order_detail->id);
+        }
+        return redirect()->route('orders.index');
     }
 }

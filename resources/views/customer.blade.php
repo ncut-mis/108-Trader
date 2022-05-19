@@ -89,7 +89,7 @@
                         <td colspan="10">
                             <div style="text-align: left">
                                 <b>信用卡/簽帳金融卡號</b>(Visa/Mastercard/JCB)：
-                                <input type="text" name="card_number">
+                                <input type="text" name="card_number" style="border:1px lightgray solid;">
                             </div>
                         </td>
                     </tr>
@@ -97,7 +97,7 @@
                         <td colspan="11">
                             <div style="text-align: left">
                                 <b>信用卡到期日：</b>
-                                <input type="text" name="card_date">
+                                <input type="text" name="card_date" style="border:1px lightgray solid;">
                             </div>
                         </td>
                     </tr>
@@ -105,7 +105,7 @@
                         <td colspan="12">
                             <div style="text-align: left">
                                 <b>信用卡安全碼</b>(CSV)：
-                                <input type="text" name="card_csv">
+                                <input type="text" name="card_csv" style="border:1px lightgray solid;">
                             </div>
                         </td>
                     </tr>
@@ -120,7 +120,7 @@
                         <td colspan="15">
                             <div style="text-align: left">
                                 <b>姓名：</b>
-                                <input type="text" name="name" value="{{$member->name}}">
+                                <input type="text" name="name" value="{{$member->name}}" style="border:1px lightgray solid;">
                             </div>
                         </td>
                     </tr>
@@ -128,7 +128,7 @@
                         <td colspan="16">
                             <div style="text-align: left">
                                 <b>電話：</b>
-                                <input type="text" name="phone" value="{{$member->phone}}">
+                                <input type="text" name="phone" value="{{$member->phone}}" style="border:1px lightgray solid;">
                             </div>
                         </td>
                     </tr>
@@ -136,7 +136,7 @@
                         <td colspan="17">
                             <div style="text-align: left">
                                 <b>地址：</b>
-                                <input type="text" style="width:300px;" name="address" value="{{$member->address}}">
+                                <input type="text" style="width:300px;border:1px lightgray solid;" name="address" value="{{$member->address}}">
                             </div>
                         </td>
                     </tr>

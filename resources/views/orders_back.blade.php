@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title','訂單評論')
+@section('title','訂單退貨申請')
 
 @section('content')
     <ol class="breadcrumb mar">
@@ -50,35 +50,21 @@
                 <thead>
                     <tr>
                         <th style="text-align: center;background-color:#9D9D9D;color: white">
-                            我的評論
+                            退貨原因
                         </th>
                     </tr>
-                    @if( $o->comment == null)
                         <form action="{{route('orders.index')}}">
                             <tr>
                                 <td>
-                                    <textarea style="border:1px lightgray solid;" rows="15" cols="70" name="comments" id="comments"></textarea>
+                                    <textarea style="border:1px lightgray solid;" rows="15" cols="70" name="reasons" id="reasons"></textarea>
                                     <div class="flex-c-m flex-w w-full p-t-15">
     {{--                                <p>&nbsp;</p>--}}
-                                        <input name="id" type='hidden' id='id' value="{{ $o->id }}">
+                                        <input name="id_back" type='hidden' id='id_back' value="{{ $o->id }}">
                                         <button class="btn btn-primary">提交</button>
                                     </div>
                                 </td>
                             </tr>
                         </form>
-                    @else
-                        <form action="{{route('orders.index')}}">
-                            <tr>
-                                <td>
-                                    <textarea style="border:1px lightgray solid;" rows="15" cols="70" name="comments" id="comments">{{ $o->comment }}</textarea>
-                                    <div class="flex-c-m flex-w w-full p-t-15">
-                                        <input name="id2" type='hidden' id='id2' value="{{ $o->id }}">
-                                        <button class="btn btn-primary">修改</button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </form>
-                    @endif
                 </thead>
             </table>
         </div>
