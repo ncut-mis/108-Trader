@@ -13,7 +13,7 @@
             <table class="table table-bordered table-hover" cellpadding="10" cellspacing="10">
                 <thead>
                     <tr>
-                        <th colspan='2' style="text-align: center">
+                        <th colspan='2' style="text-align: center;background-color:#9D9D9D;color: white">
                             訂單資料
                         </th>
                     </tr>
@@ -49,7 +49,7 @@
             <table class="table table-bordered table-hover" cellpadding="10" cellspacing="10">
                 <thead>
                     <tr>
-                        <th style="text-align: center">
+                        <th style="text-align: center;background-color:#9D9D9D;color: white">
                             我的評論
                         </th>
                     </tr>
