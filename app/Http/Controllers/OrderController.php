@@ -86,6 +86,12 @@ class OrderController extends Controller
         return view('orders_comments', $data);
 
     }
+
+    public function done($order)
+    {
+        Order::where('id',$order)->update(['status'=>'5']);
+        echo "<script >alert('成功完成訂單'); location.href ='/orders';</script>";
+    }
     /**
      * Show the form for editing the specified resource.
      *

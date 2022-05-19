@@ -11,12 +11,12 @@
             <li class="breadcrumb-item active" style="color: grey"  ><a style="color: grey" href="{{route('orders.index')}}">所有訂單</a></li>
         </ol>
     <thead>
-    <tr>
-        <th style="text-align: center">訂單日期</th>
-        <th style="text-align: center">訂單狀態</th>
-        <th style="text-align: center">訂單金額</th>
-        <th style="text-align: center">我的評分</th>
-        <th style="text-align: center">我的評論</th>
+    <tr style="background-color:#9D9D9D">
+        <th style="text-align: center;color: white">訂單日期</th>
+        <th style="text-align: center;color: white">訂單狀態</th>
+        <th style="text-align: center;color: white">訂單金額</th>
+        <th style="text-align: center;color: white">我的評分</th>
+        <th style="text-align: center;color: white">我的評論</th>
         <th width="30%" colspan='2'></th>
 {{--        <th></th>--}}
     </tr>
@@ -117,15 +117,16 @@
                         <button class="btn btn-sm btn-danger" type="submit" disabled>退貨</button>
                     </form>
                 @elseif($order->status=='4')
-                    <form style="display: inline">
-                        <button class="btn btn-sm btn-info" type="submit" disabled>取消訂單</button> /
+                    <form action="{{ route('orders.done', $order->id) }}" style="display: inline">
+                        @csrf
+                        <button class="btn btn-sm btn-success" type="submit" onClick="return confirm('確定要完成訂單?')">完成訂單</button> /
                     </form>
                    <form style="display: inline">
                         <button class="btn btn-sm btn-danger" type="submit" onClick="return confirm('確定要退貨?')">退貨</button>
                     </form>
                 @else
                     <form style="display: inline">
-                        <button class="btn btn-sm btn-info" type="submit" disabled>取消訂單</button> /
+                        <button class="btn btn-sm btn-success" type="submit" disabled>完成訂單</button> /
                     </form>
                     <form style="display: inline">
                         <button class="btn btn-sm btn-danger" type="submit" disabled>退貨</button>
