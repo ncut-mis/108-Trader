@@ -20,7 +20,7 @@ class SellerorderController extends Controller
         $product = Product::where('seller_id', auth()->user()->id)->first();
 
 //        $data = Order::where('member_id',auth()->user()->id)->get();
-        $data = DB::table('orders')->get();
+        $data = DB::table('orders')->where('seller_id', auth()->user()->id)->get();
 
 
 
