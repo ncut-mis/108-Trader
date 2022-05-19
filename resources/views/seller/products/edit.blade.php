@@ -21,7 +21,7 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <form action="/seller/{{$product->seller_id}}/products/{{$product->id}}" method="POST" role="form">
+            <form action="/seller/products/{{$product->id}}" method="POST" role="form">
                 @method('PATCH')
                 @csrf
                 <div class="form-group">
@@ -50,7 +50,10 @@
 
                 <div class="form-group">
                     <label for="photo">圖片：</label>
-                    <img class="pic" src="/../../img/{{$product->picture}}">
+                    <?php
+                    $pic = $product->pictures;
+                    ?>
+                    <img class="pic" src="{{ asset('img/'.$pic.'') }}">
                     <input type="file" name="photo" value="{{old('photo',$product->picture)}}">
                 </div>
 
