@@ -48,7 +48,7 @@
                 <td style="text-align: center">已送達</td>
             @elseif($data->status=='5')
                 <td style="text-align: center">已完成</td>
-            @elseif($order->status=='6')
+            @elseif($data->status=='6')
                 <td >退貨中</td>
             @endif
 
