@@ -73,27 +73,13 @@
 
                <!-- Nav Item - Pages Collapse Menu -->
                <li class="nav-item">
-                   <a class="nav-link collapsed"  data-toggle="collapse" data-target="#collapseUtilities"
-                      aria-expanded="true" aria-controls="collapseUtilities">
+                   <a class="nav-link" href="{{route('seller.products.index')}}">
                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-dash" viewBox="0 0 16 16" style="color: #8F77B5">
                            <path fill-rule="evenodd" d="M5.5 10a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5z"/>
                            <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z"/>
                        </svg>
                        <span style="color: #211E55">商品管理</span>
                    </a>
-                   <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                        data-parent="#accordionSidebar">
-                       <div class="bg py-2 collapse-inner rounded">
-                           <a class="collapse-item" href="{{route('seller.products.index')}}" style="color: #113285">所有商品</a>
-
-                           <hr class="sidebar-divider my-0">
-                           <h6 class="collapse-header" style="color: #70649A">分類</h6>
-                           <a class="collapse-item" href="{{route('seller.products.type.coat')}}" style="color: #113285">大衣洋裝類</a>
-                           <a class="collapse-item" href="{{route('seller.products.type.pan')}}" style="color: #113285">鋼筆類</a>
-                           <a class="collapse-item" href="{{route('seller.products.type.book')}}" style="color: #113285">書籍類</a>
-                           <a class="collapse-item" href="{{route('seller.products.type.album')}}" style="color: #113285">專輯類</a>
-                       </div>
-                   </div>
                </li>
 
             <li class="nav-item">
@@ -323,7 +309,7 @@
                                    <?php
                                    $id=\App\Models\Product::where('seller_id','=',auth()->user()->id)->value('seller_id');
                                    $seller=\App\Models\Seller::where('id','=',$id)->value('member_id');
-                                   $sname=\App\Models\Member::where('id','=',$seller)->value('name');
+                                   $sname=\App\Models\User::where('id','=',$seller)->value('name');
                                    ?>
                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{$sname}}</span>
                                </a>
@@ -368,7 +354,9 @@
                                        <ol class="breadcrumb mar">
                                            @yield('breadcrumb')
                                        </ol>
+
                                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+
                                            @yield('button')
                                        </div>
                                        @yield('content')

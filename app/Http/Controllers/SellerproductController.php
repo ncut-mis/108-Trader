@@ -30,11 +30,12 @@ class SellerproductController extends Controller
     public function dashboard()
     {
         $order=Order::where('seller_id','=',auth()->user()->id)->get();
-        $count=Order::where('seller_id','=',auth()->user()->id)->count();
+        $count=Order::where('seller_id','=',auth()->user()->id)->where('score','!=','')->where('comment','!=','')->count();
         $total=Order_detail::orderby('id','ASC')->get();
         $quantity=0;
         $price=0;
         $score=0;
+        $p[]='';
 
         foreach ($order as $o)
         {
@@ -47,50 +48,25 @@ class SellerproductController extends Controller
                 }
                 $price=$price+$o->price;
                 $score=$score+$o->score;
-                $p[]=$o['price'];;
-        }
+                $p[]=$o['price'];
 
+        }
+        if($count>0)
         $score=number_format($score/$count,1);
 
         return view('seller.dashboard', compact('quantity','price','score','count','p'));
 
     }
 
-    public function type1()
+    public function detail($id)
     {
-        //顯示大衣洋裝類商品
-        $data = Product::where('category_id', '1')->get();
+        $data = Product::where('seller_id', auth()->user()->id)->where('id','=',$id)->get();
 
+        $name=Category::all();
 
-        return view('seller.products.type.coat',compact('data'));
+        return view('seller.products.detail', compact('data','name'));
     }
 
-    public function type2()
-    {
-        //顯示鋼筆類商品
-        $data = Product::where('category_id', '2')->get();
-
-
-        return view('seller.products.type.pan', compact('data'));
-    }
-
-    public function type3()
-    {
-        //顯示書籍類商品
-        $data = Product::where('category_id', '3')->get();
-
-
-        return view('seller.products.type.book', compact('data'));
-    }
-
-    public function type4()
-    {
-        //顯示專輯類商品
-        $data = Product::where('category_id', '4')->get();
-
-        return view('seller.products.type.album', compact('data'));
-
-}
 
     /**
      * Show the form for creating a new resource.
@@ -113,10 +89,11 @@ class SellerproductController extends Controller
     {
 
        Product::create(['seller_id'=>auth()->user()->id,
-            'category_id'=>$_POST['type'],'name'=>$_POST['name'],'picture'=>$_POST['photo'],
+            'category_id'=>$_POST['type'],'name'=>$_POST['name'],'pictures'=>$_POST['photo'],
             'price'=>$_POST['price'],'detail'=>$_POST['content'],'status'=>$_POST['status'],'stock'=>$_POST['stock']]);
 
         return redirect()->route('seller.products.index');
+
     }
 
     /**
