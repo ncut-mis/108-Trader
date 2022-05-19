@@ -95,6 +95,9 @@ Route::get('/seller/products/{id}', [\App\Http\Controllers\SellerproductControll
 //新增商品
 Route::get('/products/create', [\App\Http\Controllers\SellerproductController::class, 'create'])->name('products.create');
 
+Route::get('seller/products/detail/{id}', [\App\Http\Controllers\SellerproductController::class, 'detail'])->name('seller.product.detail');
+
+
 Route::resource('seller/products', \App\Http\Controllers\SellerproductController::class)->names([
     'index' =>'seller.products.index',
     'edit' => 'seller.products.edit',

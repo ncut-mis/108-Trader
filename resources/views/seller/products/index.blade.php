@@ -37,7 +37,7 @@
 
             <img class="pic" src="{{ asset('img/'.$pic.'') }}"></td>
 
-        <td>{{$product->name}}</td>
+            <td><a href="{{route('seller.product.detail',$product->id)}}" style="color: #566C73">{{$product->name}}</a></td>
 
          @foreach($name as $cname)
          @if($product->category_id==$cname->id)
