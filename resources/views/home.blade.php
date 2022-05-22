@@ -318,6 +318,7 @@
             $products = \App\Models\Product::
                             join('exams','exams.product_id','=','products.id')
                             ->where('status','=','1')
+                            ->where('pass','=','1')
                             ->orderBy('products.id','DESC')
                             ->select('products.id','products.name','products.pictures','products.price','exams.pass','exams.perfect')
                             ->get();
