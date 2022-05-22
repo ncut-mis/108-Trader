@@ -59,7 +59,7 @@
             @elseif($order->status=='1')
                 <td >確認</td>
             @elseif($order->status=='2')
-                <td >出貨中</td>
+                <td >備貨中</td>
             @elseif($order->status=='3')
                 <td >已出貨</td>
             @elseif($order->status=='4')

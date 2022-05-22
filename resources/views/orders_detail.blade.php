@@ -41,7 +41,7 @@
             @elseif($data->status=='1')
                 <td style="text-align: center">確認</td>
             @elseif($data->status=='2')
-                <td style="text-align: center">出貨中</td>
+                <td style="text-align: center">備貨中</td>
             @elseif($data->status=='3')
                 <td style="text-align: center">已出貨</td>
             @elseif($data->status=='4')
