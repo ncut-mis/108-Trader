@@ -51,7 +51,12 @@
 
         <tfoot>
         <tbody>
-        <tr>
+        @if($order->status=='7')
+            <tr style="color: gray">
+        @else
+            <tr style="color: black">
+        @endif
+
             <td >{{$order->date}}</td>
 
             @if($order->status=='0')
@@ -68,6 +73,8 @@
                 <td >已完成</td>
             @elseif($order->status=='6')
                 <td >退貨中</td>
+            @elseif($order->status=='7')
+                <td >已取消</td>
             @endif
 
             <td>${{$order->price}}</td>
@@ -123,13 +130,15 @@
                 <td style="text-align: center">請先完成訂單</td>
             @endif
 
-            <td><a href="{{route('orders.detail',$order->id)}}}" style="color: black">訂單詳細資料</a></td>
+            @if($order->status=='7')
+                <td><a href="{{route('orders.detail',$order->id)}}}" style="color: gray">訂單詳細資料</a></td>
+            @else
+                <td><a href="{{route('orders.detail',$order->id)}}}" style="color: black">訂單詳細資料</a></td>
+            @endif
 
             <td>
                 @if($order->status=='0')
-                    <form action="{{ route('orders.destroy', $order->id) }}" method="POST" style="display: inline">
-                        @method('DELETE')
-                        @csrf
+                    <form action="{{ route('orders.cancel', $order->id) }}" style="display: inline">
                         <button class="btn btn-sm btn-info" type="submit" onClick="return confirm('確定要取消訂單?')">取消訂單</button> /
                     </form>
 {{--                    下面方法有問題--}}

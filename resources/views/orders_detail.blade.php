@@ -11,17 +11,17 @@
                 <li class="breadcrumb-item active" style="color: grey">詳細資料</li>
             </ol>
             <thead>
-            <tr style="background-color:#9D9D9D">
-{{--                <th width="20" style="text-align: center">商品名稱</th>--}}
-                <th width="20%" style="text-align: center;color: white">出貨日期</th>
-{{--                <th width="20" style="text-align: center">訂單數量</th>--}}
-                <th width="20%" style="text-align: center;color: white">付款方式</th>
-                <th width="20%" style="text-align: center;color: white">是否付款</th>
-                <th width="20%" style="text-align: center;color: white">訂單金額</th>
-                <th width="20%" style="text-align: center;color: white">訂單狀態</th>
-{{--                <th width="20" style="text-align: center">我的評分</th>--}}
-{{--                <th width="20" style="text-align: center">我的評論</th>--}}
-            </tr>
+                <tr style="background-color:#9D9D9D">
+    {{--                <th width="20" style="text-align: center">商品名稱</th>--}}
+                    <th width="20%" style="text-align: center;color: white">出貨日期</th>
+    {{--                <th width="20" style="text-align: center">訂單數量</th>--}}
+                    <th width="20%" style="text-align: center;color: white">付款方式</th>
+                    <th width="20%" style="text-align: center;color: white">是否付款</th>
+                    <th width="20%" style="text-align: center;color: white">訂單金額</th>
+                    <th width="20%" style="text-align: center;color: white">訂單狀態</th>
+    {{--                <th width="20" style="text-align: center">我的評分</th>--}}
+    {{--                <th width="20" style="text-align: center">我的評論</th>--}}
+                </tr>
             </thead>
             <td style="text-align: center">{{$data->date}}</td><!--出貨日期-->
             @if($data->way=='0')
@@ -50,6 +50,8 @@
                 <td style="text-align: center">已完成</td>
             @elseif($data->status=='6')
                 <td >退貨中</td>
+            @elseif($data->status=='7')
+                <td >已取消</td>
             @endif
 
             <thead>

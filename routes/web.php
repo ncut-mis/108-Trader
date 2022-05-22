@@ -73,6 +73,9 @@ Route::get('/orders_comments/{order}', [\App\Http\Controllers\OrderController::c
 //完成訂單
 Route::get('/orders_done/{order}', [\App\Http\Controllers\OrderController::class, 'done'])->name('orders.done');
 
+//取消訂單
+Route::get('/orders_cancel/{order}', [\App\Http\Controllers\OrderController::class, 'cancel'])->name('orders.cancel');
+
 //退貨
 Route::get('/orders_back/{order}', [\App\Http\Controllers\OrderController::class, 'back'])->name('orders.back');
 
