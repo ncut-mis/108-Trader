@@ -78,7 +78,15 @@
                         @if($_GET['order_id'] == $order->id)
                             <td style="text-align: center">
                                 <form action="{{route('orders.scores')}}">
-                                    <input type="number" name="scores" value="1" min="1" max="5" class="form-control text-center">
+{{--                                    <input type="number" name="scores" value="1" min="1" max="5" class="form-control text-center">--}}
+                                    <select name="scores">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                    <button style="color: #5389ff">評分</button>
                                     <input type="hidden" name="id" value="{{$order->id}}" class="form-control text-center">
                                 </form>
                             </td>
