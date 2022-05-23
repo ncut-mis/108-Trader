@@ -15,6 +15,10 @@
 <!-- breadcrumb 首頁/類別/商品名稱-->
 <div class="container">
     <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+        <a href="/" class="stext-109 cl8 hov-cl1 trans-04">
+            首頁
+            <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+        </a>
         <a href="{{route('products.index')}}" class="stext-109 cl8 hov-cl1 trans-04">
             全部
             <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
@@ -30,10 +34,35 @@
     </div>
 </div>
 
+{{--<div class="container">--}}
+{{--    @if($exams !== null)--}}
+{{--        @if($exams->perfect == 1)--}}
+{{--            <img src="{{ asset('img/medal.png') }}" height="40">品質檢測優良商品--}}
+{{--        @elseif($exams->pass == 1)--}}
+{{--            <img src="{{ asset('img/pass.png') }}" height="40">品質檢測通過商品--}}
+{{--        @endif--}}
+{{--    @endif--}}
+{{--</div>--}}
 
 <!-- Product Detail 商品詳細資訊 -->
 <section class="sec-product-detail bg0 p-t-65 p-b-60">
     <div class="container">
+        @if($exams !== null)
+            @if($exams->perfect == 1)
+                <div style="text-align:left;">
+                    <h3><img src="{{ asset('img/medal.png') }}" height="40">
+                        品質檢測優良商品
+                    </h3>
+                </div>
+            @elseif($exams->pass == 1)
+                <div style="text-align:left;">
+                    <h3><img src="{{ asset('img/pass.png') }}" height="40">
+                        已通過品質檢測
+                    </h3>
+                </div>
+            @endif
+        @endif
+        <p>&nbsp;</p>
         <div class="row">
             <div class="col-md-6 col-lg-7 p-b-30">
                 <div class="p-l-25 p-r-30 p-lr-0-lg">
@@ -81,13 +110,13 @@
                 <div class="p-r-50 p-t-5 p-lr-0-lg">
                     <h4 class="mtext-105 cl2 js-name-detail p-b-14">
                         {{ $products->name }}
-                        @if($exams !== null)
-                            @if($exams->perfect == 1)
-                                <img src="{{ asset('img/medal.png') }}" height="30" style="float: right;">
-                            @elseif($exams->pass == 1)
-                                <img src="{{ asset('img/pass.png') }}" height="30" style="float: right;">
-                            @endif
-                        @endif
+{{--                        @if($exams !== null)--}}
+{{--                            @if($exams->perfect == 1)--}}
+{{--                                <img src="{{ asset('img/medal.png') }}" height="30" style="float: right;">--}}
+{{--                            @elseif($exams->pass == 1)--}}
+{{--                                <img src="{{ asset('img/pass.png') }}" height="30" style="float: right;">--}}
+{{--                            @endif--}}
+{{--                        @endif--}}
                     </h4>
 
                     <span class="mtext-106 cl2">
