@@ -42,7 +42,7 @@
                                     <li><a href="#">會員資料</a></li>
                                     <li><a href="{{route('orders.index')}}">訂單紀錄</a></li>
                                     <?php
-                                    $sellers = DB::table('sellers')->where('member_id','=',auth()->user()->id)->get();?>
+                                    $sellers = \App\Models\Seller::where('member_id','=',auth()->user()->id)->where('status','1')->get();?>
                                     @if($sellers->isEmpty())
                                         <li><a href="#">成為賣家</a></li>
                                     @else
