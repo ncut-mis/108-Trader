@@ -10,58 +10,75 @@
 @section('content')
     <div class="row">
         <!-- Earnings (Monthly) Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                總銷量</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$quantity}}件</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <!-- Earnings (Monthly) Card Example -->
         <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-success shadow h-100 py-2">
+            <div class="card shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                               賣出總金額</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">${{$price}}</div>
+                            <div class="text-xs font-weight-bold  mb-1" style="color:#268785">
+                               銷售額</div>
+                            <div class="h5 mb-0" style="color: black"><small>NT$</small>{{$price}}</div>
                         </div>
-                        <div class="col-auto">
-                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                        </div>
+
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card  shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                            <div class="text-xs font-weight-bold  mb-1" style="color:#268785">
+                                訂單數</div>
+                            <div class="h5 mb-0 " style="color: black">{{$num}}</div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card  shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold  mb-1" style="color: #268785">
                                 賣家評價</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            <div class="h5 mb-0 " style="color: black">
                                 @if($count!=0)
-                                {{$score}}({{$count}}個評價)
+                                {{$sore}}
                                 @else
                                 目前沒有評價!!
                                 @endif
                             </div>
                         </div>
-                        <div class="col-auto">
-                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card  shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold  mb-1" style="color: #268785">
+                                客單價</div>
+                            <div class="h5 mb-0 " style="color: black">
+                                <?php
+                                if($num>0)
+                                    {
+                                        $cu=$price/$num;
+                                        echo "<small>NT$</small>".round($cu,0);
+                                    }
+                               ?>
+                            </div>
                         </div>
                     </div>
                 </div>

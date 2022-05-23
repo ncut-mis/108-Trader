@@ -30,12 +30,15 @@ class SellerproductController extends Controller
     public function dashboard()
     {
         $order=Order::where('seller_id','=',auth()->user()->id)->get();
+        $num=Order::where('seller_id','=',auth()->user()->id)->count();
         $count=Order::where('seller_id','=',auth()->user()->id)->where('score','!=','')->where('comment','!=','')->count();
         $total=Order_detail::orderby('id','ASC')->get();
-        $quantity=0;
+        $id = Product::orderby('id', 'ASC')->get();
+        $category=Category::orderBy('id', 'ASC')->get();
+
         $price=0;
-        $score=0;
         $p[]='';
+        $score=0;
 
         foreach ($order as $o)
         {
@@ -43,18 +46,19 @@ class SellerproductController extends Controller
                 {
                     if($sum->order_id==$o->id)
                     {
-                        $quantity=$quantity+$sum->quantity;
+                      $score+=$sum->score;
                     }
                 }
                 $price=$price+$o->price;
-                $score=$score+$o->score;
                 $p[]=$o['price'];
-
         }
         if($count>0)
-        $score=number_format($score/$count,1);
+        {
+            $score=$score/$count;
+        }
 
-        return view('seller.dashboard', compact('quantity','price','score','count','p'));
+        return view('seller.dashboard', compact('price','count','p','num','score'));
+
 
     }
 
