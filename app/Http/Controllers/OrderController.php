@@ -6,6 +6,7 @@ use App\Models\Order;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use App\Models\Order_detail;
+use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
@@ -17,7 +18,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders=Order::where('member_id', auth()->user()->id)->get();
+        $orders=Order::where('member_id', auth()->user()->id)->orderby('id','DESC')->get();
         $data=['orders' => $orders];
         return view('orders', $data);
     }
@@ -93,6 +94,23 @@ class OrderController extends Controller
         echo "<script >alert('成功完成訂單'); location.href ='/orders';</script>";
     }
 
+    public function cancel($order)
+    {
+        Order::where('id',$order)->update(['status'=>'7']);
+        $order_details=Order_detail::
+                        join('products','products.id','=','order_details.product_id')
+                        ->where('order_id','=',$order)
+                        ->select('order_details.quantity','products.inventory','products.id')
+                        ->get();
+        foreach($order_details as $order_detail)
+        {
+            Product::
+            where('id',$order_detail->id)
+            ->update(['inventory'=> $order_detail->inventory+$order_detail->quantity]);
+        }
+        echo "<script >alert('成功取消訂單'); location.href ='/orders';</script>";
+    }
+
     public function back($order)
     {
         $orders=Order::
@@ -136,12 +154,6 @@ class OrderController extends Controller
      */
     public function destroy($order)
     {
-        Order::destroy($order);
-        $order_details=Order_detail::where('order_id','=', $order)->get();
-        foreach ($order_details as $order_detail)
-        {
-            Order_detail::destroy($order_detail->id);
-        }
-        return redirect()->route('orders.index');
+
     }
 }

@@ -51,7 +51,12 @@
 
         <tfoot>
         <tbody>
-        <tr>
+        @if($order->status=='7')
+            <tr style="color: gray">
+        @else
+            <tr style="color: black">
+        @endif
+
             <td >{{$order->date}}</td>
 
             @if($order->status=='0')
@@ -59,7 +64,7 @@
             @elseif($order->status=='1')
                 <td >確認</td>
             @elseif($order->status=='2')
-                <td >出貨中</td>
+                <td >備貨中</td>
             @elseif($order->status=='3')
                 <td >已出貨</td>
             @elseif($order->status=='4')
@@ -68,6 +73,8 @@
                 <td >已完成</td>
             @elseif($order->status=='6')
                 <td >退貨中</td>
+            @elseif($order->status=='7')
+                <td >已取消</td>
             @endif
 
             <td>${{$order->price}}</td>
@@ -78,7 +85,15 @@
                         @if($_GET['order_id'] == $order->id)
                             <td style="text-align: center">
                                 <form action="{{route('orders.scores')}}">
-                                    <input type="number" name="scores" value="1" min="1" max="5" class="form-control text-center">
+{{--                                    <input type="number" name="scores" value="1" min="1" max="5" class="form-control text-center">--}}
+                                    <select name="scores">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                    <button style="color: #5389ff">評分</button>
                                     <input type="hidden" name="id" value="{{$order->id}}" class="form-control text-center">
                                 </form>
                             </td>
@@ -115,13 +130,15 @@
                 <td style="text-align: center">請先完成訂單</td>
             @endif
 
-            <td><a href="{{route('orders.detail',$order->id)}}}" style="color: black">訂單詳細資料</a></td>
+            @if($order->status=='7')
+                <td><a href="{{route('orders.detail',$order->id)}}}" style="color: gray">訂單詳細資料</a></td>
+            @else
+                <td><a href="{{route('orders.detail',$order->id)}}}" style="color: black">訂單詳細資料</a></td>
+            @endif
 
             <td>
                 @if($order->status=='0')
-                    <form action="{{ route('orders.destroy', $order->id) }}" method="POST" style="display: inline">
-                        @method('DELETE')
-                        @csrf
+                    <form action="{{ route('orders.cancel', $order->id) }}" style="display: inline">
                         <button class="btn btn-sm btn-info" type="submit" onClick="return confirm('確定要取消訂單?')">取消訂單</button> /
                     </form>
 {{--                    下面方法有問題--}}

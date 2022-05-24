@@ -113,7 +113,7 @@ class SellerorderController extends Controller
 
     public function comment()//所有評論評分
     {
-        $data= DB::table('orders')->get();
+        $data= DB::table('orders')->where('seller_id',auth()->user()->id)->get();
         $data2= DB::table('order_details')->get();
         $products= DB::table('products')->get();
         $members= DB::table('members')->get();
@@ -123,7 +123,7 @@ class SellerorderController extends Controller
 
     public function amount()//進帳
     {
-        $data= DB::table('orders')->where('status','5')->where('pay','1')->get();
+        $data= DB::table('orders')->where('seller_id',auth()->user()->id)->where('status','5')->where('pay','1')->get();
         //訂單已完成且已付款
         $total=0;
         foreach ($data as $aa)
@@ -138,7 +138,7 @@ class SellerorderController extends Controller
 
     public function unamount()//未進帳
     {
-        $data= DB::table('orders')->where('status','!=','5')->get();
+        $data= DB::table('orders')->where('seller_id',auth()->user()->id)->where('status','!=','5')->where('status','!=','6')->where('status','!=','7')->get();
         //在訂單狀態完成前該筆訂單就算付錢了賣家也不會有進帳
        $total=0;
         foreach ($data as $aa)

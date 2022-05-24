@@ -34,8 +34,12 @@
             <td >已送達</td>
         @elseif($order->status=='5')
             <td >已完成</td>
+        @elseif($order->status=='6')
+            <td >退貨中</td>
+        @elseif($order->status=='7')
+            <td >取消</td>
         @endif
-        @if($order->status!='0'&&$order->status!='4'&&$order->status!='5')
+        @if($order->status!='0'&&$order->status!='4'&&$order->status!='5'&&$order->status!='6'&&$order->status!='7')
         <td>
         <select onChange="location = this.options[this.selectedIndex].value;">
 
@@ -43,13 +47,13 @@
             @if($order->status=='1')
 
                   <option value="#">確認</option>
-                  <option value="/seller/orders/status/{{$order->id}}/2">出貨中</option>
+                  <option value="/seller/orders/status/{{$order->id}}/2">備貨中</option>
                   <option value="/seller/orders/status/{{$order->id}}/3">已出貨</option>
                   <option value="/seller/orders/status/{{$order->id}}/4">已送達</option>
 
 
             @elseif($order->status=='2')
-                <option value="#">出貨中</option>
+                <option value="#">備貨中</option>
                 <option value="/seller/orders/status/{{$order->id}}/3">已出貨</option>
                 <option value="/seller/orders/status/{{$order->id}}/4">已送達</option>
 
