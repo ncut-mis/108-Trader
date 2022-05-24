@@ -22,18 +22,37 @@
     </thead>
 
     @foreach($data as $show)
-        @foreach($data2 as $show2)
-            @foreach($products as $product)
-                @foreach($members as $member)
-                @if($show->id==$show2->order_id&&$show2->product_id==$product->id&&$show->member_id==$member->id)
+{{--        @foreach($data2 as $show2)--}}
+{{--            @foreach($products as $product)--}}
+{{--                @foreach($members as $member)--}}
+{{--                @if($show->member_id==$member->id)--}}
                     <tbody>
                     <tr>
 
                         <td style="text-align: center">{{$show->id}}</td><!--訂單編號-->
-                        <td style="text-align: center">{{$product->name}}</td><!--商品名稱-->
+                        <td style="text-align: center">
+                        @foreach($data2 as $show2)
+                            @foreach($products as $product)
+                                @if($show->id==$show2->order_id&&$show2->product_id==$product->id)
+
+                        {{$product->name}}<br><!--商品名稱-->
+                                @endif
+                        @endforeach
+                        @endforeach
+                        </td>
                         <td style="text-align: center">{{$show->date}}</td><!--出貨日期-->
+                        @foreach($members as $member)
+                          @if($show->member_id==$member->id)
+                              @if(strlen($member->id)==3)
                         <td style="text-align: center">{{$member->id}}</td><!--買家編號-->
+                              @elseif(strlen($member->id)==2)
+                        <td style="text-align: center">0{{$member->id}}</td><!--買家編號-->
+                              @elseif(strlen($member->id)==1)
+                         <td style="text-align: center">00{{$member->id}}</td><!--買家編號-->
+                                @endif
                         <td style="text-align: center">{{$member->name}}</td><!--買家名稱-->
+                            @endif
+                        @endforeach
                         @if($show->score=='')
                             <td style="text-align: center">尚未評分</td><!--買家評分-->
                         @else
@@ -50,11 +69,11 @@
                     <tfoot></tfoot>
                     </tbody>
 
-                   @endif
+{{--                   @endif--}}
                 @endforeach
-            @endforeach
-        @endforeach
-    @endforeach
+{{--            @endforeach--}}
+{{--        @endforeach--}}
+{{--    @endforeach--}}
 @endsection
 
 

@@ -15,6 +15,7 @@
         <th width="20" >是否通過</th>
         <th width="20" >是否優良</th>
         <th width="20" >鑑定日期</th>
+        <th width="20" >檢測連結</th>
         <th width="20" >檢測情形</th>
 
     </tr>
@@ -47,6 +48,12 @@
             @endif
 
             <td>{{$exam->date}}</td>
+
+            @if($exam->url=='1')
+                    <td></td>
+            @else
+                 <td><a href="{{$exam->url}}">前往檢測</a></td>
+            @endif
 
             @if($exam->date<date('Y-m-d'))
 

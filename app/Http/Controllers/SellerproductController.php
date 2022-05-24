@@ -33,12 +33,17 @@ class SellerproductController extends Controller
         $num=Order::where('seller_id','=',auth()->user()->id)->count();
         $count=Order::where('seller_id','=',auth()->user()->id)->where('score','!=','')->where('comment','!=','')->count();
         $total=Order_detail::orderby('id','ASC')->get();
-        $id = Product::orderby('id', 'ASC')->get();
-        $category=Category::orderBy('id', 'ASC')->get();
+        $product=Product::join('order_details','products.id','=','order_details.product_id')
+            ->join('orders','orders.id','=','order_details.order_id')
+            ->join('sellers','sellers.id','=','orders.seller_id')
+            ->where('sellers.id','=','products.seller_id')
+            ->get();
 
+        $quantity[]='';
+        $name[]='';
         $price=0;
-        $p[]='';
         $score=0;
+        $data[]='';
 
         foreach ($order as $o)
         {
@@ -47,17 +52,26 @@ class SellerproductController extends Controller
                     if($sum->order_id==$o->id)
                     {
                       $score+=$sum->score;
+
                     }
                 }
                 $price=$price+$o->price;
-                $p[]=$o['price'];
         }
         if($count>0)
         {
             $score=$score/$count;
         }
 
-        return view('seller.dashboard', compact('price','count','p','num','score'));
+        foreach ($product as $data)
+        {
+            $name=$data->name;
+            $quantity=$data->quantity;
+            $name[]=$name;
+            $quantity[]=$quantity;
+
+        }
+
+        return view('seller.dashboard', compact('price','count','num','score','data','name','quantity','product'));
 
 
     }
@@ -69,6 +83,11 @@ class SellerproductController extends Controller
         $name=Category::all();
 
         return view('seller.products.detail', compact('data','name'));
+    }
+
+    public function post()
+    {
+        return view('seller.post');
     }
 
 
@@ -99,6 +118,7 @@ class SellerproductController extends Controller
         return redirect()->route('seller.products.index');
 
     }
+
 
     /**
      * Display the specified resource.
