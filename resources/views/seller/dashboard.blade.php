@@ -51,7 +51,7 @@
                                 賣家評價</div>
                             <div class="h5 mb-0 " style="color: black">
                                 @if($count!=0)
-                                {{$sore}}
+                                {{$score}}
                                 @else
                                 目前沒有評價!!
                                 @endif
