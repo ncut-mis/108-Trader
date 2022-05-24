@@ -149,6 +149,7 @@ class CartItemController extends Controller
             join('products','cart_items.product_id','=','products.id')
             ->join('sellers','sellers.id','=','products.seller_id')
             ->where('cart_items.member_id',auth()->user()->id)
+            ->where('products.inventory','>','0')
             ->where('sellers.id',$seller_id)
             ->select('products.pictures','products.name','products.price','cart_items.quantity','sellers.id')
             ->get();
@@ -164,6 +165,7 @@ class CartItemController extends Controller
             ->join('sellers','sellers.id','=','products.seller_id')
             ->where('cart_items.member_id',auth()->user()->id)
             ->where('sellers.id',$seller_id)
+            ->where('products.inventory','>','0')
             ->select('products.pictures','products.name','products.price','cart_items.quantity','sellers.id')
             ->get();
 
@@ -179,6 +181,7 @@ class CartItemController extends Controller
                 join('products','cart_items.product_id','=','products.id')
                 ->join('sellers','sellers.id','=','products.seller_id')
                 ->where('cart_items.member_id',auth()->user()->id)
+                ->where('products.inventory','>','0')
                 ->where('sellers.id',$seller_id)
                 ->select('products.id','products.inventory','products.price','cart_items.quantity')
                 ->get();
@@ -219,6 +222,7 @@ class CartItemController extends Controller
                  join('products','cart_items.product_id','=','products.id')
                 ->join('sellers','sellers.id','=','products.seller_id')
                 ->where('cart_items.member_id',auth()->user()->id)
+                ->where('products.inventory','>','0')
                 ->where('sellers.id',$seller_id)
                 ->select('cart_items.id')
                 ->get();

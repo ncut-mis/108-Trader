@@ -67,6 +67,7 @@
                                 join('cart_items','products.id','=','cart_items.product_id')
                                 ->join('sellers','products.seller_id','=','sellers.id')
                                 ->where('sellers.id','=',$seller->id)
+                                ->where('products.inventory','>','0')
                                 ->select('sellers.id')
                                 ->get();
                         ?>
@@ -87,49 +88,52 @@
                                     <th width="10%" style="text-align: center">操作</th>
                                 </tr>
                                 </thead>
-                                <?php
-                                    $products_total = 0;
-                                ?>
+
                         @endif
+                        <?php
+                            $products_total = 0;
+                        ?>
                         @foreach($cart_items as $cart_item)
-                            @if($seller->id == $cart_item->seller_id)
-                                <tbody>
-                                    <tr style="">
-                                        <td style="text-align: center;line-height:100px;">
-                                            <?php
-                                                $p=$cart_item->pictures;
-                                            ?>
-                                            <img src="{{ asset('img/'.$p.'') }}" alt="IMG-PRODUCT" height="150">
-                                        </td>
-                                        <td style="text-align: center;vertical-align: middle">
-                                            <a href="{{route('products.detail',$cart_item->product_id)}}">{{$cart_item->name}}</a>
-                                        </td>
-                                        <td style="text-align: center;vertical-align: middle">
-                                            ${{$cart_item->price}}
-                                        </td>
-                                        <td style="text-align: center;vertical-align: middle">
-                                            <form action="{{route('cart_items.renew')}}">
-                                                <input type="number" name="quantity" value="{{$cart_item->quantity}}" min="1" max="{{$cart_item->inventory}}" class="form-control text-center">
-                                                <input type="hidden" name="id" value="{{$cart_item->id}}" class="form-control text-center">
-                                            </form>
-                                        </td>
-                                        <td style="text-align: center;vertical-align: middle">
+                            @if($cart_item->inventory !== 0)
+                                @if($seller->id == $cart_item->seller_id)
+                                    <tbody>
+                                        <tr>
+                                            <td style="text-align: center;line-height:100px;">
                                                 <?php
-                                                    $total=$cart_item->price * $cart_item->quantity;
-                                                    $products_total=$products_total+$total;//該賣場總額
+                                                    $p=$cart_item->pictures;
                                                 ?>
-                                                 ${{$total}}
-                                        </td>
-                                        <td style="text-align: center;vertical-align: middle">
-                                            <form action="{{ route('cart_items.destroy',$cart_item->id) }}" method="POST" style="display: inline">
-                                                @method('DELETE')
-                                                @csrf
-                                                <button class="btn btn-danger" type="submit" style="width:100px;height:30px; padding:5px 5px;" onClick="return confirm('確定要移除此商品?')">移除商品</button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                </tbody>
+                                                <img src="{{ asset('img/'.$p.'') }}" alt="IMG-PRODUCT" height="150">
+                                            </td>
+                                            <td style="text-align: center;vertical-align: middle">
+                                                <a href="{{route('products.detail',$cart_item->product_id)}}">{{$cart_item->name}}</a>
+                                            </td>
+                                            <td style="text-align: center;vertical-align: middle">
+                                                ${{$cart_item->price}}
+                                            </td>
+                                            <td style="text-align: center;vertical-align: middle">
+                                                <form action="{{route('cart_items.renew')}}">
+                                                    <input type="number" name="quantity" value="{{$cart_item->quantity}}" min="1" max="{{$cart_item->inventory}}" class="form-control text-center">
+                                                    <input type="hidden" name="id" value="{{$cart_item->id}}" class="form-control text-center">
+                                                </form>
+                                            </td>
+                                            <td style="text-align: center;vertical-align: middle">
+                                                    <?php
+                                                        $total=$cart_item->price * $cart_item->quantity;
+                                                        $products_total=$products_total+$total;//該賣場總額
+                                                    ?>
+                                                     ${{$total}}
+                                            </td>
+                                            <td style="text-align: center;vertical-align: middle">
+                                                <form action="{{ route('cart_items.destroy',$cart_item->id) }}" method="POST" style="display: inline">
+                                                    @method('DELETE')
+                                                    @csrf
+                                                    <button class="btn btn-danger" type="submit" style="width:100px;height:30px; padding:5px 5px;" onClick="return confirm('確定要移除此商品?')">移除商品</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    </tbody>
                                 @endif
+                            @endif
                         @endforeach
                             @if(count($c)>0)
                                 <tr>
@@ -151,6 +155,72 @@
                             </table>
                             @endif
                     @endforeach
+
+{{--                庫存為0--}}
+                    <?php
+                        $item=\App\Models\Cart_item::
+                            join('products','products.id','=','cart_items.product_id')
+                            ->join('sellers','products.seller_id','=','sellers.id')
+                            ->where('sellers.id','=',$seller->id)
+                            ->where('products.inventory','=','0')
+                            ->get();
+                    ?>
+                    @if(count($item)>0)
+                            <table class="table table-hover" frame="void" cellpadding="10" cellspacing="10" style="background-color:#dcdcdc ">
+                                <thead>
+                                <tr>
+                                    <th colspan='6'>
+                                        失效商品
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th width="25%" style="text-align: center">圖片</th>
+                                    <th width="20%" style="text-align: center">商品名稱</th>
+                                    <th width="10%" style="text-align: center">單價</th>
+                                    <th width="10%" style="text-align: center">數量</th>
+                                    <th width="10%" style="text-align: center">小計</th>
+                                    <th width="10%" style="text-align: center">操作</th>
+                                </tr>
+                            </thead>
+                        @foreach($cart_items as $cart_item)
+                            @if($cart_item->inventory == 0)
+                                    <tbody>
+                                        <tr>
+                                            <td style="text-align: center;line-height:100px;border:none">
+                                                <?php
+                                                    $p=$cart_item->pictures;
+                                                ?>
+                                                <img src="{{ asset('img/'.$p.'') }}" alt="IMG-PRODUCT" height="150">
+                                            </td>
+                                            <td style="text-align: center;vertical-align: middle;border:none">
+                                                <a href="{{route('products.detail',$cart_item->product_id)}}">{{$cart_item->name}}</a>
+                                            </td>
+                                            <td style="text-align: center;vertical-align: middle;border:none">
+                                                ${{$cart_item->price}}
+                                            </td>
+                                            <td style="text-align: center;vertical-align: middle;border:none">
+                                                0
+                                            </td>
+                                            <td style="text-align: center;vertical-align: middle;border:none">
+                                            <?php
+                                                $total=$cart_item->price * $cart_item->quantity;
+                                                $products_total=$products_total+$total;//該賣場總額
+                                            ?>
+                                                ${{$total}}
+                                            </td>
+                                            <td style="text-align: center;vertical-align: middle;border:none">
+                                                <form action="{{ route('cart_items.destroy',$cart_item->id) }}" method="POST" style="display: inline">
+                                                    @method('DELETE')
+                                                    @csrf
+                                                    <button class="btn btn-danger" type="submit" style="width:100px;height:30px; padding:5px 5px;" onClick="return confirm('確定要移除此商品?')">移除商品</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                            @endif
+                        @endforeach
+                            </tbody>
+                        </table>
+                    @endif
                 @else
                     <div style="text-align: center">
                         <div class="title-box">
