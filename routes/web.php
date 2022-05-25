@@ -22,27 +22,17 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
-/*Route::get('/home', function () {
-    return view('home');
-});*/
 Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
-
-Route::get('/market', function () {
-    return view('market');
-});
-
-//Route::get('/orders_comments', function () {
-//    return view('orders_comments');
-//});
-
-
 
 Route::resource('products', \App\Http\Controllers\ProductController::class);
 Route::resource('categories', \App\Http\Controllers\CategoryController::class);
 Route::resource('sellers', \App\Http\Controllers\SellerController::class);
-
+Route::resource('users', \App\Http\Controllers\MemberController::class);
 
 Route::resource('cart_items', \App\Http\Controllers\CartItemController::class);
+
+//修改會員資料(update無法正常使用)
+Route::get('/users_data/{user}', [\App\Http\Controllers\MemberController::class, 'renew'])->name('users.renew');
 
 //加入購物車，store做不出來
 Route::get('/cartitems/{id}', [\App\Http\Controllers\CartItemController::class, 'add'])->name('cart_items.add');
@@ -88,6 +78,9 @@ Route::get('/markets_search', [\App\Http\Controllers\SellerController::class, 's
 //賣家賣場搜尋商品
 Route::get('/markets_categories', [\App\Http\Controllers\SellerController::class, 'category'])->name('sellers.category');
 
+//賣家公告
+Route::get('/seller/post', [\App\Http\Controllers\SellerproductController::class, 'post'])->name('seller.post');
+
 //資料統計
 Route::get('/seller/dashboard', [\App\Http\Controllers\SellerproductController::class, 'dashboard'])->name('seller.dashboard');
 
@@ -105,19 +98,10 @@ Route::get('/products/create', [\App\Http\Controllers\SellerproductController::c
 
 Route::get('seller/products/detail/{id}', [\App\Http\Controllers\SellerproductController::class, 'detail'])->name('seller.product.detail');
 
-
 Route::resource('seller/products', \App\Http\Controllers\SellerproductController::class)->names([
     'index' =>'seller.products.index',
     'edit' => 'seller.products.edit',
 ]);
-
-//商品各類別
-Route::prefix('/seller/products/type')->group(function () {
-    Route::get('/coat', [\App\Http\Controllers\SellerproductController::class, 'type1'])->name('seller.products.type.coat');
-    Route::get('/pan', [\App\Http\Controllers\SellerproductController::class, 'type2'])->name('seller.products.type.pan');
-    Route::get('/book', [\App\Http\Controllers\SellerproductController::class, 'type3'])->name('seller.products.type.book');
-    Route::get('/album', [\App\Http\Controllers\SellerproductController::class, 'type4'])->name('seller.products.type.album');
-});
 
 Route::prefix('/seller/orders')->group(function () {
     Route::get('/', [\App\Http\Controllers\SellerorderController::class, 'index'])->name('seller.orders.index');

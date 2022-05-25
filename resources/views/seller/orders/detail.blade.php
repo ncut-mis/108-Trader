@@ -43,13 +43,17 @@
     @elseif($data->status=='1')
         <td style="text-align: center">確認</td>
     @elseif($data->status=='2')
-        <td style="text-align: center">出貨中</td>
+        <td style="text-align: center">備貨中</td>
     @elseif($data->status=='3')
         <td style="text-align: center">已出貨</td>
     @elseif($data->status=='4')
         <td style="text-align: center">已送達</td>
     @elseif($data->status=='5')
         <td style="text-align: center">已完成</td>
+    @elseif($data->status=='6')
+        <td style="text-align: center">退貨中</td>
+    @elseif($data->status=='7')
+        <td style="text-align: center">取消</td>
     @endif
     @if($data->score=='')
         <td style="text-align: center">尚未評分</td><!--買家評分-->

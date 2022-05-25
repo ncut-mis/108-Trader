@@ -133,7 +133,11 @@
 
                     <form action="{{route('cart_items.add', $products->id)}}">
                         <span class="mtext-106 cl2">
-                            選擇數量：<input type="number" name="quantity" value="1" min="1" max="{{$products->inventory}}" class="form-control text-center">
+                            @if($products->inventory >= 1)
+                                選擇數量：<input type="number" name="quantity" value="1" min="1" max="{{$products->inventory}}" class="form-control text-center">
+                            @else
+                                選擇數量：<input type="number" name="quantity" value="0" min="0" max="0"class="form-control text-center">
+                            @endif
                         </span>
                         <div class="flex-c-m flex-w w-full p-t-45">
                             <?php

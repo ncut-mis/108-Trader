@@ -35,6 +35,10 @@
                 <td >已送達</td>
             @elseif($order->status=='5')
                 <td >已完成</td>
+            @elseif($order->status=='6')
+                <td>退貨中</td>
+            @elseif($order->status=='7')
+                <td>取消</td>
             @endif
             <td >{{$order->price}}</td>
             <td ><a href="{{route('seller.products.detail',$order->id)}}}" style="color:#4E4F97">訂單詳細資料</a></td>

@@ -149,6 +149,7 @@ class CartItemController extends Controller
             join('products','cart_items.product_id','=','products.id')
             ->join('sellers','sellers.id','=','products.seller_id')
             ->where('cart_items.member_id',auth()->user()->id)
+            ->where('products.inventory','>','0')
             ->where('sellers.id',$seller_id)
             ->select('products.pictures','products.name','products.price','cart_items.quantity','sellers.id')
             ->get();
@@ -164,6 +165,7 @@ class CartItemController extends Controller
             ->join('sellers','sellers.id','=','products.seller_id')
             ->where('cart_items.member_id',auth()->user()->id)
             ->where('sellers.id',$seller_id)
+            ->where('products.inventory','>','0')
             ->select('products.pictures','products.name','products.price','cart_items.quantity','sellers.id')
             ->get();
 
@@ -180,43 +182,42 @@ class CartItemController extends Controller
             ->join('sellers', 'sellers.id', '=', 'products.seller_id')
             ->where('cart_items.member_id', auth()->user()->id)
             ->where('sellers.id', $seller_id)
+            ->where('products.inventory', '>', '0')
             ->select('products.id', 'products.inventory', 'products.price', 'cart_items.quantity')
             ->get();
 
-        $user = User::where('id', auth()->user()->id)
-            ->select('name', 'phone', 'address')
-            ->first();
+        $user = User::where('id', auth()->user()->id)->first();
 
-        if ($_GET['way'] == 0)
-        {
+        if ($_GET['way'] == 0) {
             $pay = 1;
             $way = 0;
-            if (!empty($_GET['card_num1']) && !empty($_GET['card_num2']) && !empty($_GET['card_num3']) && !empty($_GET['card_num4']) && !empty($_GET['card_date1']) && !empty($_GET['card_date2']) && !empty($_GET['card_csv']))
-            {
+            if (!empty($_GET['card_num1']) && !empty($_GET['card_num2']) && !empty($_GET['card_num3']) && !empty($_GET['card_num4']) && !empty($_GET['card_date1']) && !empty($_GET['card_date2']) && !empty($_GET['card_csv'])) {
 
                 $date = date('Y/m/d');//抓當天日期
                 $final_price = 0;
-                foreach ($done as $finish)
-                {
+                foreach ($done as $finish) {
                     $inventory = $finish->inventory - $finish->quantity;//最終庫存=庫存量-賣出數量
                     $cart_total = $finish->price * $finish->quantity;//購物車商品金額
                     $final_price = $final_price + $cart_total;//累加為最終金額
                     Product::where('id', $finish->id)->update(['inventory' => $inventory]);//更新庫存
                 }
-            }
-            else
-            {
+            } else {
                 echo "<script>alert('請輸入卡號、到期日及安全碼'); location.href ='/next_step/" . $seller_id . "';</script>";
             }
-        }
-        else if ($_GET['way'] == 1)
-        {
+        } else if ($_GET['way'] == 1) {
             $pay = 0;
             $way = 1;
+            $done = Cart_item::
+            join('products', 'cart_items.product_id', '=', 'products.id')
+                ->join('sellers', 'sellers.id', '=', 'products.seller_id')
+                ->where('cart_items.member_id', auth()->user()->id)
+                ->where('products.inventory', '>', '0')
+                ->where('sellers.id', $seller_id)
+                ->select('products.id', 'products.inventory', 'products.price', 'cart_items.quantity')
+                ->get();
             $date = date('Y/m/d');//抓當天日期
             $final_price = 0;
-            foreach ($done as $finish)
-            {
+            foreach ($done as $finish) {
                 $inventory = $finish->inventory - $finish->quantity;//最終庫存=庫存量-賣出數量
                 $cart_total = $finish->price * $finish->quantity;//購物車商品金額
                 $final_price = $final_price + $cart_total;//累加為最終金額
@@ -224,42 +225,48 @@ class CartItemController extends Controller
             }
         }
 
-        if(isset($_GET['same']) == false)
-        {
+        if (isset($_GET['same']) == false) {
             //新增order
             Order::insert(['member_id' => auth()->user()->id, 'seller_id' => $seller_id, 'date' => $date, 'status' => '0', 'pay' => $pay, 'way' => $way, 'price' => $final_price, 'receiver' => $_GET['name'], 'receiver_phone' => $_GET['phone'], 'receiver_address' => $_GET['address']]);
             $order = Order::orderby('id', 'DESC')->first();
-            foreach ($done as $dd)
-            {
+            foreach ($done as $dd) {
                 //新增order_detail
                 Order_detail::insert(['order_id' => $order->id, 'product_id' => $dd->id, 'quantity' => $dd->quantity]);
             }
-        }
-        else
-        {
-            //新增order
-            Order::insert(['member_id' => auth()->user()->id, 'seller_id' => $seller_id, 'date' => $date, 'status' => '0', 'pay' => $pay, 'way' => $way, 'price' => $final_price, 'receiver' => $user->name, 'receiver_phone' => $user->phone, 'receiver_address' => $user->address]);
-            $order = Order::orderby('id', 'DESC')->first();
-            foreach ($done as $dd)
-            {
-                //新增order_detail
-                Order_detail::insert(['order_id' => $order->id, 'product_id' => $dd->id, 'quantity' => $dd->quantity]);
+        } else {
+            foreach ($done as $dd) {
+                //新增order
+                Order::insert(['member_id' => auth()->user()->id, 'seller_id' => $seller_id, 'date' => $date, 'status' => '0', 'pay' => $pay, 'way' => $way, 'price' => $final_price, 'receiver' => $user->name, 'receiver_phone' => $user->phone, 'receiver_address' => $user->address]);
+                $order = Order::orderby('id', 'DESC')->first();
+                $d = Cart_item::
+                join('products', 'cart_items.product_id', '=', 'products.id')
+                    ->join('sellers', 'sellers.id', '=', 'products.seller_id')
+                    ->where('cart_items.member_id', auth()->user()->id)
+                    ->where('products.inventory', '>', '0')
+                    ->where('sellers.id', $seller_id)
+                    ->select('cart_items.id')
+                    ->get();
+                foreach ($d as $d2) {
+                    //新增order_detail
+                    Order_detail::insert(['order_id' => $order->id, 'product_id' => $dd->id, 'quantity' => $dd->quantity]);
+                }
             }
+            $d = Cart_item::
+            join('products', 'cart_items.product_id', '=', 'products.id')
+                ->join('sellers', 'sellers.id', '=', 'products.seller_id')
+                ->where('cart_items.member_id', auth()->user()->id)
+                ->where('sellers.id', $seller_id)
+                ->where('products.inventory', '>', '0')
+                ->select('cart_items.id')
+                ->get();
+            foreach ($d as $d2) {
+                //刪除購物車內已下單之商品
+                Cart_item::destroy($d2->id);
+            }
+            return redirect()->route('orders.index');
         }
-        $d = Cart_item::
-        join('products', 'cart_items.product_id', '=', 'products.id')
-            ->join('sellers', 'sellers.id', '=', 'products.seller_id')
-            ->where('cart_items.member_id', auth()->user()->id)
-            ->where('sellers.id', $seller_id)
-            ->select('cart_items.id')
-            ->get();
-        foreach ($d as $d2)
-        {
-            //刪除購物車內已下單之商品
-            Cart_item::destroy($d2->id);
-        }
-        return redirect()->route('orders.index');
     }
+
     /**
      * Remove the specified resource from storage.
      *

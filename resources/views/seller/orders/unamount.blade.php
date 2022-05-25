@@ -1,6 +1,6 @@
 @extends('seller.layouts.master')
 
-@section('title','所有評論&評分')
+@section('title','所有未進帳訂單')
 
 @section('breadcrumb')
     <li class="breadcrumb-item" style="color: #4E4F97"><a href="javascript:history.back()">首頁</a></li>
