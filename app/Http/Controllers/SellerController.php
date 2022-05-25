@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\User;
 use App\Models\Seller;
 use App\Models\Product;
 use App\Http\Requests\StoreSellerRequest;
@@ -18,6 +19,26 @@ class SellerController extends Controller
     public function index()
     {
 
+    }
+
+    public function apply()
+    {
+        if(isset($_GET['apply']))
+        {
+            if(isset($_GET['bank_branch']) && isset($_GET['account']) && strlen($_GET['bank_branch'])==3 && strlen($_GET['account'])>=10)
+            {
+                Seller::insert(['member_id' => auth()->user()->id, 'bank_branch' => $_GET['bank_branch'], 'account' => $_GET['account'], 'status' => '0']);
+                echo "<script>alert('成功申請');</script>";
+            }
+            else
+            {
+                echo "<script>alert('輸入錯誤');</script>";
+            }
+        }
+
+        $users=User::where('id', auth()->user()->id)->first();
+        $data1=['users' => $users];
+        return view('apply', $data1);
     }
 
     public function search()
