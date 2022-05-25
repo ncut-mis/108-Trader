@@ -79,7 +79,8 @@ Route::get('/markets_search', [\App\Http\Controllers\SellerController::class, 's
 Route::get('/markets_categories', [\App\Http\Controllers\SellerController::class, 'category'])->name('sellers.category');
 
 //賣家公告
-Route::get('/seller/post', [\App\Http\Controllers\SellerproductController::class, 'post'])->name('seller.post');
+Route::get('/seller/post', [\App\Http\Controllers\PostController::class, 'index'])->name('seller.post');
+Route::get('/seller/post/{id}', [\App\Http\Controllers\PostController::class, 'show'])->name('posts.show');
 
 //資料統計
 Route::get('/seller/dashboard', [\App\Http\Controllers\SellerproductController::class, 'dashboard'])->name('seller.dashboard');

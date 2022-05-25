@@ -87,7 +87,7 @@ class SellerproductController extends Controller
 
     public function post()
     {
-        return view('seller.post');
+        //return view('seller.post');
     }
 
 

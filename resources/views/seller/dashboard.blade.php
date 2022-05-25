@@ -3,7 +3,7 @@
 @section('title','營運資料')
 
 @section('breadcrumb')
-    <li class="breadcrumb-item" style="color: #4E4F97"><a href="#">首頁</a></li>
+    <li class="breadcrumb-item" style="color: #4E4F97"><a href="{{route('seller.dashboard')}}">首頁</a></li>
     <li class="breadcrumb-item active" style="color: #4E4F97">營運資料</li>
 @endsection
 

@@ -201,7 +201,9 @@ class CartItemController extends Controller
                     $final_price = $final_price + $cart_total;//累加為最終金額
                     Product::where('id', $finish->id)->update(['inventory' => $inventory]);//更新庫存
                 }
-            } else {
+            }
+            else
+            {
                 echo "<script>alert('請輸入卡號、到期日及安全碼'); location.href ='/next_step/" . $seller_id . "';</script>";
             }
         } else if ($_GET['way'] == 1) {
