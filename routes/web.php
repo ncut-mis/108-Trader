@@ -77,6 +77,8 @@ Route::get('/products_detail/{id}', [\App\Http\Controllers\ProductController::cl
 Route::get('/markets_search', [\App\Http\Controllers\SellerController::class, 'search'])->name('sellers.search');
 //賣家賣場搜尋商品
 Route::get('/markets_categories', [\App\Http\Controllers\SellerController::class, 'category'])->name('sellers.category');
+//賣家申請
+Route::get('/seller_apply', [\App\Http\Controllers\SellerController::class, 'apply'])->name('sellers.apply');
 
 //賣家公告
 Route::get('/seller/post', [\App\Http\Controllers\SellerproductController::class, 'post'])->name('seller.post');

@@ -89,7 +89,7 @@
                                         <?php
                                         $sellers = \App\Models\Seller::where('member_id','=',auth()->user()->id)->where('status','1')->get();?>
                                         @if($sellers->isEmpty())
-                                            <li><a href="#">成為賣家</a></li>
+                                            <li><a href="{{route('sellers.apply')}}">成為賣家</a></li>
                                         @else
                                             <li><a href="{{route('seller.dashboard')}}">賣家後台</a></li>
                                         @endif
@@ -176,7 +176,7 @@
                                 <?php
                                 $sellers = \App\Models\Seller::where('member_id','=',auth()->user()->id)->where('status','1')->get();?>
                                 @if($sellers->isEmpty())
-                                    <li><a href="#">成為賣家</a></li>
+                                    <li><a href="{{route('sellers.apply')}}">成為賣家</a></li>
                                 @else
                                     <li><a href="{{route('seller.dashboard')}}">賣家後台</a></li>
                                 @endif
