@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
-    <link rel="icon" type="image/png" href="images/icons/favicon.png"/>
+    <link rel="icon" type="image/png" href="{{ asset('img/icon.png') }}"/>
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
     <!--===============================================================================================-->
@@ -50,7 +50,7 @@
 
                 <!-- Icon -->
                 <a href="/" class="logo">
-                    <img src="images/icons/logo-01.png" alt="IMG-LOGO">
+                    <img src="{{ asset('img/icon2.png') }}" alt="IMG-LOGO">
                 </a>
 
                 <!-- 分類(下拉)-->
@@ -138,47 +138,97 @@
     <div class="wrap-header-mobile">
         <!-- Logo moblie -->
         <div class="logo-mobile">
-            <a href="#"><img src="images/icons/logo-01.png" alt="IMG-LOGO"></a>
+            <a href="/"><img src="{{ asset('img/icon2.png') }}" alt="IMG-LOGO"></a>
         </div>
-
-        <!-- Icon header -->
         <div class="wrap-icon-header flex-w flex-r-m m-r-15">
+            <div class="menu-desktop" style="z-index: 9999">
+                <ul class="main-menu">
+                    <li class="active-menu">
+                        <h5><a href="#" style="color: black">分類</a></h5>
+                        <ul class="sub-menu">
+                            <li><a href="{{route('products.index')}}">全部</a></li>
+                            <?php
+                            $categories = \App\Models\Category::orderBy('id','ASC')->get();?>
+                            @foreach($categories as $category)
+                                <li><a href="{{route('categories.show', $category->id)}}">{{$category->name}}</a></li>
+                            @endforeach
+                            {{--                                我不確定有沒有"其他"選項--}}
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        @if(\Illuminate\Support\Facades\Auth::check())
+
+            <!-- Icon header -->
+
+                <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11">
+                    {{--                    <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="2">--}}
+                    <a href="{{ route('cart_items.index') }}" style="color: black"><h5><i class="zmdi zmdi-shopping-cart">購物車</i></h5></a>
+                </div>
+
+                <div class="menu-desktop" style="z-index: 9999">
+                    <ul class="main-menu">
+                        <li class="active-menu">
+                            <h5><a href="#" style="color: black">會員中心</a></h5>
+                            <ul class="sub-menu">
+                                <li><a href="{{route('users.index')}}">會員資料</a></li>
+                                <li><a href="{{route('orders.index')}}">訂單紀錄</a></li>
+                                <?php
+                                $sellers = \App\Models\Seller::where('member_id','=',auth()->user()->id)->where('status','1')->get();?>
+                                @if($sellers->isEmpty())
+                                    <li><a href="#">成為賣家</a></li>
+                                @else
+                                    <li><a href="{{route('seller.dashboard')}}">賣家後台</a></li>
+                                @endif
+                                <li><a class="dropdown-item" href="{{ route('logout') }}" style="font-size:15px;color: #6b7280"
+                                       onclick="event.preventDefault();
+                                            document.getElementById('logout-form').submit();">
+                                        {{ __('登出') }}
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        @else
+            <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11">
+                {{--                    <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="2">--}}
+                <a href="{{ route('cart_items.index') }}" style="color: black"><h5><i class="zmdi zmdi-shopping-cart">購物車</i></h5></a>
+            </div>
+
+            <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11">
+                <a href="{{ route('register') }}" style="color: black"><h5>註冊</h5></a>
+            </div>
+
+            <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11">
+                <a href="{{ route('login') }}" style="color: black"><h5>登入</h5></a>
+            </div>
+        @endif
             <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 js-show-modal-search">
                 <i class="zmdi zmdi-search"></i>
             </div>
-
-            <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" data-notify="2">
-                <i class="zmdi zmdi-shopping-cart"></i>
-            </div>
-
-            <a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti" data-notify="0">
-                <i class="zmdi zmdi-favorite-outline"></i>
-            </a>
         </div>
 
-        <!-- Button show menu -->
-        <div class="btn-show-menu-mobile hamburger hamburger--squeeze">
-				<span class="hamburger-box">
-					<span class="hamburger-inner"></span>
-				</span>
-        </div>
-    </div>
-
-    <!-- Modal Search 搜尋 -->
-    <div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
-        <div class="container-search-header">
-            <button class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
-                <img src="images/icons/icon-close2.png" alt="CLOSE">
-            </button>
-
-            <form class="wrap-search-header flex-w p-l-15" action="{{route('products.search')}}">
-                <button class="flex-c-m trans-04">
-                    <i class="zmdi zmdi-search"></i>
+        <!-- Modal Search 搜尋 -->
+        <div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
+            <div class="container-search-header">
+                <button class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
+                    <img src="images/icons/icon-close2.png" alt="CLOSE">
                 </button>
-                <input class="plh3" type="text" id="search" name="search" placeholder="Search...">
-            </form>
+
+                <form class="wrap-search-header flex-w p-l-15" action="{{route('products.search')}}">
+                    <button class="flex-c-m trans-04">
+                        <i class="zmdi zmdi-search"></i>
+                    </button>
+                    <input class="plh3" type="text" id="search" name="search" placeholder="Search...">
+                </form>
+            </div>
         </div>
-    </div>
+
 </header>
 
 
