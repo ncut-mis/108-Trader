@@ -72,7 +72,7 @@
                                 客單價</div>
                             <div class="h5 mb-0 " style="color: black">
                                 <?php
-                                if($num>0)
+                                 if($num>0)
                                     {
                                         $cu=$price/$num;
                                         echo "<small>NT$</small>".round($cu,0);
@@ -90,32 +90,29 @@
                 <!-- Card Header - Dropdown -->
                 <div
                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">收入</h6>
-                    <div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                        </a>
-                    </div>
+                    <h6 class="m-0 font-weight-bold text-primary">商品排行</h6>
+
                 </div>
                 <div class="card-body">
                     <div class="chart-area">
                         <canvas id="myChart">
+
                             <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
                                <script>
-                                   const p1= {!! json_encode($p) !!};
+                                   const name= {!! json_encode($name) !!};
+                                   const q= {!! json_encode($quantity) !!};
                                    var ctx = document.getElementById('myChart').getContext('2d');
                                    var myChart = new Chart(ctx, {
-                                    type: 'line', //圖表類型
+                                    type: 'bar', //圖表類型
                                     data: {
                                         //標題
-                                        labels:['1','2','3','4','5','6','7','8','9','10','11','12'],
+                                        labels:name,
                                         datasets: [{
-                                            label: '收入', //標籤
-                                            data: p1, //資料
+                                            label: '數量', //標籤
+                                            data: q, //資料
                                             //圖表背景色
                                             backgroundColor: [
-                                                'rgba(106,76,156)'
+                                                'rgba(86,108,115)'
                                             ],
                                             //圖表外框線色
                                             borderColor: [
@@ -129,12 +126,12 @@
                                         }]
                                     },
                                     options: {
+                                        indexAxis: 'y',
                                         scales: {
                                             yAxes: [{
                                                 ticks: {
                                                     beginAtZero: false,
                                                     responsive: true, //符合響應式
-                                                    stepSize: 100,
                                                 }
                                             }]
                                         }
@@ -154,25 +151,59 @@
                 <div
                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
-                    <div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                             aria-labelledby="dropdownMenuLink">
-                            <div class="dropdown-header">Dropdown Header:</div>
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </div>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
                     <div class="chart-pie pt-4 pb-2">
-                        <canvas id="myPieChart"></canvas>
+                        <canvas id="PieChart">
+                            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+                            <script>
+                                var ctx = document.getElementById('PieChart').getContext('2d');
+                                var myChart = new Chart(ctx, {
+                                    type: 'pie', //圖表類型
+                                    data: {
+                                        //標題
+                                        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                                        datasets: [{
+                                            label: '# test', //標籤
+                                            data: [12, 19, 3, 5, 2, 3], //資料
+                                            //圖表背景色
+                                            backgroundColor: [
+                                                'rgba(255, 99, 132, 0.2)',
+                                                'rgba(54, 162, 235, 0.2)',
+                                                'rgba(255, 206, 86, 0.2)',
+                                                'rgba(75, 192, 192, 0.2)',
+                                                'rgba(153, 102, 255, 0.2)',
+                                                'rgba(255, 159, 64, 0.2)'
+                                            ],
+                                            //圖表外框線色
+                                            borderColor: [
+                                                'rgba(255, 99, 132, 1)',
+                                                'rgba(54, 162, 235, 1)',
+                                                'rgba(255, 206, 86, 1)',
+                                                'rgba(75, 192, 192, 1)',
+                                                'rgba(153, 102, 255, 1)',
+                                                'rgba(255, 159, 64, 1)'
+                                            ],
+                                            //外框線寬度
+                                            borderWidth: 1
+                                        }]
+                                    },
+                                    options: {
+                                        scales: {
+                                            yAxes: [{
+                                                ticks: {
+                                                    beginAtZero: true,
+                                                    responsive: true //符合響應式
+                                                }
+                                            }]
+                                        }
+                                    }
+                                });
+                            </script>
+
+                        </canvas>
+
                     </div>
                     <div class="mt-4 text-center small">
                                         <span class="mr-2">
