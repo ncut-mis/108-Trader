@@ -16,7 +16,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $post = Post::get();
+        $post = Post::where('for','=','0')->get();
         $data = ['posts' => $post];
         return view('seller.post', $data);
     }
