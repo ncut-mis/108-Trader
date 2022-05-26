@@ -15,10 +15,10 @@ class Product extends Model
         'category_id',
         'name',
         'price',
-        'picture',
+        'pictures',
         'detail',
         'status',
-        'stock'
+        'inventory'
     ];
 
     public function cart_items()
