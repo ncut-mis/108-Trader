@@ -188,14 +188,16 @@ class CartItemController extends Controller
 
         $user = User::where('id', auth()->user()->id)->first();
 
-        if ($_GET['way'] == 0) {
+        if ($_GET['way'] == 0)
+        {
             $pay = 1;
             $way = 0;
             if (!empty($_GET['card_num1']) && !empty($_GET['card_num2']) && !empty($_GET['card_num3']) && !empty($_GET['card_num4']) && !empty($_GET['card_date1']) && !empty($_GET['card_date2']) && !empty($_GET['card_csv'])) {
 
                 $date = date('Y/m/d');//抓當天日期
                 $final_price = 0;
-                foreach ($done as $finish) {
+                foreach ($done as $finish)
+                {
                     $inventory = $finish->inventory - $finish->quantity;//最終庫存=庫存量-賣出數量
                     $cart_total = $finish->price * $finish->quantity;//購物車商品金額
                     $final_price = $final_price + $cart_total;//累加為最終金額
@@ -242,7 +244,8 @@ class CartItemController extends Controller
         {
             //新增order
             Order::insert(['member_id' => auth()->user()->id, 'seller_id' => $seller_id, 'date' => $date, 'status' => '0', 'pay' => $pay, 'way' => $way, 'price' => $final_price, 'receiver' => $user->name, 'receiver_phone' => $user->phone, 'receiver_address' => $user->address]);
-            foreach ($done as $dd) {
+            foreach ($done as $dd)
+            {
                 $order = Order::orderby('id', 'DESC')->first();
 //                $d = Cart_item::
 //                    join('products', 'cart_items.product_id', '=', 'products.id')
@@ -259,16 +262,25 @@ class CartItemController extends Controller
 //                }
             }
             $d = Cart_item::
-            join('products', 'cart_items.product_id', '=', 'products.id')
+                join('products', 'cart_items.product_id', '=', 'products.id')
                 ->join('sellers', 'sellers.id', '=', 'products.seller_id')
+//                ->join('order_details', 'order_details.product_id', '=', 'products.id')
+//                ->join('orders', 'orders.id', '=', 'order_details.order_id')
                 ->where('cart_items.member_id', auth()->user()->id)
                 ->where('sellers.id', $seller_id)
-                ->where('products.inventory', '>', '0')
-                ->select('cart_items.id')
+                ->select('cart_items.id','cart_items.product_id')
                 ->get();
-            foreach ($d as $d2) {
-                //刪除購物車內已下單之商品
-                Cart_item::destroy($d2->id);
+            $order_details=Order_detail::where('order_id','=', $order->id)->get();
+            foreach($order_details as $order_detail)
+            {
+                foreach ($d as $d2)
+                {
+                    if($order_detail->product_id == $d2->product_id)
+                    {
+                        //刪除購物車內已下單之商品
+                        Cart_item::destroy($d2->id);
+                    }
+                }
             }
             return redirect()->route('orders.index');
         }
