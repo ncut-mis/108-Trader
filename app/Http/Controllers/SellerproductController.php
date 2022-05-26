@@ -113,7 +113,7 @@ class SellerproductController extends Controller
 
        Product::create(['seller_id'=>auth()->user()->id,
             'category_id'=>$_POST['type'],'name'=>$_POST['name'],'pictures'=>$_POST['photo'],
-            'price'=>$_POST['price'],'detail'=>$_POST['content'],'status'=>$_POST['status'],'stock'=>$_POST['stock']]);
+            'price'=>$_POST['price'],'detail'=>$_POST['content'],'status'=>$_POST['status'],'inventory'=>$_POST['stock']]);
 
         return redirect()->route('seller.products.index');
 

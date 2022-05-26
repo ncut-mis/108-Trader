@@ -13,8 +13,8 @@
     <tr>
         <th width="35" style="text-align: center">訂單編號</th>
         <th width="20" style="text-align: center">商品名稱</th>
-        <th width="20" style="text-align: center">出貨日期</th>
-        <th width="20" style="text-align: center">買家編號</th>
+        <th width="20" style="text-align: center">訂單日期</th>
+{{--        <th width="20" style="text-align: center">買家編號</th>--}}
         <th width="20" style="text-align: center">買家名稱</th>
         <th width="20" style="text-align: center">買家評分</th>
         <th width="20" style="text-align: center">買家評論</th>
@@ -43,13 +43,13 @@
                         <td style="text-align: center">{{$show->date}}</td><!--出貨日期-->
                         @foreach($members as $member)
                           @if($show->member_id==$member->id)
-                              @if(strlen($member->id)==3)
-                        <td style="text-align: center">{{$member->id}}</td><!--買家編號-->
-                              @elseif(strlen($member->id)==2)
-                        <td style="text-align: center">0{{$member->id}}</td><!--買家編號-->
-                              @elseif(strlen($member->id)==1)
-                         <td style="text-align: center">00{{$member->id}}</td><!--買家編號-->
-                                @endif
+{{--                              @if(strlen($member->id)==3)--}}
+{{--                        <td style="text-align: center">{{$member->id}}</td><!--買家編號-->--}}
+{{--                              @elseif(strlen($member->id)==2)--}}
+{{--                        <td style="text-align: center">0{{$member->id}}</td><!--買家編號-->--}}
+{{--                              @elseif(strlen($member->id)==1)--}}
+{{--                         <td style="text-align: center">00{{$member->id}}</td><!--買家編號-->--}}
+{{--                                @endif--}}
                         <td style="text-align: center">{{$member->name}}</td><!--買家名稱-->
                             @endif
                         @endforeach

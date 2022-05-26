@@ -20,7 +20,7 @@ class ExamController extends Controller
      */
     public function index()
     {
-        $product = Exam::orderBy('id', 'ASC')->get();
+        $product = Exam::orderBy('date', 'ASC')->get();
 
         $name=Product::orderBy('id', 'ASC')->get();
 
@@ -39,27 +39,57 @@ class ExamController extends Controller
     {
         $product = Exam::where('product_id', $id)->get();
 
-        $pid = Product::where('id','=', $id)->value('id');
+        $pid = Product::where('id', '=', $id)->value('id');
 
-        $name=Product::where('id','=',$id)->value('name');
+        $name = Product::where('id', '=', $id)->value('name');
 
-        $category_id=Product::where('id','=',$id)->value('category_id');
+        $category_id = Product::where('id', '=', $id)->value('category_id');
 
-        $category=Category::where('id','=',$category_id)->value('name');
+        $category = Category::where('id', '=', $category_id)->value('name');
 
-        $staff=Staff::where('job','=',$category)->get();
+        $staff = Staff::where('job', '=', $category)->get();
 
-        $data=['staff'=>$staff];
+        foreach ($staff as $s)
+            $ss[] = $s->id;
 
-        $exam=Exam::where('date','=',date('Y-m-d'))->get()->first();
+        for ($i = 9; $i <= 10; $i++) {
+            for ($j = 0; $j <= 45; $j += 15) {
+                $one[] = str_pad($i, 2, '0', STR_PAD_LEFT) . ':' . str_pad($j, 2, '0', STR_PAD_LEFT) . ':' . '00';
 
-        $data2=['exam'=>$exam];
+            }
+        }
 
-        $work=Per_week_schedule::where('month','=',date('n'))->where('week','=',date('w'))->get();
+        for ($i = 15; $i <= 16; $i++) {
+            for ($j = 0; $j <= 45; $j += 15) {
+                $two[] = str_pad($i, 2, '0', STR_PAD_LEFT) . ':' . str_pad($j, 2, '0', STR_PAD_LEFT) . ':' . '00';
+            }
+        }
 
-        return view('seller.products.exams.create', compact('product','name','pid','category','work','exam'),$data,$data2);
+        for ($i = 18; $i <= 20; $i++) {
+            for ($j = 0; $j <= 45; $j += 15) {
+                $three[] = str_pad($i, 2, '0', STR_PAD_LEFT) . ':' . str_pad($j, 2, '0', STR_PAD_LEFT) . ':' . '00';
+            }
+        }
+
+
+        $mon=Per_week_schedule::where('month','=',date('n'))->where('week','=','一')->whereIn('staff_id',$ss)->get();
+
+        $tue=Per_week_schedule::where('month','=',date('n'))->where('week','=','二')->whereIn('staff_id',$ss)->get();
+
+        $wed=Per_week_schedule::where('month','=',date('n'))->where('week','=','三')->whereIn('staff_id',$ss)->get();
+
+        $tur=Per_week_schedule::where('month','=',date('n'))->where('week','=','四')->whereIn('staff_id',$ss)->get();
+
+        $fri=Per_week_schedule::where('month','=',date('n'))->where('week','=','五')->whereIn('staff_id',$ss)->get();
+
+        $sat=Per_week_schedule::where('month','=',date('n'))->where('week','=','六')->whereIn('staff_id',$ss)->get();
+
+        $sun=Per_week_schedule::where('month','=',date('n'))->where('week','=','日')->whereIn('staff_id',$ss)->get();
+
+        return view('seller.products.exams.create', compact('product','name','pid','category','mon','tue','wed','tur','fri','sat','sun'));
 
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -82,16 +112,16 @@ class ExamController extends Controller
         foreach ($staff as $s)
             $s=$s->id;
 
-        Exam::create(['product_id'=>$id,'seller_id'=>auth()->user()->id,
-            'staff_id'=>$s,'start'=>$_POST['time'],'end'=>date("H:i:s",strtotime($_POST['time']."+15min")),
-            'date'=>date('Y-m-d'),'url'=>$url]);
+        Exam::create(['product_id'=>$id, 'staff_id'=>$s,'start'=>$_POST['time1'],'end'=>date("H:i:s",strtotime($_POST['time1']."+15min")),
+            'date'=>$_POST['date'],'url'=>$url]);
 
         return redirect()->route('products.exams.index');
     }
 
     public function undone()
     {
-        $product=DB::table('exams')->where('date','>',date('Y-m-d'))
+        $product=DB::table('exams')->orderBy('date','ASC')->
+        where('date','>',date('Y-m-d'))
             ->orWhere(function($query) {
                 $query->where('date','=',date('Y-m-d'))
                     ->where('start','>',date('H-i-s-30minutes'));
@@ -106,7 +136,8 @@ class ExamController extends Controller
 
     public function finish()
     {
-        $product=DB::table('exams')->where('date','<',date('Y-m-d'))
+        $product=DB::table('exams')->orderBy('date','ASC')->
+        where('date','<',date('Y-m-d'))
             ->orWhere(function($query) {
                 $query->where('date','=',date('Y-m-d'))
                     ->where('start','<',date('H-i-s'));
