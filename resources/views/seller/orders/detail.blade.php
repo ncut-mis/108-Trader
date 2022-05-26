@@ -13,7 +13,7 @@
     <tr>
         <th width="35" style="text-align: center">訂單編號</th>
 {{--        <th width="20" style="text-align: center">商品名稱</th>--}}
-        <th width="20" style="text-align: center">出貨日期</th>
+        <th width="20" style="text-align: center">訂單日期</th>
 {{--        <th width="20" style="text-align: center">商品數量</th>--}}
         <th width="20" style="text-align: center">付款方式</th>
         <th width="20" style="text-align: center">是否付款</th>
