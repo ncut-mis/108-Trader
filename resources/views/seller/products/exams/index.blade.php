@@ -51,24 +51,31 @@
 
             @if($exam->url=='1')
                     <td></td>
-            @else
+                    <td>已完成</td>
+
+            @elseif($exam->url!='1')
                  <td><a href="{{$exam->url}}">前往檢測</a></td>
-            @endif
+                    @if($exam->date>date('Y-m-d'))
+                        <td><a href="{{ route('products.exams.destroy',$exam->id) }}" onclick="return confirm('確定要取消檢測?')">取消檢測</a></td>
+                    @elseif($exam->date==date('Y-m-d') && $exam->start>date('H:i:s',strtotime('-30minutes')))
+                        <td><a href="{{ route('products.exams.destroy',$exam->id) }}" onclick="return confirm('確定要取消檢測?')">取消檢測</a></td>
+                @endif
+                @endif
 
-            @if($exam->date<date('Y-m-d'))
+{{--            @if($exam->date<date('Y-m-d'))--}}
 
-            <td>已完成</td>
+{{--            <td>已完成</td>--}}
 
-            @elseif($exam->date==date('Y-m-d') && $exam->start<date('H-i-s'))
-            <td>已完成</td>
+{{--            @elseif($exam->date==date('Y-m-d') && $exam->start<date('H:i:s'))--}}
+{{--            <td>已完成</td>--}}
 
-            @elseif($exam->date==date('Y-m-d') && $exam->start>date('H-i-s-30minutes'))
-            <td><a href="{{ route('products.exams.destroy',$exam->id) }}" onclick="return confirm('確定要取消檢測?')">取消檢測</a></td>
+{{--            @elseif($exam->date==date('Y-m-d') && $exam->start>date('H:i:s-30minutes'))--}}
+{{--            <td><a href="{{ route('products.exams.destroy',$exam->id) }}" onclick="return confirm('確定要取消檢測?')">取消檢測</a></td>--}}
 
-            @else
-            <td><a href="{{ route('products.exams.destroy',$exam->id) }}" onclick="return confirm('確定要取消檢測?')">取消檢測</a></td>
+{{--            @else--}}
+{{--            <td><a href="{{ route('products.exams.destroy',$exam->id) }}" onclick="return confirm('確定要取消檢測?')">取消檢測</a></td>--}}
 
-            @endif
+{{--            @endif--}}
 
         </tr>
         </tfoot>
