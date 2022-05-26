@@ -126,7 +126,21 @@
                                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
                             </svg>
                        </h5>
-                        {{--        搜尋目前樣子         --}}
+                    </div>
+
+                    <div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
+                        <div class="container-search-header">
+                            <button class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
+                                <img src="images/icons/icon-close2.png" alt="CLOSE">
+                            </button>
+
+                            <form class="wrap-search-header flex-w p-l-15" action="{{route('products.search')}}">
+                                <button class="flex-c-m trans-04">
+                                    <i class="zmdi zmdi-search"></i>
+                                </button>
+                                <input class="plh3" type="text" id="search" name="search" placeholder="Search...">
+                            </form>
+                        </div>
                     </div>
 
                 </div>
@@ -228,7 +242,6 @@
                 </form>
             </div>
         </div>
-
 </header>
 
 
