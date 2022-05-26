@@ -145,10 +145,16 @@
                                     $s_id=\App\Models\Seller::where('member_id',auth()->user()->id)->first();
                             ?>
                             @if(\Illuminate\Support\Facades\Auth::check())
-                                @if($products->seller_id == $s_id->id || $products->inventory == 0)
-                                    <button type="submit" disabled>
-                                        加入購物車
-                                    </button>
+                                @if(isset($s_id))
+                                    @if($products->seller_id == $s_id->id || $products->inventory == 0)
+                                        <button type="submit" disabled>
+                                            加入購物車
+                                        </button>
+                                    @else
+                                        <button type="submit" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
+                                            加入購物車
+                                        </button>
+                                    @endif
                                 @else
                                     <button type="submit" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
                                         加入購物車
