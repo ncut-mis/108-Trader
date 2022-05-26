@@ -160,8 +160,6 @@
                     <?php
                         $item=\App\Models\Cart_item::
                             join('products','products.id','=','cart_items.product_id')
-                            ->join('sellers','products.seller_id','=','sellers.id')
-                            ->where('sellers.id','=',$seller->id)
                             ->where('products.inventory','=','0')
                             ->get();
                     ?>
