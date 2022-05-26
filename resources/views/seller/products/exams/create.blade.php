@@ -43,25 +43,6 @@
                     </div>
 
                     <?php
-                    for ($i = 9; $i <= 10; $i++) {
-                        for ($j = 0; $j <= 45; $j += 15) {
-                            $one[] = str_pad($i, 2, '0', STR_PAD_LEFT) . ':' . str_pad($j, 2, '0', STR_PAD_LEFT) . ':' . '00';
-
-                        }
-                    }
-
-                    for ($i = 15; $i <= 16; $i++) {
-                        for ($j = 0; $j <= 45; $j += 15) {
-                            $two[] = str_pad($i, 2, '0', STR_PAD_LEFT) . ':' . str_pad($j, 2, '0', STR_PAD_LEFT) . ':' . '00';
-                        }
-                    }
-
-                    for ($i = 18; $i <= 20; $i++) {
-                        for ($j = 0; $j <= 45; $j += 15) {
-                            $three[] = str_pad($i, 2, '0', STR_PAD_LEFT) . ':' . str_pad($j, 2, '0', STR_PAD_LEFT) . ':' . '00';
-                        }
-                    }
-
                     $exam1_m=App\Models\Exam::where('date','=',date('Y-m-d',strtotime("this Monday")))->whereIn('start',$one)->whereIn('end',$one)->get();
                     $exam1_a=App\Models\Exam::where('date','=',date('Y-m-d',strtotime("this Monday")))->whereIn('start',$two)->whereIn('end',$two)->get();
                     $exam1_n=App\Models\Exam::where('date','=',date('Y-m-d',strtotime("this Monday")))->whereIn('start',$three)->whereIn('end',$three)->get();
@@ -95,7 +76,7 @@
                         <label class="form-label">日期</label>
 
                         <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="mon" name="date" value="<?php echo date('Y-m-d',strtotime("this Monday"));?> " >
+                        <input type="radio" class="form-check-input" id="mon" name="date" value="<?php echo date('Y-m-d',strtotime("this Monday"));?> " >
                             <label class="form-check-label" for="mon"><?php echo date('m/d',strtotime("this Monday"));?> 一</label>
                             <div class="row g-3">
                                 @foreach($exam1_m as $em)
@@ -118,47 +99,42 @@
                                             $en1=array_diff($three,$w111,$w222);
 
                                             ?>
+
                                             @foreach($mon as $m)
 
                                                 @if($m->start=='09:00:00')
-
                                                     <div class="col-md-3 mb-3">
                                                         <label for="inputname" class="form-label">早上時段</label>
                                                         <select class="form-control" name="time1" id="time1" >
 
-                                                            @if(isset($exam1_m))
-                                                            @foreach($em1 as $e1)
-                                                                <option >{{$e1}}</option>
-                                                            @endforeach
-
+                                                            @if(!$em)
+                                                                @foreach($em as $em1)
+                                                                <option >{{$em1}}</option>
+                                                                @endforeach
                                                             @else
-
-                                                            @foreach($one as $o)
-                                                            <option >{{$o}}</option>
+                                                             @foreach($one as $o)
+                                                             <option >{{$o}}</option>
                                                              @endforeach
-
                                                             @endif
+
                                                         </select>
                                                     </div>
 
                                                 @elseif($m->start=='15:00:00')
-
                                                     <div class="col-md-3 mb-3">
                                                         <label for="inputname" class="form-label">下午時段</label>
                                                         <select class="form-control" name="time1" id="time2">
 
-                                                            @if(isset($exam1_a))
-                                                            @foreach($ea1 as $e2)
-                                                                <option>{{$e2}}</option>
-                                                            @endforeach
-
+                                                            @if(!$ea)
+                                                                @foreach($ea as $ea1)
+                                                                <option>{{$ea1}}</option>
+                                                                @endforeach
                                                             @else
-
-                                                            @foreach($two as $tw)
-                                                            <option>{{$two}}</option>
-                                                            @endforeach
-
+                                                                @foreach($two as $tw)
+                                                                    <option >{{$tw}}</option>
+                                                                @endforeach
                                                             @endif
+
                                                         </select>
                                                     </div>
 
@@ -168,15 +144,16 @@
                                                         <label for="inputname" class="form-label">晚上時段</label>
                                                         <select class="form-control" name="time1" id="time1" >
 
-                                                            @if(isset($exam1_n))
-                                                            @foreach($en1 as $e3)
-                                                                <option>{{$e3}}</option>
-                                                            @endforeach
+                                                            @if(!$en)
+                                                                @foreach($en as $en1)
+                                                                    <option>{{$en1}}</option>
+                                                                @endforeach
                                                             @else
-                                                             @foreach($three as $th)
-                                                              <option>{{$th}}</option>
-                                                             @endforeach
+                                                                @foreach($three as $th)
+                                                                    <option >{{$th}}</option>
+                                                                @endforeach
                                                             @endif
+
                                                         </select>
                                                     </div>
 
@@ -188,9 +165,8 @@
                             </div>
                         </div>
 
-
                         <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="tue" name="date" value="<?php echo date('Y-m-d',strtotime("this Tuesday"));?>" >
+                        <input type="radio" class="form-check-input" id="tue" name="date" value="<?php echo date('Y-m-d',strtotime("this Tuesday"));?>" >
                             <label class="form-check-label" for="tue"><?php echo date('m/d',strtotime("this Tuesday"));?> 二</label>
                         </div>
                         <div class="row g-3">
@@ -222,17 +198,17 @@
                                                     <label for="inputname" class="form-label">早上時段</label>
                                                     <select class="form-control" name="time1" id="time2_1">
 
-                                                        @if(isset($exam2_n))
-
-                                                        @foreach($em_2 as $e4)
-                                                            <option>{{$e4}}</option>
-                                                        @endforeach
+                                                        @if(!$em2)
+                                                            @foreach($em2 as $em_2)
+                                                                <option>{{$em_2}}</option>
+                                                            @endforeach
                                                         @else
-
-                                                        @foreach($one as $o)
-                                                        <option>{{$o}}</option>
-                                                        @endforeach
+                                                            @foreach($one as $o)
+                                                                <option >{{$o}}</option>
+                                                            @endforeach
                                                         @endif
+
+
                                                     </select>
                                                 </div>
 
@@ -242,16 +218,16 @@
                                                     <label for="inputname" class="form-label">下午時段</label>
                                                     <select class="form-control" name="time1" id="time2_2" >
 
-                                                        @if(isset($exam2_a))
-                                                        @foreach($ea_2 as $e5)
-                                                            <option>{{$e5}}</option>
-                                                        @endforeach
+                                                        @if(!$ea2)
+                                                            @foreach($ea2 as $ea_2)
+                                                                <option>{{$ea_2}}</option>
+                                                            @endforeach
                                                         @else
-
-                                                        @foreach($two as $tw)
-                                                        <option>{{$tw}}</option>
-                                                        @endforeach
+                                                            @foreach($two as $tw)
+                                                                <option >{{$tw}}</option>
+                                                            @endforeach
                                                         @endif
+
                                                     </select>
                                                 </div>
 
@@ -261,16 +237,16 @@
                                                     <label for="inputname" class="form-label">晚上時段</label>
                                                     <select class="form-control" name="time1" id="time2_3" >
 
-                                                        @if(isset($exam2_n))
-                                                        @foreach($en_2 as $e5)
-                                                            <option>{{$e6}}</option>
-                                                        @endforeach
+                                                        @if(!$en2)
+                                                            @foreach($en2 as $en_2)
+                                                                <option>{{$en_2}}</option>
+                                                            @endforeach
                                                         @else
-
-                                                        @foreach($three as $th)
-                                                        <option>{{$th}}</option>
-                                                        @endforeach
+                                                            @foreach($three as $th)
+                                                                <option >{{$th}}</option>
+                                                            @endforeach
                                                         @endif
+
                                                     </select>
                                                 </div>
                                             @endif
@@ -282,7 +258,7 @@
                         </div>
 
                         <div class="form-check">
-                        <input type="checkbox"  class="form-check-input" id="wed" name="date" value="<?php echo date('Y-m-d',strtotime("this Wednesday"));?>" >
+                        <input type="radio"  class="form-check-input" id="wed" name="date" value="<?php echo date('Y-m-d',strtotime("this Wednesday"));?>" >
                             <label class="form-check-label" for="inlineCheckbox1"><?php echo date('m/d',strtotime("this Wednesday"));?> 三</label>
                         </div>
                         <div class="row g-3">
@@ -314,16 +290,16 @@
                                                <label for="inputname" class="form-label">早上時段</label>
                                                 <select class="form-control" name="time1" id="time3_1" >
 
-                                                @if(isset($exam3_m))
-                                                @foreach($em_3 as $e6)
-                                                 <option>{{$e6}}</option>
-                                                @endforeach
 
-                                                @else
-                                                @foreach($one as $o)
-                                                <option>{{$o}}</option>
-                                                @endforeach
-                                                @endif
+                                                    @if(!$ea3)
+                                                        @foreach($ea3 as $ea_3)
+                                                            <option>{{$ea_3}}</option>
+                                                        @endforeach
+                                                    @else
+                                                        @foreach($three as $th)
+                                                            <option >{{$th}}</option>
+                                                        @endforeach
+                                                    @endif
 
                                                 </select>
                                                </div>
@@ -332,15 +308,17 @@
                                                <div class="col-md-3 mb-3">
                                                <label for="inputname" class="form-label">下午時段</label>
                                                <select class="form-control" name="time1" id="time3_2" >
-                                                   @if(isset($exam3_a))
-                                                @foreach($ea_3 as $e7)
-                                                       <option>{{$e7}}</option>
-                                                @endforeach
+
+                                                   @if(!$ea3)
+                                                       @foreach($ea3 as $ea_3)
+                                                           <option>{{$ea_3}}</option>
+                                                       @endforeach
                                                    @else
                                                        @foreach($two as $tw)
-                                                           <option>{{$tw}}</option>
+                                                           <option >{{$tw}}</option>
                                                        @endforeach
                                                    @endif
+
                                                </select>
                                                </div>
 
@@ -350,13 +328,13 @@
                                              <label for="inputname" class="form-label">晚上時段</label>
                                              <select class="form-control" name="time1" id="time3_3" >
 
-                                                 @if(isset($exam3_n))
-                                                @foreach($en_3 as $e8)
-                                                <option>{{$e8}}</option>
-                                                 @endforeach
+                                                 @if(!$en3)
+                                                     @foreach($en3 as $en_3)
+                                                         <option>{{$en_3}}</option>
+                                                     @endforeach
                                                  @else
                                                      @foreach($three as $th)
-                                                         <option>{{$th}}</option>
+                                                         <option >{{$th}}</option>
                                                      @endforeach
                                                  @endif
 
@@ -372,7 +350,7 @@
                         </div>
 
                         <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="thu" name="date" value="<?php echo date('Y-m-d',strtotime("this Thursday"));?>" >
+                        <input type="radio" class="form-check-input" id="thu" name="date" value="<?php echo date('Y-m-d',strtotime("this Thursday"));?>" >
                             <label class="form-check-label" for="inlineCheckbox1"><?php echo date('m/d',strtotime("this Thursday"));?> 四</label>
                         </div>
                         <div class="row g-3">
@@ -397,20 +375,23 @@
                                         ?>
 
                                         @foreach($tur as $tt)
-                                            @if($tt->start=='09:00:00')
-                                               <div class="col-md-3 mb-3">
-                                               <label for="inputname" class="form-label">早上時段</label>
-                                               <select class="form-control" name="time1" id="time4_1" >
 
-                                                @if(isset($exam4_m))
-                                                @foreach($em_4 as $ee1)
-                                                <option>{{$ee1}}</option>
-                                                @endforeach
-                                                   @else
-                                                       @foreach($one as $o)
-                                                           <option>{{$o}}</option>
-                                                       @endforeach
-                                                   @endif
+                                            @if($tt->start=='09:00:00')
+
+                                              <div class="col-md-3 mb-3">
+                                              <label for="inputname" class="form-label">下午時段</label>
+                                              <select class="form-control" name="time1" id="time4_1" >
+
+                                                  @if(!$em4)
+                                                      @foreach($em4 as $em_4)
+                                                          <option>{{$em_4}}</option>
+                                                      @endforeach
+                                                  @else
+                                                      @foreach($one as $o)
+                                                          <option >{{$o}}</option>
+                                                      @endforeach
+                                                  @endif
+
                                                </select>
                                                </div>
 
@@ -420,13 +401,13 @@
                                             <label for="inputname" class="form-label">下午時段</label>
                                             <select class="form-control" name="time1" id="time4_2" >
 
-                                                @if(isset($exam4_a))
-                                                @foreach($ea_4 as $ee2)
-                                                 <option>{{$ee2}}</option>
-                                                @endforeach
+                                                @if(!$ea4)
+                                                    @foreach($ea4 as $ea_4)
+                                                        <option>{{$ea_4}}</option>
+                                                    @endforeach
                                                 @else
                                                     @foreach($two as $tw)
-                                                        <option>{{$tw}}</option>
+                                                        <option >{{$tw}}</option>
                                                     @endforeach
                                                 @endif
 
@@ -438,15 +419,17 @@
                                             <div class="col-md-3 mb-3">
                                             <label for="inputname" class="form-label">晚上時段</label>
                                             <select class="form-control" name="time1" id="time4_3" >
-                                                @if(isset($exam4_n))
-                                                @foreach($en_4 as $ee3)
-                                                 <option>{{$ee3}}</option>
-                                                @endforeach
+
+                                                @if(!$en4)
+                                                    @foreach($en4 as $en_4)
+                                                        <option>{{$en_4}}</option>
+                                                    @endforeach
                                                 @else
                                                     @foreach($three as $th)
-                                                        <option>{{$th}}</option>
+                                                        <option >{{$th}}</option>
                                                     @endforeach
                                                 @endif
+
                                             </select>
                                             </div>
 
@@ -459,7 +442,7 @@
                         </div>
 
                         <div class="form-check ">
-                        <input type="checkbox" class="form-check-input" id="fri" name="date" value="<?php echo date('Y-m-d',strtotime("this Friday"));?>" >
+                        <input type="radio" class="form-check-input" id="fri" name="date" value="<?php echo date('Y-m-d',strtotime("this Friday"));?>" >
                             <label class="form-check-label" for="inlineCheckbox1"><?php echo date('m/d',strtotime("this Friday"));?> 五</label>
                         </div>
                         <div class="row g-3">
@@ -485,20 +468,23 @@
                                         ?>
 
                                         @foreach($fri as $f)
+
                                             @if($f->start=='09:00:00')
 
                                             <div class="col-md-3 mb-3">
                                             <label for="inputname" class="form-label">早上時段</label>
                                             <select class="form-control" name="time1" id="time5_1" >
-                                                @if(isset($exam5_m))
-                                                    @foreach($em_5 as $ee4)
-                                                    <option> {{$ee4}}</option>
+
+                                                @if(!$em5)
+                                                    @foreach($em5 as $em_5)
+                                                        <option>{{$em_5}}</option>
                                                     @endforeach
                                                 @else
                                                     @foreach($one as $o)
-                                                        <option> {{$o}}</option>
+                                                        <option >{{$o}}</option>
                                                     @endforeach
                                                 @endif
+
                                             </select>
                                             </div>
 
@@ -506,15 +492,17 @@
                                               <div class="col-md-3 mb-3">
                                               <label for="inputname" class="form-label">下午時段</label>
                                                <select class="form-control" name="time1" id="time5_2" >
-                                                   @if(isset($exam5_a))
-                                                @foreach($ea_5 as $ee5)
-                                                <option>{{$ee5}}</option>
-                                                @endforeach
-                                                    @else
-                                                        @foreach($two as $tw)
-                                                            <option> {{$tw}}</option>
-                                                        @endforeach
-                                                    @endif
+
+                                                   @if(!$ea5)
+                                                       @foreach($ea5 as $ea_5)
+                                                           <option>{{$ea_5}}</option>
+                                                       @endforeach
+                                                   @else
+                                                       @foreach($two as $tw)
+                                                           <option >{{$tw}}</option>
+                                                       @endforeach
+                                                   @endif
+
                                                </select>
                                               </div>
 
@@ -523,19 +511,21 @@
                                               <div class="col-md-3 mb-3">
                                               <label for="inputname" class="form-label">晚上時段</label>
                                               <select class="form-control" name="time1" id="time5_3" >
-                                                  @if(isset($exam5_n))
-                                                @foreach($en_5 as $ee6)
-                                                <option> {{$ee6}}</option>
-                                                @endforeach
+
+                                                  @if(!$en5)
+                                                      @foreach($en5 as $en_5)
+                                                          <option>{{$en_5}}</option>
+                                                      @endforeach
                                                   @else
-                                                    @foreach($three as $th)
-                                                        <option> {{$th}}</option>
-                                                    @endforeach
+                                                      @foreach($three as $th)
+                                                          <option >{{$th}}</option>
+                                                      @endforeach
                                                   @endif
+
                                               </select>
                                               </div>
-                                            @endif
 
+                                          @endif
                                         @endforeach
                                     @endforeach
                                 @endforeach
@@ -543,7 +533,7 @@
                         </div>
 
                         <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="sat" name="date" value="<?php echo date('Y-m-d',strtotime("this Saturday"));?>" >
+                        <input type="radio" class="form-check-input" id="sat" name="date" value="<?php echo date('Y-m-d',strtotime("this Saturday"));?>" >
                             <label class="form-check-label" for="inlineCheckbox1"><?php echo date('m/d',strtotime("this Saturday"));?> 六</label>
                         </div>
                         <div clas="row g-3">
@@ -574,13 +564,14 @@
                                               <div class="col-md-3 mb-3">
                                               <label for="inputname" class="form-label">早上時段</label>
                                                <select class="form-control" name="time1" id="time6_1" >
-                                                   @if(isset($exam6_m))
-                                                @foreach($em_6 as $ee7)
-                                                 <option> {{$ee7}}</option>
-                                                @endforeach
+
+                                                   @if(!$em6)
+                                                       @foreach($em6 as $em_6)
+                                                           <option>{{$em_6}}</option>
+                                                       @endforeach
                                                    @else
                                                        @foreach($one as $o)
-                                                           <option> {{$o}}</option>
+                                                           <option >{{$o}}</option>
                                                        @endforeach
                                                    @endif
                                                </select>
@@ -591,15 +582,17 @@
                                              <div class="col-md-3 mb-3">
                                              <label for="inputname" class="form-label">下午時段</label>
                                              <select class="form-control" name="time1" id="time6_2" >
-                                                 @if(isset($exam6_a))
-                                                @foreach($ea_6 as $ee8)
-                                                <option> {{$ee8}}</option>
-                                                @endforeach
+
+                                                 @if(!$ea6)
+                                                     @foreach($ea6 as $ea_6)
+                                                         <option>{{$ea_6}}</option>
+                                                     @endforeach
                                                  @else
                                                      @foreach($two as $tw)
-                                                         <option> {{$tw}}</option>
+                                                         <option >{{$tw}}</option>
                                                      @endforeach
                                                  @endif
+
                                              </select>
                                              </div>
 
@@ -608,15 +601,17 @@
                                                <div class="col-md-3 mb-3">
                                                <label for="inputname" class="form-label">晚上時段</label>
                                                 <select class="form-control" name="time1" id="time6_3">
-                                                    @if(isset($exam6_n))
-                                                @foreach($en_6 as $ee9)
-                                                <option>{{$ee9}}</option>
-                                                @endforeach
+
+                                                    @if(!$en6)
+                                                        @foreach($en6 as $en_6)
+                                                            <option>{{$en_6}}</option>
+                                                        @endforeach
                                                     @else
                                                         @foreach($three as $th)
-                                                            <option> {{$th}}</option>
+                                                            <option >{{$th}}</option>
                                                         @endforeach
                                                     @endif
+
                                                 </select>
                                                </div>
                                             @endif
@@ -628,7 +623,7 @@
                         </div>
 
                         <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="sun" name="date" value="<?php echo date('Y-m-d',strtotime("this Sunday"));?>" >
+                        <input type="radio" class="form-check-input" id="sun" name="date" value="<?php echo date('Y-m-d',strtotime("this Sunday"));?>" >
                             <label class="form-check-label" for="inlineCheckbox1"><?php echo date('m/d',strtotime("this Sunday"));?> 日</label>
                         </div>
                         <div class="row g-3">
@@ -660,13 +655,14 @@
                                                <div class="col-md-3 mb-3">
                                                <label for="inputname" class="form-label">早上時段</label>
                                                <select class="form-control" name="time1" id="time7_1">
-                                                   @if(isset($exam7_m))
-                                                @foreach($em_7 as $eee1)
-                                                <option>{{$eee1}}</option>
-                                                @endforeach
+
+                                                   @if(!$em7)
+                                                       @foreach($em7 as $em_7)
+                                                           <option>{{$em_7}}</option>
+                                                       @endforeach
                                                    @else
                                                        @foreach($one as $o)
-                                                           <option> {{$o}}</option>
+                                                           <option >{{$o}}</option>
                                                        @endforeach
                                                    @endif
 
@@ -678,15 +674,17 @@
                                                <div class="col-md-3 mb-3">
                                                <label for="inputname" class="form-label">下午時段</label>
                                                 <select class="form-control" name="time1" id="time7_2">
-                                                    @if(isset($exam7_a))
-                                                @foreach($ea_7 as $eee2)
-                                                <option>{{$eee2}}</option>
-                                                @endforeach
+
+                                                    @if(!$ea7)
+                                                        @foreach($ea7 as $ea_7)
+                                                            <option>{{$ea_7}}</option>
+                                                        @endforeach
                                                     @else
                                                         @foreach($two as $tw)
-                                                            <option> {{$tw}}</option>
+                                                            <option >{{$tw}}</option>
                                                         @endforeach
                                                     @endif
+
                                                 </select>
                                                </div>
 
@@ -695,15 +693,17 @@
                                                <div class="col-md-3 mb-3">
                                                <label for="inputname" class="form-label">晚上時段</label>
                                                 <select class="form-control" name="time1" id="time7_3">
-                                                    @if(isset($exam7_n))
-                                                @foreach($en_7 as $eee3)
-                                               <option> {{$eee3}}</option>
-                                                @endforeach
+
+                                                    @if(!$en7)
+                                                        @foreach($en7 as $en_7)
+                                                            <option>{{$en_7}}</option>
+                                                        @endforeach
                                                     @else
                                                         @foreach($three as $th)
-                                                            <option> {{$th}}</option>
+                                                            <option >{{$th}}</option>
                                                         @endforeach
                                                     @endif
+
                                                 </select>
                                                </div>
 

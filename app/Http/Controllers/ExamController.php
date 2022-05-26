@@ -86,7 +86,7 @@ class ExamController extends Controller
 
         $sun=Per_week_schedule::where('month','=',date('n'))->where('week','=','日')->whereIn('staff_id',$ss)->get();
 
-        return view('seller.products.exams.create', compact('product','name','pid','category','mon','tue','wed','tur','fri','sat','sun'));
+        return view('seller.products.exams.create', compact('product','name','pid','category','mon','tue','wed','tur','fri','sat','sun','one','two','three'));
 
     }
 
@@ -99,9 +99,6 @@ class ExamController extends Controller
      */
     public function store(StoreExamRequest $request,$id)
     {
-        $staff=Per_week_schedule::orderby('id','ASC')->value('staff_id');
-
-        $url=Staff::where('id','=',$staff)->value('url');
 
         $category_id=Product::where('id','=',$id)->value('category_id');
 
@@ -110,10 +107,30 @@ class ExamController extends Controller
         $staff=Staff::where('job','=',$category)->get();
 
         foreach ($staff as $s)
-            $s=$s->id;
+            $ss=$s->id;
 
-        Exam::create(['product_id'=>$id, 'staff_id'=>$s,'start'=>$_POST['time1'],'end'=>date("H:i:s",strtotime($_POST['time1']."+15min")),
-            'date'=>$_POST['date'],'url'=>$url]);
+        if($s->job=='名牌服飾')
+        {
+            Exam::create(['product_id'=>$id, 'staff_id'=>$ss,'start'=>$_POST['time1'],'end'=>date("H:i:s",strtotime($_POST['time1']."+15min")),
+                'date'=>$_POST['date'],'url'=>'https://meet.google.com/qvh-hqum-dvc']);
+        }
+
+        elseif($s->job=='書籍')
+        {
+            Exam::create(['product_id'=>$id, 'staff_id'=>$ss,'start'=>$_POST['time1'],'end'=>date("H:i:s",strtotime($_POST['time1']."+15min")),
+                'date'=>$_POST['date'],'url'=>'https://meet.google.com/hof-hvzr-ykt']);
+        }
+
+        elseif($s->job=='鋼筆')
+        {
+            Exam::create(['product_id'=>$id, 'staff_id'=>$ss,'start'=>$_POST['time1'],'end'=>date("H:i:s",strtotime($_POST['time1']."+15min")),
+                'date'=>$_POST['date'],'url'=>'https://meet.google.com/kbn-dqif-mku']);
+        }
+        elseif($s->job=='專輯')
+        {
+            Exam::create(['product_id'=>$id, 'staff_id'=>$ss,'start'=>$_POST['time1'],'end'=>date("H:i:s",strtotime($_POST['time1']."+15min")),
+                'date'=>$_POST['date'],'url'=>'https://meet.google.com/zmy-tzzm-bxs']);
+        }
 
         return redirect()->route('products.exams.index');
     }
