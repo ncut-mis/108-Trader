@@ -140,10 +140,8 @@ class SellerproductController extends Controller
     public function edit($id)
     {
         $product = Product::find($id);
-
-        $name=Category::all();
-
-        return view('seller.products.edit', compact('product','name'));
+        
+        return view('seller.products.edit', compact('product'));
     }
 
     /**

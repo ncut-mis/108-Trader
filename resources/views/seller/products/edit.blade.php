@@ -29,18 +29,15 @@
                     <input name="name" class="form-control" placeholder="請輸入商品名稱" value="{{old('name',$product->name)}}">
                 </div>
 
-                <div class="form-group">
-                    <label for="type">類別</label>
-                    <select id="type" name="type" class="form-control" rows="10">
-                        @foreach($name as $c)
-                          <option value="{{$c->id}}">{{$c->name}}</option>
-                        @endforeach
-                    </select>
-                </div>
 
                 <div class="form-group">
                     <label for="price">價格</label>
                     <input name="price" class="form-control" placeholder="請輸入商品價格" value="{{old('price',$product->price)}}">
+                </div>
+
+                <div class="form-group">
+                    <label for="stock">庫存</label>
+                    <input name="stock" class="form-control" placeholder="請輸入商品庫存" value="{{old('price',$product->inventory)}}">
                 </div>
 
                 <div class="form-group">
@@ -54,7 +51,7 @@
                     $pic = $product->pictures;
                     ?>
                     <img class="pic" src="{{ asset('img/'.$pic.'') }}">
-                    <input type="file" name="photo" value="{{old('photo',$product->picture)}}">
+                    <input type="file" name="photo" value="{{old('photo',$product->pictures)}}">
                 </div>
 
                 <div class="text-right">
