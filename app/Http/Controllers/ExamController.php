@@ -120,12 +120,14 @@ class ExamController extends Controller
 
     public function undone()
     {
-        $product=DB::table('exams')->orderBy('date','ASC')->
-        where('date','>',date('Y-m-d'))
-            ->orWhere(function($query) {
-                $query->where('date','=',date('Y-m-d'))
-                    ->where('start','>',date('H-i-s-30minutes'));
-            }) ->get();
+//        $product=DB::table('exams')->orderBy('date','ASC')->
+//        where('date','>',date('Y-m-d'))
+//            ->orWhere(function($query) {
+//                $query->where('date','=',date('Y-m-d'))
+//                    ->where('start','>',date('H-i-s-30minutes'));
+//            }) ->get();
+        //因為可以用url是否為1來判斷該檢測是否完成
+        $product=DB::table('exams')->orderBy('date','ASC')->where('url','!=','1')->get();
 
         $name=Product::orderBy('id', 'ASC')->get();
 
@@ -136,12 +138,14 @@ class ExamController extends Controller
 
     public function finish()
     {
-        $product=DB::table('exams')->orderBy('date','ASC')->
-        where('date','<',date('Y-m-d'))
-            ->orWhere(function($query) {
-                $query->where('date','=',date('Y-m-d'))
-                    ->where('start','<',date('H-i-s'));
-            }) ->get();
+//        $product=DB::table('exams')->orderBy('date','ASC')->
+//        where('date','<',date('Y-m-d'))
+//            ->orWhere(function($query) {
+//                $query->where('date','=',date('Y-m-d'))
+//                    ->where('start','<',date('H-i-s'));
+//            }) ->get();
+        //因為可以用url是否為1來判斷該檢測是否完成
+        $product=DB::table('exams')->orderBy('date','ASC')->where('url','=','1')->get();
 
         $name=Product::orderBy('id', 'ASC')->get();
 
