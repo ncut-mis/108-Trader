@@ -90,7 +90,7 @@ class OrderController extends Controller
 
     public function done($order)
     {
-        Order::where('id',$order)->update(['status'=>'5']);
+        Order::where('id',$order)->update(['status'=>'5','pay'=>'1']);
         echo "<script >alert('成功完成訂單'); location.href ='/orders';</script>";
     }
 
