@@ -20,7 +20,7 @@
                                     </td>
                                 </tr>
                                 <?php
-                                    $categories = \App\Models\Category::orderBy('id','ASC')->get();
+                                    $categories = \App\Models\Category::where('disable','=','0')->orderBy('id','ASC')->get();
                                 ?>
                                 <tr>
                                     <td>

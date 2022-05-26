@@ -61,7 +61,7 @@
                             <ul class="sub-menu">
                                 <li><a href="{{route('products.index')}}">全部</a></li>
                                 <?php
-                                $categories = \App\Models\Category::orderBy('id','ASC')->get();?>
+                                $categories = \App\Models\Category::where('disable','=','0')->orderBy('id','ASC')->get();?>
                                 @foreach($categories as $category)
                                         <li><a href="{{route('categories.show', $category->id)}}">{{$category->name}}</a></li>
                                 @endforeach
