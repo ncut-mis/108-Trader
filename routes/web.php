@@ -81,7 +81,8 @@ Route::get('/markets_categories', [\App\Http\Controllers\SellerController::class
 Route::get('/seller_apply', [\App\Http\Controllers\SellerController::class, 'apply'])->name('sellers.apply');
 
 //賣家公告
-Route::get('/seller/post', [\App\Http\Controllers\SellerproductController::class, 'post'])->name('seller.post');
+Route::get('/seller/post', [\App\Http\Controllers\PostController::class, 'index'])->name('seller.post');
+Route::get('/seller/post/{id}', [\App\Http\Controllers\PostController::class, 'show'])->name('posts.show');
 
 //資料統計
 Route::get('/seller/dashboard', [\App\Http\Controllers\SellerproductController::class, 'dashboard'])->name('seller.dashboard');

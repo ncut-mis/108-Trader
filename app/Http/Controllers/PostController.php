@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use App\Models\Quality_item;
 
 class PostController extends Controller
 {
@@ -15,7 +16,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $post = Post::where('for','=','0')->get();
+        $data = ['posts' => $post];
+        return view('seller.post', $data);
     }
 
     /**
@@ -45,9 +48,11 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show($id)
     {
-        //
+        $posts = Post::where('id','=',$id)->where('for','=','0')->first();
+        $data2 = ['post1' => $posts];
+        return view('seller.post', $data2);
     }
 
     /**
