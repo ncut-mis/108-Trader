@@ -41,6 +41,38 @@
             </div></td></tr>
             <tr><td><div>
                 <p style="white-space: pre-line; font-size: 20px;">{{$post1->content}}</p>
+            @if($post1->id == 4)
+                <?php
+                $check = \App\Models\Category::where('categories.status','=','1')->get();?>
+                @foreach($check as $cc)
+                    <tr><td><div>
+                                <form action="{{route('posts.show_item',$cc->id)}}">
+                                    <input type="hidden" name="category_id" value="{{$cc->id}}">
+                                    <button style="text-align:center; vertical-align:center; color: black; font-size: 18px;" class="btn btn-sm btn-link">{{$cc->name}}</button>
+                                </form>
+                            </div></td></tr>
+                @endforeach
+                @if(isset($quality))
+                    <tr>
+                        <th>Quality_item</th>
+                        <th>Extra_item</th>
+                    </tr>
+                    @foreach($quality as $qq)
+                        <div style="font-size: 16px;">
+                            <tr>
+                                <td>
+                                    {{$qq->content}}
+                                </td>
+                                @if($qq->extra == 1)
+                                    <td style="text-align: center">是</td>
+                                @else
+                                    <td style="text-align: center">  </td>
+                                @endif
+                            </tr>
+                        </div>
+                    @endforeach
+                @endif
+            @endif
             </div></td></tr>
         </table>
     @endif

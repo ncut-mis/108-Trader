@@ -55,6 +55,20 @@ class PostController extends Controller
         return view('seller.post', $data2);
     }
 
+    public function show_item($id)
+    {
+        //固定公布檢測項目的公告
+        $posts = Post::where('id','=','4')->where('for','=','0')->first();
+        $data3 = ['post1' => $posts];
+
+        if(isset($_GET['category_id']))
+        {
+            $quality=Quality_item::where('category_id','=',$_GET['category_id'])->get();
+        }
+        $data4 = ['quality' => $quality];
+        return view('seller.post',$data3,$data4);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
