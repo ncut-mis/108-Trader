@@ -370,13 +370,13 @@
     <div class="container">
         <div class="p-b-10">
             <h3 class="ltext-103 cl5">
-                最新上架
+                品質檢測通過
             </h3>
         </div>
 
-        <div class="flex-w flex-sb-m p-b-52">
-            品質檢測通過
-        </div>
+{{--        <div class="flex-w flex-sb-m p-b-52">--}}
+{{--            品質檢測通過--}}
+{{--        </div>--}}
         <?php
             $products = \App\Models\Product::
                             join('exams','exams.product_id','=','products.id')
