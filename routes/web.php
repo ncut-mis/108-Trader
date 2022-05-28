@@ -124,12 +124,15 @@ Route::get('/exams', [\App\Http\Controllers\ExamController::class, 'index'])->na
 
 Route::get('/products/{products}/exams/create', [\App\Http\Controllers\ExamController::class, 'create'])->name('products.exams.create');
 
-Route::POST('/products/{products}/exams', [\App\Http\Controllers\ExamController::class, 'store'])->name('products.exams.store');
+//Route::POST('/products/{products}/exams', [\App\Http\Controllers\ExamController::class, 'store'])->name('products.exams.store');
 
 Route::get('/exams/undone', [\App\Http\Controllers\ExamController::class, 'undone'])->name('products.exams.undone');
 
 Route::get('/exams/finish', [\App\Http\Controllers\ExamController::class, 'finish'])->name('products.exams.finish');
 
 Route::get('/exams/{id}', [\App\Http\Controllers\ExamController::class, 'destroy'])->name('products.exams.destroy');
+
+Route::get('/ss', [\App\Http\Controllers\ExamController::class, 'se'])->name('exams.se');
+Route::get('/add', [\App\Http\Controllers\ExamController::class, 'add'])->name('exams.add');
 
 //Route::get('/detail/{id}', [\App\Http\Controllers\SellerorderController::class, 'detail'])->name('seller.products.detail');

@@ -6,10 +6,12 @@ use App\Models\Category;
 use App\Models\Exam;
 use App\Http\Requests\StoreExamRequest;
 use App\Http\Requests\UpdateExamRequest;
+use App\Models\Exam_item_score;
 use App\Models\Per_week_schedule;
 use App\Models\Product;
 use App\Models\Staff;
 use Illuminate\Support\Facades\DB;
+use function PHPUnit\Framework\isEmpty;
 
 class ExamController extends Controller
 {
@@ -37,7 +39,7 @@ class ExamController extends Controller
      */
     public function create($id)
     {
-        $product = Exam::where('product_id', $id)->get();
+        session_start();
 
         $pid = Product::where('id', '=', $id)->value('id');
 
@@ -47,47 +49,150 @@ class ExamController extends Controller
 
         $category = Category::where('id', '=', $category_id)->value('name');
 
-        $staff = Staff::where('job', '=', $category)->get();
+        $c2= Category::where('id', '=', $category_id)->get();
 
-        foreach ($staff as $s)
-            $ss[] = $s->id;
+        foreach ($c2 as $c)
+        {
+            $cname=$c->name;
+        }
+        $_SESSION['cname'] = $cname;
 
-        for ($i = 9; $i <= 10; $i++) {
-            for ($j = 0; $j <= 45; $j += 15) {
-                $one[] = str_pad($i, 2, '0', STR_PAD_LEFT) . ':' . str_pad($j, 2, '0', STR_PAD_LEFT) . ':' . '00';
+        return view('seller.products.exams.create2',compact('name','pid','category'));
+
+    }
+
+    public  function  se()
+    {
+        session_start();
+
+        if(isset($_GET['mydate']))
+        {
+
+            $month = date("n");
+            $mydate=$_GET['mydate'];
+            $_SESSION['mydate']=$mydate;
+            $d=explode("-",'2022-'.$mydate);
+            $f=date("w",mktime(0,0,0,$d[1],$d[2],$d[0]));
+            if($f==0)
+                $wk='日';
+            else if ($f==1)
+                $wk='一';
+            else if ($f==2)
+                $wk='二';
+            else if ($f==3)
+                $wk='三';
+            else if ($f==4)
+                $wk='四';
+            else if ($f==5)
+                $wk='五';
+            else if ($f==6)
+                $wk='六';
+            $sections = Per_week_schedule::orderby('start','ASC')->where('week',$wk)->where('month',$month)->get();
+            $goodstart[]='';
+            foreach ($sections as $ss)
+
+            {
+                $sid=$ss->staff_id;
+                $staff = Staff::where('id',$sid)->get();
+                foreach ($staff as $dd)
+                {
+                    if ($dd->job==$_SESSION['cname'])
+                    {
+                        $goodstart[]=$ss->start;
+                        $_SESSION['sid']=$dd->id;
+                    }
+
+                }
 
             }
-        }
-
-        for ($i = 15; $i <= 16; $i++) {
-            for ($j = 0; $j <= 45; $j += 15) {
-                $two[] = str_pad($i, 2, '0', STR_PAD_LEFT) . ':' . str_pad($j, 2, '0', STR_PAD_LEFT) . ':' . '00';
+            if(isEmpty($goodstart))
+            {
+                echo "<script>history.go(-1)</script>";
             }
-        }
-
-        for ($i = 18; $i <= 20; $i++) {
-            for ($j = 0; $j <= 45; $j += 15) {
-                $three[] = str_pad($i, 2, '0', STR_PAD_LEFT) . ':' . str_pad($j, 2, '0', STR_PAD_LEFT) . ':' . '00';
+            else
+            {
+                echo '';
             }
+            $_SESSION['goodstart']=$goodstart;
+
+            echo "<script>history.go(-1)</script>";
+
         }
 
+        if(isset($_GET['tt']))
+        {
+            $detail = DB::table('exams')->get();
+            $start=$_GET['tt'];
+            $end=$_GET['tt'];
+            $_SESSION['start']=$start;
+            $_SESSION['end']=$end;
+            for($i=1;$i<=8;$i++)
+            {
+                $temp=date("H:i:s", strtotime($start."+15 minute"));
+                foreach ($detail as $details)
+                {
+                    if($start==$details->start)//判斷資料庫是否有這筆資料
+                    {
+                        $_SESSION['tt']=1;
+                        break;
+                    }
+                    else
+                    {
+                        $_SESSION['tt']=0;
+                    }
+                }
+                if($_SESSION['tt']==0) {
+                    $goodsection[] = $start;
 
-        $mon=Per_week_schedule::where('month','=',date('n'))->where('week','=','一')->whereIn('staff_id',$ss)->get();
+                }
 
-        $tue=Per_week_schedule::where('month','=',date('n'))->where('week','=','二')->whereIn('staff_id',$ss)->get();
+                $start=$temp;
+            }
+            $_SESSION['goodsection']=$goodsection;
+            echo "<script>history.go(-1)</script>";
+        }
+        if(isset($_GET['cc']))
+        {
+            $_SESSION['detail']=$_GET['cc'];
+            echo "<script>history.go(-1)</script>";
+        }
+        else
+        {
+            echo '';
+        }
 
-        $wed=Per_week_schedule::where('month','=',date('n'))->where('week','=','三')->whereIn('staff_id',$ss)->get();
+    }
+    public  function  add()
+    {
+        session_start();
+        $id = Exam::orderBy('date', 'ASC')->get();
+        $pid = Product::where('id', '=', $id)->value('id');
+        $end=date("H:i:s", strtotime($_SESSION['detail']."+15 minute"));
+        if($_SESSION['cname']=='名牌服飾')
+            $url='https://meet.google.com/qvh-hqum-dvc';
+        else if($_SESSION['cname']=='專輯')
+            $url='https://meet.google.com/zmy-tzzm-bxs';
+        else  if($_SESSION['cname']=='鋼筆')
+            $url='https://meet.google.com/kbn-dqif-mku';
+        else   if($_SESSION['cname']=='書籍')
+            $url='https://meet.google.com/hof-hvzr-ykt';
 
-        $tur=Per_week_schedule::where('month','=',date('n'))->where('week','=','四')->whereIn('staff_id',$ss)->get();
+        DB::table('exams')->insert(
+            [
+                'product_id'=>$pid,
+                'staff_id'=>$_SESSION['sid'],
+                'pass'=>0,
+                'perfect'=>0,
+                'url'=>$url,
+                'start'=>$_SESSION['detail'],
+                'end'=>$end,
+                'date'=>'2022-'.$_SESSION['mydate'],
 
-        $fri=Per_week_schedule::where('month','=',date('n'))->where('week','=','五')->whereIn('staff_id',$ss)->get();
 
-        $sat=Per_week_schedule::where('month','=',date('n'))->where('week','=','六')->whereIn('staff_id',$ss)->get();
-
-        $sun=Per_week_schedule::where('month','=',date('n'))->where('week','=','日')->whereIn('staff_id',$ss)->get();
-
-        return view('seller.products.exams.create', compact('product','name','pid','category','mon','tue','wed','tur','fri','sat','sun','one','two','three'));
-
+            ]
+        );
+        session_destroy();
+        return redirect()->route('product.exams.index');
     }
 
 
@@ -100,39 +205,6 @@ class ExamController extends Controller
     public function store(StoreExamRequest $request,$id)
     {
 
-        $category_id=Product::where('id','=',$id)->value('category_id');
-
-        $category=Category::where('id','=',$category_id)->value('name');
-
-        $staff=Staff::where('job','=',$category)->get();
-
-        foreach ($staff as $s)
-            $ss=$s->id;
-
-        if($s->job=='名牌服飾')
-        {
-            Exam::create(['product_id'=>$id, 'staff_id'=>$ss,'start'=>$_POST['time1'],'end'=>date("H:i:s",strtotime($_POST['time1']."+15min")),
-                'date'=>$_POST['date'],'url'=>'https://meet.google.com/qvh-hqum-dvc']);
-        }
-
-        elseif($s->job=='書籍')
-        {
-            Exam::create(['product_id'=>$id, 'staff_id'=>$ss,'start'=>$_POST['time1'],'end'=>date("H:i:s",strtotime($_POST['time1']."+15min")),
-                'date'=>$_POST['date'],'url'=>'https://meet.google.com/hof-hvzr-ykt']);
-        }
-
-        elseif($s->job=='鋼筆')
-        {
-            Exam::create(['product_id'=>$id, 'staff_id'=>$ss,'start'=>$_POST['time1'],'end'=>date("H:i:s",strtotime($_POST['time1']."+15min")),
-                'date'=>$_POST['date'],'url'=>'https://meet.google.com/kbn-dqif-mku']);
-        }
-        elseif($s->job=='專輯')
-        {
-            Exam::create(['product_id'=>$id, 'staff_id'=>$ss,'start'=>$_POST['time1'],'end'=>date("H:i:s",strtotime($_POST['time1']."+15min")),
-                'date'=>$_POST['date'],'url'=>'https://meet.google.com/zmy-tzzm-bxs']);
-        }
-
-        return redirect()->route('products.exams.index');
     }
 
     public function undone()
