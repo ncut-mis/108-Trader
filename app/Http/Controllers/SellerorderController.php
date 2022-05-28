@@ -116,7 +116,7 @@ class SellerorderController extends Controller
         $data= DB::table('orders')->where('seller_id',auth()->user()->id)->get();
         $data2= DB::table('order_details')->get();
         $products= DB::table('products')->get();
-        $members= DB::table('members')->get();
+        $members= DB::table('users')->get();
         return view('seller.orders.comment',compact('data','data2','products','members'));
 
     }
