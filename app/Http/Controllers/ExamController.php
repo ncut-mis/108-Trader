@@ -61,7 +61,7 @@ class ExamController extends Controller
 
     }
 
-    public  function  se()
+    public  function  search()
     {
         session_start();
 
@@ -98,13 +98,14 @@ class ExamController extends Controller
                 {
                     if ($dd->job==$_SESSION['cname'])
                     {
-                        $goodstart[]=$ss->start;
+                        $goodstart[]=$ss;
                         $_SESSION['sid']=$dd->id;
                     }
 
                 }
 
             }
+
             if(isEmpty($goodstart))
             {
                 echo "<script>history.go(-1)</script>";
@@ -162,6 +163,7 @@ class ExamController extends Controller
         }
 
     }
+
     public  function  add()
     {
         session_start();

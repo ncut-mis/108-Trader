@@ -30,12 +30,12 @@
 
                 <div class="col-md-4 mb-3">
                     <label for="inputname" class="form-label">類別</label>
-                    <input type="text" class="form-control"  aria-label="name" value={{$category}} disabled>
+                    <input type="text" class="form-control"  aria-label="name" value="{{$category}}" disabled>
                 </div>
 
 
                 <div class="col-md-12" style="margin-top: 20px">
-                    <form name="form1" action="{{route('exams.se')}}" role="form" method="GET">
+                    <form name="form1" action="{{route('exams.search')}}" role="form" method="GET">
 
                         <label class="form-label">日期</label>
                         <?php
@@ -70,23 +70,23 @@
                         }
 
 
-                        ?><hr>
+                        ?>
+                        <hr class="sidebar-divider d-none d-md-block">
                         <input type='submit' class='btn btn-sm btn-outline-secondary shadow-sm' value='查詢'>
                     </form>
-                    <label class="form-label"></label>
-                    <form name="form2" action="{{route('exams.se')}}" role="form" method="GET">
+
+                    <form name="form2" action="{{route('exams.search')}}" role="form" method="GET">
                         <?php
                         if (isset($_SESSION['goodstart']))
                         {
                             foreach ($_SESSION['goodstart'] as $tt)
-
                             {
                                 if($tt=='')
-                                    echo '';
+                                    echo "";
                                 else
                                     echo "<div class='form-check form-check-inline' style='margin-top: 20px'>
-                                          <input type='radio' name='tt' value=$tt class='form-check-input'>
-                                          <label class='form-check-label'>$tt</label>
+                                          <input type='radio' name='tt' value=".$tt["start"]." class='form-check-input'>
+                                          <label class='form-check-label'>".$tt["start"].'-'.$tt['end']."</label>
                                           </div>";
 
                             }
@@ -98,7 +98,7 @@
                         <hr class="sidebar-divider d-none d-md-block">
                         <input type='submit' class='btn btn-sm btn-outline-secondary shadow-sm' value='查詢詳細時段'>
                     </form>
-                    <form name="form3" action="{{route('exams.se')}}" role="form" method="GET">
+                    <form name="form3" action="{{route('exams.search')}}" role="form" method="GET">
                         <?php
                         if (isset($_SESSION['goodsection']))
                         {
