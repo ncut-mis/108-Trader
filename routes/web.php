@@ -132,7 +132,7 @@ Route::get('/exams/finish', [\App\Http\Controllers\ExamController::class, 'finis
 
 Route::get('/exams/{id}', [\App\Http\Controllers\ExamController::class, 'destroy'])->name('products.exams.destroy');
 
-Route::get('/ss', [\App\Http\Controllers\ExamController::class, 'se'])->name('exams.se');
+Route::get('/search', [\App\Http\Controllers\ExamController::class, 'search'])->name('exams.search');
 Route::get('/add', [\App\Http\Controllers\ExamController::class, 'add'])->name('exams.add');
 
 //Route::get('/detail/{id}', [\App\Http\Controllers\SellerorderController::class, 'detail'])->name('seller.products.detail');
