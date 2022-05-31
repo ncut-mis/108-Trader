@@ -76,7 +76,7 @@
                                 <thead>
                                 <tr>
                                     <th colspan='6'>
-                                        賣家：{{ $seller->name }}
+                                        賣家：<a href="{{route('sellers.show', $seller->id)}}" style="color: black;font-size: medium"><u>{{ $seller->name }}</u></a>
                                     </th>
                                 </tr>
                                 <tr>
