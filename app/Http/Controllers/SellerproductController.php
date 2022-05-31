@@ -19,7 +19,7 @@ class SellerproductController extends Controller
      */
     public function index()
     {
-        $data = Product::where('seller_id', auth()->user()->id)->get();
+        $data = Product::orderby('id','DESC')->where('seller_id', auth()->user()->id)->get();
 
         $name=Category::all();
 
@@ -32,46 +32,25 @@ class SellerproductController extends Controller
         $order=Order::where('seller_id','=',auth()->user()->id)->get();
         $num=Order::where('seller_id','=',auth()->user()->id)->count();
         $count=Order::where('seller_id','=',auth()->user()->id)->where('score','!=','')->where('comment','!=','')->count();
-        $total=Order_detail::orderby('id','ASC')->get();
-        $product=Product::join('order_details','products.id','=','order_details.product_id')
-            ->join('orders','orders.id','=','order_details.order_id')
-            ->join('sellers','sellers.id','=','orders.seller_id')
-            ->where('sellers.id','=','products.seller_id')
-            ->get();
 
-        $quantity[]='';
-        $name[]='';
+
         $price=0;
         $score=0;
-        $data[]='';
 
         foreach ($order as $o)
         {
-                foreach ($total as $sum)
-                {
-                    if($sum->order_id==$o->id)
-                    {
-                      $score+=$sum->score;
+            $score=$score+$o->score;
+            $price=$price+$o->price;
 
-                    }
-                }
-                $price=$price+$o->price;
         }
+
         if($count>0)
         {
-            $score=$score/$count;
+            $score=number_format($score/$count,1);
         }
 
-        foreach ($product as $data)
-        {
-            $name=$data->name;
-            $quantity=$data->quantity;
-            $name[]=$name;
-            $quantity[]=$quantity;
 
-        }
-
-        return view('seller.dashboard', compact('price','count','num','score','data','name','quantity','product'));
+        return view('seller.dashboard', compact('price','count','num','score'));
 
 
     }
@@ -140,7 +119,7 @@ class SellerproductController extends Controller
     public function edit($id)
     {
         $product = Product::find($id);
-        
+
         return view('seller.products.edit', compact('product'));
     }
 
