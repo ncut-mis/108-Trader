@@ -69,7 +69,7 @@ Route::get('/orders_cancel/{order}', [\App\Http\Controllers\OrderController::cla
 //退貨
 Route::get('/orders_back/{order}', [\App\Http\Controllers\OrderController::class, 'back'])->name('orders.back');
 
-Route::get('/search', [\App\Http\Controllers\ProductController::class, 'search'])->name('products.search');
+Route::get('/products_search', [\App\Http\Controllers\ProductController::class, 'search'])->name('products.search');
 
 //瀏覽個別商品，目前有BUG
 Route::get('/products_detail/{id}', [\App\Http\Controllers\ProductController::class, 'detail'])->name('products.detail');
