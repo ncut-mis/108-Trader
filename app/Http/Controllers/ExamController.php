@@ -56,6 +56,7 @@ class ExamController extends Controller
             $cname=$c->name;
         }
         $_SESSION['cname'] = $cname;
+        $_SESSION['pid'] = $id;
 
         return view('seller.products.exams.create2',compact('name','pid','category'));
 
@@ -181,7 +182,7 @@ class ExamController extends Controller
 
         DB::table('exams')->insert(
             [
-                'product_id'=>$pid,
+                'product_id'=> $_SESSION['pid'],
                 'staff_id'=>$_SESSION['sid'],
                 'pass'=>0,
                 'perfect'=>0,
@@ -194,7 +195,8 @@ class ExamController extends Controller
             ]
         );
         session_destroy();
-        return redirect()->route('product.exams.index');
+//        return redirect()->route('product.exams.index');
+        return redirect()->route('seller.dashboard');
     }
 
 

@@ -140,7 +140,7 @@
                                     <div class="row g-3" id="a">
 
                                         <div class="col-md-2 mb-auto" style="margin-left: 12px">
-                                            <input type="text" class="form-control" id="one" maxlength="4" pattern="[4-9]{4}" required>
+                                            <input type="text" class="form-control" id="one" maxlength="4" pattern="[0-9]{4}" required>
                                         </div>
                                         ─
                                         <div class="col-md-2 mb-auto" >
@@ -183,7 +183,7 @@
 
                                     <div class="col-md-3 mb-auto" style="margin-top: 20px">
                                         <label for="csv" class="form-label">信用卡安全碼</label>
-                                        <input type="text" class="form-control" aria-label="csv"  maxlength="3" pattern="[0-9]">
+                                        <input type="text" class="form-control" aria-label="csv"  maxlength="3" pattern="[0-9]{3}">
                                     </div>
 
                                 </div>
