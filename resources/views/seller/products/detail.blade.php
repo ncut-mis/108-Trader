@@ -43,7 +43,7 @@
                 @endforeach
 
             <td >{{$product->price}}</td>
-            <td >{{$product->stock}}</td>
+            <td >{{$product->inventory}}</td>
             <td>{{$product->detail}}</td>
 
             @if($product->status == '1')
